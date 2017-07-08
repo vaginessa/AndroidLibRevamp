@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace RegawMOD.Android
@@ -60,12 +61,46 @@ namespace RegawMOD.Android
         /// </example>
         public static AdbCommand FormAdbCommand(string command, params object[] args)
         {
+            // *** Simplified Logic ***
             var adbCommand = (args.Length > 0) ? command + " " : command;
 
-            for (var i = 0; i < args.Length; i++)
-                adbCommand += args[i] + " ";
+            // *** Replaced For() Loop With LINQ Expression ***
+            adbCommand = args.Aggregate(adbCommand, (current, t) => current + (t + " "));
 
             return new AdbCommand(adbCommand);
+        }
+
+        /// <summary>
+        /// Forms an <see cref="AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+        /// </summary>
+        /// <remarks><para>This should only be used for non device-specific Adb commands, such as <c>adb devices</c> or <c>adb version</c>.</para>
+        /// <para>Never try to start/kill the running Adb Server, as the <see cref="AndroidController"/> type handles it internally.</para></remarks>
+        /// <param name="command">The command to run on the Adb Server</param>
+        /// <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
+        /// <returns><see cref="Task"/><see cref="AdbCommand"/>that contains formatted command information</returns>
+        /// <example>This example demonstrates how to create an <see cref="AdbCommand"/>
+        /// <code>
+        /// //This example shows how to create an AdbCommand object to execute on the running server.
+        /// //The command we will create is "adb devices".  
+        /// //Notice how in the formation, you don't supply the prefix "adb", because the method takes care of it for you.
+        /// // *** Updated Example To Show <c>await</c> usage ***
+        /// 
+        /// AdbCommand adbCmd = await Adb.FormAdbCommand("devices");
+        /// 
+        /// </code>
+        /// </example>
+        public static Task<AdbCommand> FormAdbCommandAsync(string command, params object[] args)
+        {
+            return Task<AdbCommand>.Factory.StartNew(() =>
+            {
+                // *** Simplified Logic ***
+                var adbCommand = (args.Length > 0) ? command + " " : command;
+
+                // *** Replaced For() Loop With LINQ Expression ***
+                adbCommand = args.Aggregate(adbCommand, (current, t) => current + (t + " "));
+
+                return new AdbCommand(adbCommand);
+            });  
         }
 
         /// <summary>
@@ -89,6 +124,30 @@ namespace RegawMOD.Android
         public static AdbCommand FormAdbCommand(Device device, string command, params object[] args)
         {
             return FormAdbCommand("-s " + device.SerialNumber + " " + command, args);
+        }
+
+        /// <summary>
+        /// Forms an <see cref="AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+        /// </summary>
+        /// <remarks>This should only be used for device-specific Adb commands, such as <c>adb push</c> or <c>adb pull</c>.</remarks>
+        /// <param name="device">Specific <see cref="Device"/> to run the command on</param>
+        /// <param name="command">The command to run on the Adb Server</param>
+        /// <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
+        /// <returns><see cref="AdbCommand"/> that contains formatted command information</returns>
+        /// <example>This example demonstrates how to create an <see cref="AdbCommand"/>
+        /// <code>//This example shows how to create an AdbCommand object to execute on the running server.
+        /// //The command we will create is "adb pull /system/app C:\".  
+        /// //Notice how in the formation, you don't supply the prefix "adb", because the method takes care of it for you.
+        /// //This example also assumes you have a Device instance named device.
+        /// // *** Updated Example To Show <c>await</c> usage ***
+        /// 
+        /// AdbCommand adbCmd = await Adb.FormAdbCommand(device, "pull", "/system/app", @"C:\");
+        /// 
+        /// </code>
+        /// </example>
+        public static Task<AdbCommand> FormAdbCommandAsync(Device device, string command, params object[] args)
+        {
+            return FormAdbCommandAsync("-s " + device.SerialNumber + " " + command, args);
         }
 
         /// <summary>
@@ -135,6 +194,54 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
+        /// Forms an <see cref="AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+        /// </summary>
+        /// <param name="device">Specific <see cref="Device"/> to run the command on</param>
+        /// <param name="rootShell">Specifies if you need <paramref name="executable"/> to run in a root shell</param>
+        /// <param name="executable">Executable file on <paramref name="device"/> to execute</param>
+        /// <param name="args">Any arguments that need to be sent to <paramref name="executable"/></param>
+        /// <returns><see cref="Task"/><see cref="AdbCommand"/> that contains formatted command information</returns>
+        /// <remarks>This should only be used for Adb Shell commands, such as <c>adb shell getprop</c> or <c>adb shell dumpsys</c>.</remarks>
+        /// <exception cref="DeviceHasNoRootException"> if <paramref name="device"/> does not have root</exception>
+        /// <example>This example demonstrates how to create an <see cref="AdbCommand"/>
+        /// <code>
+        /// //This example shows how to create an AdbCommand object to execute on the running server.
+        /// //The command we will create is "adb shell input keyevent KeyEventCode.HOME".
+        /// //Notice how in the formation, you don't supply the prefix "adb", because the method takes care of it for you.
+        /// //This example also assumes you have a Device instance named device.
+        /// // *** Updated Example To Show <c>await</c> usage ***
+        /// 
+        /// AdbCommand adbCmd = await Adb.FormAdbCommand(device, true, "input", "keyevent", (int)KeyEventCode.HOME);
+        /// 
+        /// </code>
+        /// </example>
+        public static Task<AdbCommand> FormAdbShellCommandAsync(Device device, bool rootShell, string executable,
+            params object[] args)
+        {
+            return Task<AdbCommand>.Factory.StartNew(() =>
+            {
+                if (rootShell && !device.HasRoot)
+                    throw new DeviceHasNoRootException();
+
+                var shellCommand = $"-s {device.SerialNumber} shell \"";
+
+                if (rootShell)
+                    shellCommand += "su -c \"";
+
+                shellCommand += executable;
+
+                shellCommand = args.Aggregate(shellCommand, (current, t) => current + (" " + t));
+
+                if (rootShell)
+                    shellCommand += "\"";
+
+                shellCommand += "\"";
+
+                return new AdbCommand(shellCommand);
+            });
+        }
+
+        /// <summary>
         /// Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
         /// </summary>
         /// <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
@@ -151,6 +258,22 @@ namespace RegawMOD.Android
 
         /// <summary>
         /// Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
+        /// This Async Method May Not Work Properly.
+        /// </summary>
+        /// <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
+        /// <param name="device">Specific <see cref="Device"/> to run the command on</param>
+        /// <param name="inputLines">Lines of commands to send to shell</param>
+        [Obsolete("Method is deprecated, please use ExecuteAdbShellCommandInputStringAsync(Device, int, string...) instead.")]
+        public static Task ExecuteAdbShellCommandInputStringAsync(Device device, params string[] inputLines)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                Command.RunProcessWriteInput(AndroidController.Instance.ResourceDirectory + AdbExe, "shell", inputLines);
+            });   
+        }
+
+        /// <summary>
+        /// Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
         /// </summary>
         /// <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
         /// <param name="device">Specific <see cref="Device"/> to run the command on</param>
@@ -162,6 +285,24 @@ namespace RegawMOD.Android
             {
                 Command.RunProcessWriteInput(AndroidController.Instance.ResourceDirectory + AdbExe, "shell", timeout, inputLines);
             }
+        }
+
+        /// <summary>
+        /// Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
+        /// This Async Method May Not Work Properly.
+        /// </summary>
+        /// <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
+        /// <remarks>Async/Await Version</remarks>
+        /// <param name="device">Specific <see cref="Device"/> to run the command on</param>
+        /// <param name="timeout">The timeout in milliseonds</param>
+        /// <param name="inputLines">Lines of commands to send to shell</param>
+        public static Task ExecuteAdbShellCommandInputStringAsync(Device device, int timeout, params string[] inputLines)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                Command.RunProcessWriteInput(AndroidController.Instance.ResourceDirectory + AdbExe, "shell", timeout, inputLines);
+            });
+                
         }
 
         /// <summary>
@@ -184,6 +325,23 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
+        /// Executes an <see cref="AdbCommand"/> on the running Adb Server Asynchronously via <see cref="Task"/>
+        /// </summary>
+        /// <remarks>This should be used if you want the output of the command returned</remarks>
+        /// <param name="command">Instance of <see cref="AdbCommand"/></param>
+        /// <param name="forceRegular">Forces Output of stdout, not stderror if any</param>
+        /// <returns>Output of <paramref name="command"/> run on server</returns>
+        public static Task<string> ExecuteAdbCommandAsync(AdbCommand command, bool forceRegular = false)
+        {
+            return Task<string>.Factory.StartNew(() =>
+            {
+                var result = Command.RunProcessReturnOutput(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, forceRegular, command.Timeout);
+                return result;
+            });
+            
+        }
+
+        /// <summary>
         /// Executes an <see cref="AdbCommand"/> on the running Adb Server
         /// </summary>
         /// <remarks>This should be used if you do not want the output of the command returned.  Good for quick abd shell commands</remarks>
@@ -195,6 +353,20 @@ namespace RegawMOD.Android
             {
                 Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, command.Timeout);
             }
+        }
+
+        /// <summary>
+        /// Executes an <see cref="AdbCommand"/> on the running Adb Server Asynchronously via <see cref="Task"/>
+        /// </summary>
+        /// <remarks>This should be used if you do not want the output of the command returned.  Good for quick abd shell commands</remarks>
+        /// <param name="command">Instance of <see cref="AdbCommand"/></param>
+        /// <returns>Output of <paramref name="command"/> run on server</returns>
+        public static Task ExecuteAdbCommandNoReturnAsync(AdbCommand command)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, command.Timeout);
+            });            
         }
 
         /// <summary>
@@ -212,6 +384,21 @@ namespace RegawMOD.Android
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Executes an <see cref="AdbCommand"/> on the running Adb Server Asynchronously via <see cref="Task"/>
+        /// </summary>
+        /// <param name="command">Instance of <see cref="AdbCommand"/></param>
+        /// <returns>Exit code of the process</returns>
+        public static Task<int> ExecuteAdbCommandReturnExitCodeAsync(AdbCommand command)
+        {
+            return Task<int>.Factory.StartNew(() =>
+            {
+                var result = -1;
+                result = Command.RunProcessReturnExitCode(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, command.Timeout);
+                return result;
+            });
         }
 
         /// <summary>
@@ -235,13 +422,50 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
+        /// Executes an <see cref="AdbCommand"/> on the running Adb Server
+        /// and prints the Error/Output Streams to<paramref name="outputControl"/>
+        /// and returns and ExitCode from <see cref="Process"/>.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="outputControl"><see cref="ListBox"/> ListBoxControl</param>
+        /// <returns></returns>
+        public static Task<int> ExecuteAdbCommandConsoleOutAsync(AdbCommand command, ListBox outputControl)
+        {
+            return Task<int>.Factory.StartNew(() =>
+            {
+                var result = -1;
+                result = Command.RunProcessOutputToConsole(AndroidController.Instance.ResourceDirectory + AdbExe,
+                    command.Command, command.Timeout, outputControl);
+                return result;
+            });
+        }
+
+        /// <summary>
         /// Gets a value indicating if an Android Debug Bridge Server is currently running.
         /// </summary>
         public static bool ServerRunning => Command.IsProcessRunning(Adb.ADB);
 
+        /// <summary>
+        /// Gets a value Asynchronously indicating if an Android Debug Bridge Server is currently running.
+        /// </summary>
+        public static Task<bool> ServerRunningAsync()
+        {
+            return Task<bool>.Factory.StartNew(() =>
+            {
+                var result = Command.IsProcessRunning(Adb.ADB);
+                return result;
+            });
+        }
+
         internal static void StartServer()
         {
             ExecuteAdbCommandNoReturn(Adb.FormAdbCommand("start-server"));
+        }
+
+        internal static async void StartServerAsync()
+        {
+            var adbCmd = await FormAdbCommandAsync("start-server");
+            await ExecuteAdbCommandNoReturnAsync(adbCmd);
         }
 
         internal static void KillServer()
@@ -249,9 +473,21 @@ namespace RegawMOD.Android
             ExecuteAdbCommandNoReturn(Adb.FormAdbCommand("kill-server"));
         }
 
+        internal static async void KillServerAsync()
+        {
+            var adbCmd = await FormAdbCommandAsync("kill-server");
+            await ExecuteAdbCommandNoReturnAsync(adbCmd);
+        }
+
         internal static string Devices()
         {
             return ExecuteAdbCommand(Adb.FormAdbCommand("devices"));
+        }
+
+        internal static async Task<string> DevicesAsync()
+        {
+            var adbCmd = await FormAdbCommandAsync("devices");
+            return await ExecuteAdbCommandAsync(adbCmd);
         }
 
         /// <summary>
@@ -290,17 +526,42 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
+        /// Pushes A Sideload Package Via ADB Server to A Device Asynchronously, see <see cref="Task"/>
+        /// </summary>
+        /// <param name="sideloadPackage">File To Sideload</param>
+        /// <param name="outputControl">Control For Output</param>
+        /// <returns><see cref="Process.ExitCode"/></returns>
+        public static async Task<int> SideloadAsync(string sideloadPackage, ListBox outputControl)
+        {
+            var adbCmd = await FormAdbCommandAsync("sideload", sideloadPackage);
+            return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
+        }
+
+        /// <summary>
         /// Pushes A Sideload Package Via ADB Server to A Specified Device.
         /// </summary>
-        /// <param name="deviceSerial">Target Device Serial</param>
+        /// <param name="deviceSerialNumber">Target Device Serial</param>
         /// <param name="sideloadPackage">File To Sideload</param>
         /// <param name="outputControl"></param>
         /// <returns></returns>
-        public static int Sideload(string deviceSerial, string sideloadPackage, ListBox outputControl)
+        public static int Sideload(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
         {
-            var adbCmd = FormAdbCommand($"-s {deviceSerial} sideload", sideloadPackage);
+            var adbCmd = FormAdbCommand($"-s {deviceSerialNumber} sideload", sideloadPackage);
             var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
             return result;
+        }
+
+        /// <summary>
+        /// Pushes A Sideload Package Via ADB Server to A Specified Device Asynchronously, see <see cref="Task"/>
+        /// </summary>
+        /// <param name="deviceSerialNumber"></param>
+        /// <param name="sideloadPackage">File To Sideload</param>
+        /// <param name="outputControl">Control For Output</param>
+        /// <returns><see cref="Process.ExitCode"/></returns>
+        public static async Task<int> SideloadAsync(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
+        {
+            var adbCmd = await FormAdbCommandAsync($"-s {deviceSerialNumber} sideload", sideloadPackage);
+            return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
         }
     }
 }
