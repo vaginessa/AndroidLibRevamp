@@ -9,11 +9,11 @@ namespace RegawMOD.Android
     /// </summary>
     public class Phone
     {
-        private Device device;
+        private Device _device;
 
         internal Phone(Device device)
         {
-            this.device = device;
+            this._device = device;
         }
 
         /// <summary>
@@ -22,12 +22,12 @@ namespace RegawMOD.Android
         /// <param name="phoneNumber">Phone number to call</param>
         public void CallPhoneNumber(string phoneNumber)
         {
-            if (this.device.State != DeviceState.ONLINE)
+            if (this._device.State != DeviceState.Online)
                 return;
 
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, false, "service", "call", "phone", "2", "s16", phoneNumber);
+            var adbCmd = Adb.FormAdbShellCommand(this._device, false, "service", "call", "phone", "2", "s16", phoneNumber);
             Adb.ExecuteAdbCommandNoReturn(adbCmd);
-            adbCmd = Adb.FormAdbShellCommand(this.device, false, "input", "keyevent", (int)KeyEventCode.BACK);
+            adbCmd = Adb.FormAdbShellCommand(this._device, false, "input", "keyevent", (int)KeyEventCode.Back);
             Adb.ExecuteAdbCommandNoReturn(adbCmd);
         }
 
@@ -37,10 +37,10 @@ namespace RegawMOD.Android
         /// <param name="phoneNumber">Phone number to dial</param>
         public void DialPhoneNumber(string phoneNumber)
         {
-            if (this.device.State != DeviceState.ONLINE)
+            if (this._device.State != DeviceState.Online)
                 return;
 
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, false, "service", "call", "phone", "1", "s16", phoneNumber);
+            var adbCmd = Adb.FormAdbShellCommand(this._device, false, "service", "call", "phone", "1", "s16", phoneNumber);
             Adb.ExecuteAdbCommandNoReturn(adbCmd);
         }
 

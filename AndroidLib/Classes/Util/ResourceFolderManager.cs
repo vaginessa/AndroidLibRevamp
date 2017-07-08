@@ -40,19 +40,19 @@ namespace RegawMOD
     /// </example>
     public static class ResourceFolderManager
     {
-        private static readonly DirectoryInfo REGAWMOD_TEMP_DIRECTORY;
-        private static Dictionary<string, DirectoryInfo> controlledFolders;
+        private static readonly DirectoryInfo RegawmodTempDirectory;
+        private static Dictionary<string, DirectoryInfo> _controlledFolders;
 
         static ResourceFolderManager()
         {
-            REGAWMOD_TEMP_DIRECTORY = new DirectoryInfo(Path.GetTempPath() + "\\RegawMOD\\");
-            controlledFolders = new Dictionary<string, DirectoryInfo>();
+            RegawmodTempDirectory = new DirectoryInfo(Path.GetTempPath() + "\\RegawMOD\\");
+            _controlledFolders = new Dictionary<string, DirectoryInfo>();
 
-            if (!REGAWMOD_TEMP_DIRECTORY.Exists)
-                REGAWMOD_TEMP_DIRECTORY.Create();
+            if (!RegawmodTempDirectory.Exists)
+                RegawmodTempDirectory.Create();
 
-            foreach (DirectoryInfo d in REGAWMOD_TEMP_DIRECTORY.GetDirectories("*", SearchOption.TopDirectoryOnly))
-                controlledFolders.Add(d.Name, d);
+            foreach (var d in RegawmodTempDirectory.GetDirectories("*", SearchOption.TopDirectoryOnly))
+                _controlledFolders.Add(d.Name, d);
         }
         
         /// <summary>
@@ -62,7 +62,7 @@ namespace RegawMOD
         /// <returns><see cref="DirectoryInfo"/> containing information about the registered resource directory <paramref name="folder"/></returns>
         public static DirectoryInfo GetRegisteredFolder(string folder)
         {
-            return (controlledFolders.ContainsKey(folder) ? controlledFolders[folder] : null);
+            return (_controlledFolders.ContainsKey(folder) ? _controlledFolders[folder] : null);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace RegawMOD
         /// <returns>Full path of the registered resource directory <paramref name="folder"/></returns>
         public static string GetRegisteredFolderPath(string folder)
         {
-            return (controlledFolders.ContainsKey(folder) ? controlledFolders[folder].FullName : null);
+            return (_controlledFolders.ContainsKey(folder) ? _controlledFolders[folder].FullName : null);
         }
 
         /// <summary>
@@ -82,13 +82,13 @@ namespace RegawMOD
         /// <returns>True if creation succeeds, false if directory already exists</returns>
         public static bool Register(string name)
         {
-            if (controlledFolders.ContainsKey(name))
+            if (_controlledFolders.ContainsKey(name))
                 return false;
 
-            controlledFolders.Add(name, new DirectoryInfo(REGAWMOD_TEMP_DIRECTORY + name));
+            _controlledFolders.Add(name, new DirectoryInfo(RegawmodTempDirectory + name));
 
-            if (!controlledFolders[name].Exists)
-                controlledFolders[name].Create();
+            if (!_controlledFolders[name].Exists)
+                _controlledFolders[name].Create();
 
             return true;
         }
@@ -101,13 +101,13 @@ namespace RegawMOD
         /// <remarks>Make sure all resources in <paramref name="name"/> are not being used by the system at time of Unregister() or it will return false.</remarks>
         public static bool Unregister(string name)
         {
-            if (!controlledFolders.ContainsKey(name))
+            if (!_controlledFolders.ContainsKey(name))
                 return false;
 
-            try { controlledFolders[name].Delete(true); }
+            try { _controlledFolders[name].Delete(true); }
             catch { return false; }
 
-            return controlledFolders.Remove(name);
+            return _controlledFolders.Remove(name);
         }
     }
 }

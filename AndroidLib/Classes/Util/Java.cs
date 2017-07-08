@@ -13,36 +13,36 @@ namespace RegawMOD
     /// </summary>
     public static class Java
     {
-        private static bool isInstalled;
-        private static string installationPath;
-        private static string binPath;
-        private static string javaExecutable;
-        private static string javacExecutable;
+        private static bool _isInstalled;
+        private static string _installationPath;
+        private static string _binPath;
+        private static string _javaExecutable;
+        private static string _javacExecutable;
 
         /// <summary>
         /// Gets a value indicating if Java is currently installed on the local machine
         /// </summary>
-        public static bool IsInstalled { get { return isInstalled; } }
+        public static bool IsInstalled => _isInstalled;
 
         /// <summary>
         /// Gets a value indicating the installation path of Java on the local machine
         /// </summary>
-        public static string InstallationPath { get { return installationPath; } }
+        public static string InstallationPath => _installationPath;
 
         /// <summary>
         /// Gets a value indicating the path to Java's bin directory on the local machine
         /// </summary>
-        public static string BinPath { get { return binPath; } }
+        public static string BinPath => _binPath;
 
         /// <summary>
         /// Gets a value indicating the path to Java.exe on the local machine
         /// </summary>
-        public static string JavaExe { get { return javaExecutable; } }
+        public static string JavaExe => _javaExecutable;
 
         /// <summary>
         /// Gets a value indicating the path to Javac.exe on the local machine
         /// </summary>
-        public static string JavacExe { get { return javacExecutable; } }
+        public static string JavacExe => _javacExecutable;
 
         static Java()
         {
@@ -55,31 +55,31 @@ namespace RegawMOD
         /// <remarks>Generally called if Java installation might have changed</remarks>
         public static void Update()
         {
-            installationPath = GetJavaInstallationPath();
-            isInstalled = !string.IsNullOrEmpty(installationPath);
+            _installationPath = GetJavaInstallationPath();
+            _isInstalled = !string.IsNullOrEmpty(_installationPath);
 
-            if (isInstalled)
+            if (_isInstalled)
             {
-                binPath = Path.Combine(installationPath, "bin");
-                javaExecutable = Path.Combine(installationPath, "bin\\java.exe");
-                javacExecutable = Path.Combine(installationPath, "bin\\javac.exe");
+                _binPath = Path.Combine(_installationPath, "bin");
+                _javaExecutable = Path.Combine(_installationPath, "bin\\java.exe");
+                _javacExecutable = Path.Combine(_installationPath, "bin\\javac.exe");
             }
         }
 
         private static string GetJavaInstallationPath()
         {
-            string environmentPath = Environment.GetEnvironmentVariable("JAVA_HOME");
+            var environmentPath = Environment.GetEnvironmentVariable("JAVA_HOME");
             
             if (!string.IsNullOrEmpty(environmentPath))
                 return environmentPath;
 
-            string javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment\\";
+            var javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment\\";
 
             try
             {
-                using (RegistryKey r = Registry.LocalMachine.OpenSubKey(javaKey))
+                using (var r = Registry.LocalMachine.OpenSubKey(javaKey))
                 {
-                    using (RegistryKey k = r.OpenSubKey(r.GetValue("CurrentVersion").ToString()))
+                    using (var k = r.OpenSubKey(r.GetValue("CurrentVersion").ToString()))
                     {
                         environmentPath = k.GetValue("JavaHome").ToString();
                     }
@@ -101,18 +101,18 @@ namespace RegawMOD
         /// <returns>True if successful run, false if Java is not installed or the Jar does not exist</returns>
         public static bool RunJar(string pathToJar, params string[] arguments)
         {
-            if (!isInstalled)
+            if (!_isInstalled)
                 return false;
 
             if (!File.Exists(pathToJar))
                 return false;
 
-            string args = "-jar " + pathToJar;
+            var args = "-jar " + pathToJar;
 
-            for (int i = 0; i < arguments.Length; i++)
+            for (var i = 0; i < arguments.Length; i++)
                 args += " " + arguments[i];
 
-            Command.RunProcessNoReturn(javaExecutable, args, Command.DEFAULT_TIMEOUT);
+            Command.RunProcessNoReturn(_javaExecutable, args, Command.DefaultTimeout);
 
             return true;
         }

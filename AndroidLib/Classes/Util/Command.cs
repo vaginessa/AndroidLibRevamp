@@ -15,12 +15,12 @@ namespace RegawMOD
         /// <summary>
         /// The default timeout for commands. -1 implies infinite time
         /// </summary>
-        public const int DEFAULT_TIMEOUT = -1;
+        public const int DefaultTimeout = -1;
         
         [Obsolete("Method is deprecated, please use RunProcessNoReturn(string, string, int) instead.")]
         internal static void RunProcessNoReturn(string executable, string arguments, bool waitForExit = true)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -37,7 +37,7 @@ namespace RegawMOD
 
         internal static void RunProcessNoReturn(string executable, string arguments, int timeout)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -53,7 +53,7 @@ namespace RegawMOD
 
         internal static string RunProcessReturnOutput(string executable, string arguments, int timeout)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -63,8 +63,8 @@ namespace RegawMOD
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
 
-                using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
-                    using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+                using (var outputWaitHandle = new AutoResetEvent(false))
+                    using (var errorWaitHandle = new AutoResetEvent(false))
                         return HandleOutput(p, outputWaitHandle, errorWaitHandle, timeout, false);
             }
         }
@@ -73,7 +73,7 @@ namespace RegawMOD
 
         internal static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -83,16 +83,16 @@ namespace RegawMOD
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
 
-                using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
-                    using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+                using (var outputWaitHandle = new AutoResetEvent(false))
+                    using (var errorWaitHandle = new AutoResetEvent(false))
                         return HandleOutput(p, outputWaitHandle, errorWaitHandle, timeout, forceRegular);
             }
         }
 
         private static string HandleOutput(Process p, AutoResetEvent outputWaitHandle, AutoResetEvent errorWaitHandle, int timeout, bool forceRegular)
         {
-            StringBuilder output = new StringBuilder();
-            StringBuilder error = new StringBuilder();
+            var output = new StringBuilder();
+            var error = new StringBuilder();
 
             p.OutputDataReceived += (sender, e) =>
             {
@@ -116,7 +116,7 @@ namespace RegawMOD
 
             if (p.WaitForExit(timeout) && outputWaitHandle.WaitOne(timeout) && errorWaitHandle.WaitOne(timeout))
             {
-                string strReturn = "";
+                var strReturn = "";
 
                 if (error.ToString().Trim().Length.Equals(0) || forceRegular)
                     strReturn = output.ToString().Trim();
@@ -136,7 +136,7 @@ namespace RegawMOD
         {
             int exitCode;
 
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -155,7 +155,7 @@ namespace RegawMOD
         [Obsolete("Method is deprecated, please use RunProcessWriteInput(string, string, int, string...) instead.")]
         internal static void RunProcessWriteInput(string executable, string arguments, params string[] input)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -167,8 +167,8 @@ namespace RegawMOD
 
                 p.Start();
 
-                using (StreamWriter w = p.StandardInput)
-                    for (int i = 0; i < input.Length; i++)
+                using (var w = p.StandardInput)
+                    for (var i = 0; i < input.Length; i++)
                         w.WriteLine(input[i]);
 
                 p.WaitForExit();
@@ -177,7 +177,7 @@ namespace RegawMOD
 
         internal static void RunProcessWriteInput(string executable, string arguments, int timeout, params string[] input)
         {
-            using (Process p = new Process())
+            using (var p = new Process())
             {
                 p.StartInfo.FileName = executable;
                 p.StartInfo.Arguments = arguments;
@@ -189,8 +189,8 @@ namespace RegawMOD
 
                 p.Start();
 
-                using (StreamWriter w = p.StandardInput)
-                    for (int i = 0; i < input.Length; i++)
+                using (var w = p.StandardInput)
+                    for (var i = 0; i < input.Length; i++)
                         w.WriteLine(input[i]);
 
                 p.WaitForExit(timeout);
@@ -199,9 +199,9 @@ namespace RegawMOD
 
         internal static bool IsProcessRunning(string processName)
         {
-            Process[] processes = Process.GetProcesses();
+            var processes = Process.GetProcesses();
 
-            foreach (Process p in processes)
+            foreach (var p in processes)
                 if (p.ProcessName.ToLower().Contains(processName.ToLower()))
                     return true;
 
@@ -210,9 +210,9 @@ namespace RegawMOD
 
         internal static void KillProcess(string processName)
         {
-            Process[] processes = Process.GetProcesses();
+            var processes = Process.GetProcesses();
 
-            foreach (Process p in processes)
+            foreach (var p in processes)
             {
                 if (p.ProcessName.ToLower().Contains(processName.ToLower()))
                 {

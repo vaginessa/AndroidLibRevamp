@@ -11,47 +11,47 @@ namespace RegawMOD.Android
     /// </summary>
     public class Su
     {
-        private Device device;
+        private Device _device;
 
-        private string version;
-        private bool exists;
+        private string _version;
+        private bool _exists;
 
         internal Su(Device device)
         {
-            this.device = device;
+            this._device = device;
             GetSuData();
         }
 
-        internal bool Exists { get { return this.exists; } }
+        internal bool Exists => this._exists;
 
         /// <summary>
         /// Gets a value indicating the version of Su on the Android device
         /// </summary>
-        public string Version { get { return this.version; } }
+        public string Version => this._version;
 
         private void GetSuData()
         {
-            if (this.device.State != DeviceState.ONLINE)
+            if (this._device.State != DeviceState.Online)
             {
-                this.version = null;
-                this.exists = false;
+                this._version = null;
+                this._exists = false;
                 return;     
             }
             
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, false, "su", "-v");
-            using (StringReader r = new StringReader(Adb.ExecuteAdbCommand(adbCmd)))
+            var adbCmd = Adb.FormAdbShellCommand(this._device, false, "su", "-v");
+            using (var r = new StringReader(Adb.ExecuteAdbCommand(adbCmd)))
             {
-                string line = r.ReadLine();
+                var line = r.ReadLine();
 
                 if (line.Contains("not found") || line.Contains("permission denied"))
                 {
-                    this.version = "-1";
-                    this.exists = false;
+                    this._version = "-1";
+                    this._exists = false;
                 }
                 else
                 {
-                    this.version = line;
-                    this.exists = true;
+                    this._version = line;
+                    this._exists = true;
                 }
             }
         }

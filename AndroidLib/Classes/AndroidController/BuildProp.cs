@@ -13,14 +13,14 @@ namespace RegawMOD.Android
     /// </summary>
     public class BuildProp
     {
-        private Device device;
+        private Device _device;
 
-        private Dictionary<string, string> prop;
+        private Dictionary<string, string> _prop;
 
         internal BuildProp(Device device)
         {
-            this.prop = new Dictionary<string, string>();
-            this.device = device;
+            this._prop = new Dictionary<string, string>();
+            this._device = device;
         }
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace RegawMOD.Android
             {
                 Update();
 
-                List<string> keys = new List<string>();
+                var keys = new List<string>();
 
-                foreach (string key in this.prop.Keys)
+                foreach (var key in this._prop.Keys)
                     keys.Add(key);
 
                 return keys;
@@ -50,9 +50,9 @@ namespace RegawMOD.Android
             {
                 Update();
 
-                List<string> values = new List<string>();
+                var values = new List<string>();
 
-                foreach (string val in this.prop.Values)
+                foreach (var val in this._prop.Values)
                     values.Add(val);
 
                 return values;
@@ -70,7 +70,7 @@ namespace RegawMOD.Android
 
             string tmp;
 
-            this.prop.TryGetValue(key, out tmp);
+            this._prop.TryGetValue(key, out tmp);
 
             return tmp;
         }
@@ -85,19 +85,19 @@ namespace RegawMOD.Android
         public bool SetProp(string key, string newValue)
         {
             string before;
-            if (!this.prop.TryGetValue(key, out before))
+            if (!this._prop.TryGetValue(key, out before))
                 return false;
 
-            if (!this.device.HasRoot)
+            if (!this._device.HasRoot)
                 return false;
 
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, true, "setprop", key, newValue);
+            var adbCmd = Adb.FormAdbShellCommand(this._device, true, "setprop", key, newValue);
             Adb.ExecuteAdbCommandNoReturn(adbCmd);
 
             Update();
 
             string after;
-            if (!this.prop.TryGetValue(key, out after))
+            if (!this._prop.TryGetValue(key, out after))
                 return false;
 
             return newValue == after;
@@ -111,9 +111,9 @@ namespace RegawMOD.Android
         {
             Update();
 
-            string outPut = "";
+            var outPut = "";
 
-            foreach (KeyValuePair<string, string> s in this.prop)
+            foreach (var s in this._prop)
                 outPut += string.Format("[{0}]: [{1}]" + Environment.NewLine, s.Key, s.Value);
 
             return outPut;
@@ -123,22 +123,22 @@ namespace RegawMOD.Android
         {
             try
             {
-                this.prop.Clear();
+                this._prop.Clear();
 
-                if (this.device.State != DeviceState.ONLINE)
+                if (this._device.State != DeviceState.Online)
                     return;
 
-                AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, false, "getprop");
-                string prop = Adb.ExecuteAdbCommand(adbCmd);
+                var adbCmd = Adb.FormAdbShellCommand(this._device, false, "getprop");
+                var prop = Adb.ExecuteAdbCommand(adbCmd);
 
-                string[] lines = prop.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = prop.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int i = 0; i < lines.Length; i++)
+                for (var i = 0; i < lines.Length; i++)
                 {
-                    string[] entry = lines[i].Split(new string[] { "[", "]: [", "]" }, StringSplitOptions.RemoveEmptyEntries);
+                    var entry = lines[i].Split(new string[] { "[", "]: [", "]" }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (entry.Length == 2)
-                        this.prop.Add(entry[0], entry[1]);
+                        this._prop.Add(entry[0], entry[1]);
                 }
             }
             catch (Exception ex)

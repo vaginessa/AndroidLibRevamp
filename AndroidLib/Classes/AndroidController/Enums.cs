@@ -12,22 +12,22 @@ namespace RegawMOD.Android
         /// <summary>
         /// Represents a File
         /// </summary>
-        FILE,
+        File,
 
         /// <summary>
         /// Represents a Directory
         /// </summary>
-        DIRECTORY,
+        Directory,
 
         /// <summary>
         /// Represents neither File or Directory
         /// </summary>
-        NONE,
+        None,
 
         /// <summary>
         /// Usually returned if BusyBox is not installed on device
         /// </summary>
-        ERROR
+        Error
     }
 
     /// <summary>
@@ -38,37 +38,37 @@ namespace RegawMOD.Android
         /// <summary>
         /// <see cref="Device"/> is online
         /// </summary>
-        ONLINE,
+        Online,
 
         /// <summary>
         /// <see cref="Device"/> is offline
         /// </summary>
-        OFFLINE,
+        Offline,
 
         /// <summary>
         /// <see cref="Device"/> is in recovery
         /// </summary>
-        RECOVERY,
+        Recovery,
 
         /// <summary>
         /// <see cref="Device"/> is in fastboot
         /// </summary>
-        FASTBOOT,
+        Fastboot,
 
         /// <summary>
         /// <see cref="Device"/> is in sideload mode
         /// </summary>
-        SIDELOAD,
+        Sideload,
 
         /// <summary>
         /// <see cref="Device"/> is not authorized
         /// </summary>
-        UNAUTHORIZED,
+        Unauthorized,
 
         /// <summary>
         /// <see cref="Device"/> is in an unknown state
         /// </summary>
-        UNKNOWN
+        Unknown
     }
 
     //public enum WifiEncryption
@@ -86,17 +86,17 @@ namespace RegawMOD.Android
         /// <summary>
         /// Read-Writable
         /// </summary>
-        RW,
+        Rw,
 
         /// <summary>
         /// Read-Only
         /// </summary>
-        RO,
+        Ro,
 
         /// <summary>
-        /// Used for every <see cref="DeviceState"/> except <see cref="DeviceState.ONLINE"/>
+        /// Used for every <see cref="DeviceState"/> except <see cref="DeviceState.Online"/>
         /// </summary>
-        NONE
+        None
     }
 
     /// <summary>
@@ -107,27 +107,27 @@ namespace RegawMOD.Android
         /// <summary>
         /// The boot partition
         /// </summary>
-        BOOT,
+        Boot,
 
         /// <summary>
         /// The system partition
         /// </summary>
-        SYSTEM,
+        System,
 
         /// <summary>
         /// The data partition
         /// </summary>
-        DATA,
+        Data,
 
         /// <summary>
         /// The hboot partition (bootloader)
         /// </summary>
-        HBOOT,
+        Hboot,
 
         /// <summary>
         /// For flashing a zip
         /// </summary>
-        ZIP
+        Zip
     }
 
     /// <summary>
@@ -139,137 +139,137 @@ namespace RegawMOD.Android
         /// <summary>
         /// The Soft Right Key
         /// </summary>
-        SOFT_RIGHT = 2,
+        SoftRight = 2,
 
         /// <summary>
         /// The Home Button
         /// </summary>
-        HOME = 3,
+        Home = 3,
 
         /// <summary>
         /// The Back Button
         /// </summary>
-        BACK = 4,
+        Back = 4,
 
         /// <summary>
         /// The Call Button
         /// </summary>
-        CALL = 5,
+        Call = 5,
 
         /// <summary>
         /// The End Call Button
         /// </summary>
-        END_CALL = 6,
+        EndCall = 6,
 
         /// <summary>
         /// The Number 0 Button
         /// </summary>
-        NUMBER_0 = 7,
+        Number0 = 7,
 
         /// <summary>
         /// The Number 1 Button
         /// </summary>
-        NUMBER_1 = 8,
+        Number1 = 8,
 
         /// <summary>
         /// The Number 2 Button
         /// </summary>
-        NUMBER_2 = 9,
+        Number2 = 9,
 
         /// <summary>
         /// The Number 3 Button
         /// </summary>
-        NUMBER_3 = 10,
+        Number3 = 10,
 
         /// <summary>
         /// The Number 4 Button
         /// </summary>
-        NUMBER_4 = 11,
+        Number4 = 11,
 
         /// <summary>
         /// The Number 5 Button
         /// </summary>
-        NUMBER_5 = 12,
+        Number5 = 12,
 
         /// <summary>
         /// The Number 6 Button
         /// </summary>
-        NUMBER_6 = 13,
+        Number6 = 13,
 
         /// <summary>
         /// The Number 7 Button
         /// </summary>
-        NUMBER_7 = 14,
+        Number7 = 14,
 
         /// <summary>
         /// The Number 8 Button
         /// </summary>
-        NUMBER_8 = 15,
+        Number8 = 15,
 
         /// <summary>
         /// The Number 9 Button
         /// </summary>
-        NUMBER_9 = 16,
+        Number9 = 16,
 
         /// <summary>
         /// The Star Character (*) Button
         /// </summary>
-        STAR = 17,
+        Star = 17,
 
         /// <summary>
         /// The Pound Character (#) Button
         /// </summary>
-        POUND = 18,
+        Pound = 18,
 
         /// <summary>
         /// The D-Pad Up Button
         /// </summary>
-        DPAD_UP = 19,
+        DpadUp = 19,
 
         /// <summary>
         /// The D-Pad Down Button
         /// </summary>
-        DPAD_DOWN = 20,
+        DpadDown = 20,
 
         /// <summary>
         /// The D-Pad Left Button
         /// </summary>
-        DPAD_LEFT = 21,
+        DpadLeft = 21,
 
         /// <summary>
         /// The D-Pad Right Button
         /// </summary>
-        DPAD_RIGHT = 22,
+        DpadRight = 22,
 
         /// <summary>
         /// The D-Pad Center Button
         /// </summary>
-        DPAD_CENTER = 23,
+        DpadCenter = 23,
 
         /// <summary>
         /// The Volume Up Button
         /// </summary>
-        VOLUME_UP = 24,
+        VolumeUp = 24,
 
         /// <summary>
         /// The Volume Down Button
         /// </summary>
-        VOLUME_DOWN = 25,
+        VolumeDown = 25,
 
         /// <summary>
         /// The Power Button
         /// </summary>
-        POWER = 26,
+        Power = 26,
 
         /// <summary>
         /// The Camera Button
         /// </summary>
-        CAMERA = 27,
+        Camera = 27,
 
         /// <summary>
         /// The Clear Button
         /// </summary>
-        CLEAR = 28,
+        Clear = 28,
 
         /// <summary>
         /// The A Character Button
@@ -404,77 +404,77 @@ namespace RegawMOD.Android
         /// <summary>
         /// The Comma Character (,) Button
         /// </summary>
-        COMMA = 55,
+        Comma = 55,
         
         /// <summary>
         /// The Period Character (.) Button
         /// </summary>
-        PERIOD = 56,
+        Period = 56,
         
         /// <summary>
         /// The Left Alt Button
         /// </summary>
-        ALT_LEFT = 57,
+        AltLeft = 57,
         
         /// <summary>
         /// The Right Alt Button
         /// </summary>
-        ALT_RIGHT = 58,
+        AltRight = 58,
         
         /// <summary>
         /// The Left Shift Button
         /// </summary>
-        SHIFT_LEFT = 59,
+        ShiftLeft = 59,
         
         /// <summary>
         /// The Right Shift Button
         /// </summary>
-        SHIFT_RIGHT = 60,
+        ShiftRight = 60,
         
         /// <summary>
         /// The Tab Button
         /// </summary>
-        TAB = 61,
+        Tab = 61,
         
         /// <summary>
         /// The Space Bar Button
         /// </summary>
-        SPACE = 62,
+        Space = 62,
         
         /// <summary>
         /// Brings Up Select Input Method Dialog
         /// </summary>
-        SELECT_INPUT_METHOD = 63,
+        SelectInputMethod = 63,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        EXPLORER = 64,
+        Explorer = 64,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        ENVELOPE = 65,
+        Envelope = 65,
         
         /// <summary>
         /// The Enter Button
         /// </summary>
-        ENTER = 66,
+        Enter = 66,
         
         /// <summary>
         /// The Delete Button
         /// </summary>
-        DELETE = 67,
+        Delete = 67,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        GRAVE = 68,
+        Grave = 68,
         
         /// <summary>
         /// The Minus Button
         /// </summary>
-        MINUS = 69,
+        Minus = 69,
         
         /// <summary>
         /// The Equals Character (=) Button
@@ -484,76 +484,76 @@ namespace RegawMOD.Android
         /// <summary>
         /// The Left Bracket Character ({) Button
         /// </summary>
-        BRACKET_LEFT = 71,
+        BracketLeft = 71,
         
         /// <summary>
         /// The Right Bracket Character (}) Button
         /// </summary>
-        BRACKET_RIGHT = 72,
+        BracketRight = 72,
         
         /// <summary>
         /// The Backslash Character (\) Button
         /// </summary>
-        BACKSLASH = 73,
+        Backslash = 73,
         
         /// <summary>
         /// The Semicolon Character (;) Button
         /// </summary>
-        SEMICOLON = 74,
+        Semicolon = 74,
         
         /// <summary>
         /// The Apostrophe Character (') Button
         /// </summary>
-        APOSTROPHE = 75,
+        Apostrophe = 75,
         
         /// <summary>
         /// The Forward Slash Character (/) Button
         /// </summary>
-        FORWARD_SLASH = 76,
+        ForwardSlash = 76,
         
         /// <summary>
         /// The At Character (@) Button
         /// </summary>
-        AT = 77,
+        At = 77,
 
         /// <summary>
         /// Number Lock
         /// </summary>
-        NUM = 78,
+        Num = 78,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        HEADSET_HOOK = 79,
+        HeadsetHook = 79,
         
         /// <summary>
         /// The Focus Camera Button
         /// </summary>
-        FOCUS = 80,
+        Focus = 80,
         
         /// <summary>
         /// The Plus Character (+) Button
         /// </summary>
-        PLUS = 81,
+        Plus = 81,
         
         /// <summary>
         /// The Menu Button
         /// </summary>
-        MENU = 82,
+        Menu = 82,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        NOTIFICATION = 83,
+        Notification = 83,
         
         /// <summary>
         /// The Search Button
         /// </summary>
-        SEARCH = 84,
+        Search = 84,
         
         /// <summary>
         /// Not Sure
         /// </summary>
-        TAG_LAST_KEYCODE = 85,
+        TagLastKeycode = 85,
     }
 }

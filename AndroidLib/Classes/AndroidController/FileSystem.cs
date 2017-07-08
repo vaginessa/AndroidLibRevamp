@@ -14,32 +14,32 @@ namespace RegawMOD.Android
     /// </summary>
     public class MountInfo
     {
-        private string directory;
-        private string block;
-        private MountType type;
+        private string _directory;
+        private string _block;
+        private MountType _type;
 
         internal MountInfo(string directory, string block, MountType type)
         {
-            this.directory = directory;
-            this.block = block;
-            this.type = type;
+            this._directory = directory;
+            this._block = block;
+            this._type = type;
         }
 
         /// <summary>
         /// Gets a value indicating the mount directory
         /// </summary>
-        public string Directory { get { return this.directory; } }
+        public string Directory => this._directory;
 
         /// <summary>
         /// Gets a value indicating the mount block
         /// </summary>
-        public string Block { get { return this.block; } }
+        public string Block => this._block;
 
         /// <summary>
         /// Gets a value indicating how the mount directory is mounted
         /// </summary>
         /// <remarks>See <see cref="MountType"/> for more details</remarks>
-        public MountType MountType { get { return this.type; } }
+        public MountType MountType => this._type;
     }
 
     /// <summary>
@@ -47,26 +47,26 @@ namespace RegawMOD.Android
     /// </summary>
     public class FileSystem
     {
-        private readonly Device device;
+        private readonly Device _device;
 
-        private MountInfo systemMount;
+        private MountInfo _systemMount;
 
         internal FileSystem(Device device)
         {
-            this.device = device;
+            this._device = device;
             UpdateMountPoints();
         }
 
         private void UpdateMountPoints()
         {
-            if (this.device.State != DeviceState.ONLINE)
+            if (this._device.State != DeviceState.Online)
             {
-                this.systemMount = new MountInfo(null, null, MountType.NONE);
+                this._systemMount = new MountInfo(null, null, MountType.None);
                 return;
             }
 
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, false, "mount");
-            using (StringReader r = new StringReader(Adb.ExecuteAdbCommand(adbCmd)))
+            var adbCmd = Adb.FormAdbShellCommand(this._device, false, "mount");
+            using (var r = new StringReader(Adb.ExecuteAdbCommand(adbCmd)))
             {
                 string line;
                 string[] splitLine;
@@ -85,7 +85,7 @@ namespace RegawMOD.Android
                             dir = splitLine[2];
                             mount = splitLine[0];
                             type = (MountType)Enum.Parse(typeof(MountType), splitLine[5].Substring(1, 2).ToUpper());
-                            this.systemMount = new MountInfo(dir, mount, type);
+                            this._systemMount = new MountInfo(dir, mount, type);
                             return;
                         }
 
@@ -94,7 +94,7 @@ namespace RegawMOD.Android
                             dir = splitLine[1];
                             mount = splitLine[0];
                             type = (MountType)Enum.Parse(typeof(MountType), splitLine[3].Substring(0, 2).ToUpper());
-                            this.systemMount = new MountInfo(dir, mount, type);
+                            this._systemMount = new MountInfo(dir, mount, type);
                             return;
                         }
                     }
@@ -102,8 +102,8 @@ namespace RegawMOD.Android
                     {
                         dir = "/system";
                         mount = "ERROR";
-                        type = MountType.NONE;
-                        this.systemMount = new MountInfo(dir, mount, type);
+                        type = MountType.None;
+                        this._systemMount = new MountInfo(dir, mount, type);
                     }
                 }
             }
@@ -113,7 +113,7 @@ namespace RegawMOD.Android
         /// Gets the <see cref="MountInfo"/> containing information about the /system mount directory
         /// </summary>
         /// <remarks>See <see cref="MountInfo"/> for more details</remarks>
-        public MountInfo SystemMountInfo { get { UpdateMountPoints(); return this.systemMount; } }
+        public MountInfo SystemMountInfo { get { UpdateMountPoints(); return this._systemMount; } }
 
         //void PushFile();
         //void PullFile();
@@ -156,22 +156,22 @@ namespace RegawMOD.Android
         /// </example>
         public bool RemountSystem(MountType type)
         {
-            if (!this.device.HasRoot)
+            if (!this._device.HasRoot)
                 return false;
 
-            AdbCommand adbCmd = Adb.FormAdbShellCommand(this.device, true, "mount", string.Format("-o remount,{0} -t yaffs2 {1} /system", type.ToString().ToLower(), this.systemMount.Block));
+            var adbCmd = Adb.FormAdbShellCommand(this._device, true, "mount", string.Format("-o remount,{0} -t yaffs2 {1} /system", type.ToString().ToLower(), this._systemMount.Block));
             Adb.ExecuteAdbCommandNoReturn(adbCmd);
 
             UpdateMountPoints();
 
-            if (this.systemMount.MountType == type)
+            if (this._systemMount.MountType == type)
                 return true;
 
             return false;
         }
 
-        private const string IS_FILE = "if [ -f {0} ]; then echo \"1\"; else echo \"0\"; fi";
-        private const string IS_DIRECTORY = "if [ -d {0} ]; then echo \"1\"; else echo \"0\"; fi";
+        private const string IsFile = "if [ -f {0} ]; then echo \"1\"; else echo \"0\"; fi";
+        private const string IsDirectory = "if [ -d {0} ]; then echo \"1\"; else echo \"0\"; fi";
 
         /// <summary>
         /// Gets a <see cref="ListingType"/> indicating is the requested location is a File or Directory
@@ -182,18 +182,18 @@ namespace RegawMOD.Android
         /// <para>Returns ListingType.NONE if file/Directory does not exist</para></remarks>
         public ListingType FileOrDirectory(string location)
         {
-            if (!this.device.BusyBox.IsInstalled)
-                return ListingType.ERROR;
+            if (!this._device.BusyBox.IsInstalled)
+                return ListingType.Error;
 
-            AdbCommand isFile = Adb.FormAdbShellCommand(this.device, false, string.Format(IS_FILE, location));
-            AdbCommand isDir = Adb.FormAdbShellCommand(this.device, false, string.Format(IS_DIRECTORY, location));
+            var isFile = Adb.FormAdbShellCommand(this._device, false, string.Format(IsFile, location));
+            var isDir = Adb.FormAdbShellCommand(this._device, false, string.Format(IsDirectory, location));
 
             if (Adb.ExecuteAdbCommand(isFile).Contains("1"))
-                return ListingType.FILE;
+                return ListingType.File;
             else if (Adb.ExecuteAdbCommand(isDir).Contains("1"))
-                return ListingType.DIRECTORY;
+                return ListingType.Directory;
 
-            return ListingType.NONE;
+            return ListingType.None;
         }
 
         /// <summary>
@@ -209,15 +209,15 @@ namespace RegawMOD.Android
             if (location == null || string.IsNullOrEmpty(location) || Regex.IsMatch(location, @"\s"))
                 throw new ArgumentException("rootDir must not be null or empty!");
 
-            Dictionary<string, ListingType> filesAndDirs = new Dictionary<string, ListingType>();
+            var filesAndDirs = new Dictionary<string, ListingType>();
             AdbCommand cmd = null;
 
-            if (device.BusyBox.IsInstalled)
-                cmd = Adb.FormAdbShellCommand(device, true, "busybox", "ls", "-a", "-p", "-l", location);
+            if (_device.BusyBox.IsInstalled)
+                cmd = Adb.FormAdbShellCommand(_device, true, "busybox", "ls", "-a", "-p", "-l", location);
             else
-                cmd = Adb.FormAdbShellCommand(device, true, "ls", "-a", "-p", "-l", location);
+                cmd = Adb.FormAdbShellCommand(_device, true, "ls", "-a", "-p", "-l", location);
 
-            using (StringReader reader = new StringReader(Adb.ExecuteAdbCommand(cmd)))
+            using (var reader = new StringReader(Adb.ExecuteAdbCommand(cmd)))
             {
                 string line = null;
                 while (reader.Peek() != -1)
@@ -225,7 +225,7 @@ namespace RegawMOD.Android
                     line = reader.ReadLine();
                     if (!string.IsNullOrEmpty(line) && !Regex.IsMatch(line, @"\s"))
                     {
-                        filesAndDirs.Add(line, line.EndsWith("/") ? ListingType.DIRECTORY : ListingType.FILE);
+                        filesAndDirs.Add(line, line.EndsWith("/") ? ListingType.Directory : ListingType.File);
                     }
                 }
             }

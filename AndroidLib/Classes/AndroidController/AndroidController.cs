@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace RegawMOD.Android
@@ -56,8 +57,8 @@ namespace RegawMOD.Android
     /// </example>
     public sealed class AndroidController
     {
-        private const string ANDROID_CONTROLLER_TMP_FOLDER = "AndroidLib\\";
-        private static readonly Dictionary<string, string> RESOURCES = new Dictionary<string, string>
+        private const string AndroidControllerTmpFolder = "AndroidLib\\";
+        private static readonly Dictionary<string, string> Resources = new Dictionary<string, string>
         {
             {"adb.exe","862c2b75b223e3e8aafeb20fe882a602"},
             {"AdbWinApi.dll", "47a6ee3f186b2c2f5057028906bac0c6"},
@@ -65,11 +66,11 @@ namespace RegawMOD.Android
             {"fastboot.exe", "35792abb2cafdf2e6844b61e993056e2"},
         };
 
-        private static AndroidController instance;
+        private static AndroidController _instance;
 
-        private string resourceDirectory;
-        private List<string> connectedDevices;
-        private bool Extract_Resources = false;
+        private string _resourceDirectory;
+        private List<string> _connectedDevices;
+        private bool _extractResources;
 
         /// <summary>
         /// Gets the current AndroidController Instance.
@@ -78,15 +79,13 @@ namespace RegawMOD.Android
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new AndroidController();
-                    instance.CreateResourceDirectories();
-                    instance.ExtractResources();
-                    Adb.StartServer();
-                }
+                if (_instance != null) return _instance;
+                _instance = new AndroidController();
+                _instance.CreateResourceDirectories();
+                _instance.ExtractResources();
+                Adb.StartServer();
 
-                return instance;
+                return _instance;
             }
         }
 
@@ -98,49 +97,44 @@ namespace RegawMOD.Android
             get
             {
                 this.UpdateDeviceList();
-                return this.connectedDevices;
+                return this._connectedDevices;
             }
         }
 
-        internal string ResourceDirectory
-        {
-            get { return this.resourceDirectory; }
-        }
+        internal string ResourceDirectory => this._resourceDirectory;
 
         private AndroidController()
         {
-            this.connectedDevices = new List<string>();
-            ResourceFolderManager.Register(ANDROID_CONTROLLER_TMP_FOLDER);
-            this.resourceDirectory = ResourceFolderManager.GetRegisteredFolderPath(ANDROID_CONTROLLER_TMP_FOLDER);
+            this._connectedDevices = new List<string>();
+            ResourceFolderManager.Register(AndroidControllerTmpFolder);
+            this._resourceDirectory = ResourceFolderManager.GetRegisteredFolderPath(AndroidControllerTmpFolder);
         }
 
         private void CreateResourceDirectories()
         {
             try
             {
-                if (!Adb.ExecuteAdbCommand(new AdbCommand("version")).Contains(Adb.ADB_VERSION))
+                if (!Adb.ExecuteAdbCommand(new AdbCommand("version")).Contains(Adb.AdbVersion))
                 {
                     Adb.KillServer();
                     Thread.Sleep(1000);
-                    ResourceFolderManager.Unregister(ANDROID_CONTROLLER_TMP_FOLDER);
-                    Extract_Resources = true;
+                    ResourceFolderManager.Unregister(AndroidControllerTmpFolder);
+                    _extractResources = true;
                 }
             }
             catch (Exception)
             {
-                Extract_Resources = true;
+                _extractResources = true;
             }
-            ResourceFolderManager.Register(ANDROID_CONTROLLER_TMP_FOLDER);
+            ResourceFolderManager.Register(AndroidControllerTmpFolder);
         }
 
         private void ExtractResources()
         {
-            if (this.Extract_Resources)
-            {
-                string[] res = new string[RESOURCES.Count];
-                RESOURCES.Keys.CopyTo(res, 0);
-                Extract.Resources(this, this.resourceDirectory, "Resources.AndroidController", res);
-            }
+            if (!this._extractResources) return;
+            var res = new string[Resources.Count];
+            Resources.Keys.CopyTo(res, 0);
+            Extract.Resources(this, this._resourceDirectory, "Resources.AndroidController", res);
         }
 
         /// <summary>
@@ -154,7 +148,26 @@ namespace RegawMOD.Android
                 Adb.KillServer();
                 Thread.Sleep(1000);
             }
-            AndroidController.instance = null;
+            AndroidController._instance = null;
+        }
+
+        /// <summary>
+        /// Restarts the ADB Server used by <see cref="AndroidController"/>
+        /// </summary>
+        /// <returns>Returns <c>true</c> if ADB Server was Successfully Started, else Returns <c>false</c></returns>
+        public bool RestartAdb()
+        {
+            if (Adb.ServerRunning)
+            {
+                Adb.KillServer();
+                Thread.Sleep(1000);
+                Adb.StartServer();
+                Thread.Sleep(3000);
+                return Adb.ServerRunning;
+            }
+            Adb.StartServer();
+            Thread.Sleep(3000);
+            return Adb.ServerRunning;
         }
 
         /// <summary>
@@ -163,10 +176,7 @@ namespace RegawMOD.Android
         /// <returns><see cref="Device"/> containing info about the device with the first serial number in the internal collection</returns>
         public Device GetConnectedDevice()
         {
-            if (this.HasConnectedDevices)
-                return new Device(this.connectedDevices[0]);
-                
-            return null;
+            return this.HasConnectedDevices ? new Device(this._connectedDevices[0]) : null;
         }
 
         /// <summary>
@@ -179,10 +189,7 @@ namespace RegawMOD.Android
         {
             this.UpdateDeviceList();
 
-            if (this.connectedDevices.Contains(deviceSerial))
-                return new Device(deviceSerial);
-
-            return null;
+            return this._connectedDevices.Contains(deviceSerial) ? new Device(deviceSerial) : null;
         }
 
         /// <summary>
@@ -190,7 +197,7 @@ namespace RegawMOD.Android
         /// </summary>
         public bool HasConnectedDevices
         {
-            get { this.UpdateDeviceList(); return (this.connectedDevices.Count > 0) ? true : false; }
+            get { this.UpdateDeviceList(); return (this._connectedDevices.Count > 0); }
         }
 
         /// <summary>
@@ -212,11 +219,7 @@ namespace RegawMOD.Android
         {
             this.UpdateDeviceList();
 
-            foreach (string s in this.connectedDevices)
-                if (s.ToLower() == deviceSerial.ToLower())
-                    return true;
-
-            return false;
+            return this._connectedDevices.Any(s => string.Equals(s, deviceSerial, StringComparison.CurrentCultureIgnoreCase));
         }
 
         /// <summary>
@@ -228,11 +231,7 @@ namespace RegawMOD.Android
         {
             this.UpdateDeviceList();
 
-            foreach (string d in this.connectedDevices)
-                if (d == device.SerialNumber)
-                    return true;
-
-            return false;
+            return this._connectedDevices.Any(d => d == device.SerialNumber);
         }
 
         /// <summary>
@@ -240,66 +239,56 @@ namespace RegawMOD.Android
         /// </summary>
         /// <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
         public void UpdateDeviceList()
-        {
-            string deviceList = "";
+        { 
+            this._connectedDevices.Clear();
+            var deviceList = Adb.Devices();
 
-            this.connectedDevices.Clear();
-
-            deviceList = Adb.Devices();
             if (deviceList.Length > 29)
             {
-                using (StringReader s = new StringReader(deviceList))
+                using (var s = new StringReader(deviceList))
                 {
-                    string line;
-
                     while (s.Peek() != -1)
                     {
-                        line = s.ReadLine();
+                        var line = s.ReadLine();
 
-                        if (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == "")
+                        if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
                             continue;
 
-                        if (line.IndexOf('\t') != -1)
-                        {
-                            line = line.Substring(0, line.IndexOf('\t'));
-                            this.connectedDevices.Add(line);
-                        }
+                        if (line == null || line.IndexOf('\t') == -1) continue;
+                        line = line.Substring(0, line.IndexOf('\t'));
+                        this._connectedDevices.Add(line);
                     }
                 }
             }
 
             deviceList = Fastboot.Devices();
-            if (deviceList.Length > 0)
+            if (deviceList.Length <= 0) return;
             {
-                using (StringReader s = new StringReader(deviceList))
+                using (var s = new StringReader(deviceList))
                 {
-                    string line;
-
                     while (s.Peek() != -1)
                     {
-                        line = s.ReadLine();
+                        var line = s.ReadLine();
 
-                        if (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == "")
+                        if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
                             continue;
 
-                        if (line.IndexOf('\t') != -1)
-                        {
-                            line = line.Substring(0, line.IndexOf('\t'));
-                            this.connectedDevices.Add(line);
-                        }
+                        if (line == null || line.IndexOf('\t') == -1) continue;
+                        line = line.Substring(0, line.IndexOf('\t'));
+                        this._connectedDevices.Add(line);
                     }
                 }
             }
         }
 
-        private bool _CancelRequest;
+        private bool _cancelRequest;
         /// <summary>
         /// Set to true to cancel a WaitForDevice() method call
         /// </summary>
         public bool CancelWait
         {
-            get { return _CancelRequest; }
-            set { _CancelRequest = value; }
+            get => _cancelRequest;
+            set => _cancelRequest = value;
         }
 
         /// <summary>
@@ -320,6 +309,15 @@ namespace RegawMOD.Android
             }
 
             this.CancelWait = false;
+        }
+
+        /// <summary>
+        /// Calls <see cref="Adb.Sideload"/> on a device.
+        /// </summary>
+        /// <param name="sideloadPackage">Sideload Package To Send To A Device.</param>
+        public void SideloadDevice(string sideloadPackage)
+        {
+            
         }
     }
 }

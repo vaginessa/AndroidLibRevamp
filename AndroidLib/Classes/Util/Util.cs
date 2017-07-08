@@ -14,9 +14,9 @@ namespace RegawMOD
 
         internal static string ProperCase(this string s)
         {
-            string final = "";
+            var final = "";
 
-            for (int i = 0; i < s.Length; i++)
+            for (var i = 0; i < s.Length; i++)
             {
                 if (i == 0 && char.IsLetter(s[i]))
                 {

@@ -11,17 +11,17 @@ namespace RegawMOD.Android
     /// <para>Can only be executed with <c>Fastboot.ExecuteFastbootCommand()</c> or <c>Fastboot.ExecuteFastbootCommandNoReturn()</c></para></remarks>
     public class FastbootCommand
     {
-        private string command;
-        private int timeout;
-        internal string Command { get { return this.command; } }
-        internal int Timeout { get { return this.timeout; } }
-        internal FastbootCommand(string command) { this.command = command; this.timeout = RegawMOD.Command.DEFAULT_TIMEOUT; }
+        private string _command;
+        private int _timeout;
+        internal string Command => this._command;
+        internal int Timeout => this._timeout;
+        internal FastbootCommand(string command) { this._command = command; this._timeout = RegawMOD.Command.DefaultTimeout; }
         
         /// <summary>
         /// Sets the timeout for the FastbootCommand
         /// </summary>
         /// <param name="timeout">The timeout for the command in milliseconds</param>
-        public FastbootCommand WithTimeout(int timeout) { this.timeout = timeout; return this; }
+        public FastbootCommand WithTimeout(int timeout) { this._timeout = timeout; return this; }
     }
 
     
@@ -31,7 +31,7 @@ namespace RegawMOD.Android
     /// </summary>
     public static class Fastboot
     {
-        private const string FASTBOOT_EXE = "fastboot.exe";
+        private const string FastbootExe = "fastboot.exe";
 
         internal static string Devices()
         {
@@ -56,9 +56,9 @@ namespace RegawMOD.Android
         /// </example>
         public static FastbootCommand FormFastbootCommand(string command, params string[] args)
         {
-            string fbCmd = (args.Length > 0) ? command + " " : command;
+            var fbCmd = (args.Length > 0) ? command + " " : command;
 
-            for (int i = 0; i < args.Length; i++)
+            for (var i = 0; i < args.Length; i++)
                 fbCmd += args[i] + " ";
 
             return new FastbootCommand(fbCmd);
@@ -84,11 +84,11 @@ namespace RegawMOD.Android
         /// </example>
         public static FastbootCommand FormFastbootCommand(Device device, string command, params string[] args)
         {
-            string fbCmd = "-s " + device.SerialNumber + " ";
+            var fbCmd = "-s " + device.SerialNumber + " ";
 
             fbCmd += (args.Length > 0) ? command + " " : command;
 
-            for (int i = 0; i < args.Length; i++)
+            for (var i = 0; i < args.Length; i++)
                 fbCmd += args[i] + " ";
 
             return new FastbootCommand(fbCmd);
@@ -101,7 +101,7 @@ namespace RegawMOD.Android
         /// <returns>Output of <paramref name="command"/> run in fastboot</returns>
         public static string ExecuteFastbootCommand(FastbootCommand command)
         {
-            return Command.RunProcessReturnOutput(AndroidController.Instance.ResourceDirectory + FASTBOOT_EXE, command.Command, command.Timeout);
+            return Command.RunProcessReturnOutput(AndroidController.Instance.ResourceDirectory + FastbootExe, command.Command, command.Timeout);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace RegawMOD.Android
         /// <param name="command">Instance of <see cref="FastbootCommand"/></param>
         public static void ExecuteFastbootCommandNoReturn(FastbootCommand command)
         {
-            Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + FASTBOOT_EXE, command.Command, command.Timeout);
+            Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + FastbootExe, command.Command, command.Timeout);
         }
     }
 }
