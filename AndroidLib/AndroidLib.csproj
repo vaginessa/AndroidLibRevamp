@@ -82,6 +82,7 @@
     <EmbeddedResource Include="Resources\AndroidController\AdbWinUsbApi.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Release\" />
     <Folder Include="Resources\Other\" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +95,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AAPT\aapt.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\AndroidLib.dll" />
+    <Content Include="bin\Debug\AndroidLib.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
