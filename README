@@ -1,3 +1,10 @@
-This is the source for AndroidLib.  To download the compiled dll and documentation, please visit AndroidLib's XDA-Developers thread.
+Status:         Updating
+Documentation:  Original Link Is Dead, However I am activley working on it.
+Compiled DLL:   Currently Not Available For Download, Instructions Below For Obtaining it.
 
-AndroidLib on XDA-Developers - http://forum.xda-developers.com/showthread.php?t=1512685
+1. Clone or Download AndroidLib Repository.
+2. Open Solution in Visual Studio.
+3. Build Solution.
+4. In Solution Explorer Pane Ensure Show All Files is Enabled.
+5. Solution Explorer > bin (Hidden) > Debug > AndroidLib.dll/AndroidLib.XML
+
