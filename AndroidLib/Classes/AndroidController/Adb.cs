@@ -3,7 +3,10 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace RegawMOD.Android
 {
@@ -114,15 +117,14 @@ namespace RegawMOD.Android
             if (rootShell && !device.HasRoot)
                 throw new DeviceHasNoRootException();
 
-            var shellCommand = string.Format("-s {0} shell \"", device.SerialNumber);
+            var shellCommand = $"-s {device.SerialNumber} shell \"";
 
             if (rootShell)
                 shellCommand += "su -c \"";
 
             shellCommand += executable;
 
-            for (var i = 0; i < args.Length; i++)
-                shellCommand += " " + args[i];
+            shellCommand = args.Aggregate(shellCommand, (current, t) => current + (" " + t));
 
             if (rootShell)
                 shellCommand += "\"";
@@ -213,6 +215,26 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
+        /// Executes an <see cref="AdbCommand"/> on the running Adb Server
+        /// and prints the Error/Output Streams to<paramref name="outputControl"/>
+        /// and returns and ExitCode from <see cref="Process"/>.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="outputControl"><see cref="ListBox"/> ListBoxControl</param>
+        /// <returns></returns>
+        public static int ExecuteAdbCommandConsoleOut(AdbCommand command, ListBox outputControl)
+        {
+            var result = -1;
+
+            lock (_lock)
+            {
+                result = Command.RunProcessOutputToConsole(AndroidController.Instance.ResourceDirectory + AdbExe,
+                    command.Command, command.Timeout, outputControl);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Gets a value indicating if an Android Debug Bridge Server is currently running.
         /// </summary>
         public static bool ServerRunning => Command.IsProcessRunning(Adb.ADB);
@@ -254,17 +276,31 @@ namespace RegawMOD.Android
             return success;
         }
 
-        public static bool Sideload(string sideloadPackage)
+        /// <summary>
+        /// Pushes A Sideload Package Via ADB Server to A Device.
+        /// </summary>
+        /// <param name="sideloadPackage">File To Sideload</param>
+        /// <param name="outputControl">Control For Output</param>
+        /// <returns></returns>
+        public static int Sideload(string sideloadPackage, ListBox outputControl)
         {
-            var adbCmd = Adb.FormAdbCommand("sideload", sideloadPackage);
-            using(var r = new StringReader(ExecuteAdbCommand(adbCmd)))
-            {
-                if(r.ReadToEnd() != null)
-                {
-                    return true;
-                }
-                return false;
-            }
+            var adbCmd = FormAdbCommand("sideload", sideloadPackage);
+            var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
+            return result;
+        }
+
+        /// <summary>
+        /// Pushes A Sideload Package Via ADB Server to A Specified Device.
+        /// </summary>
+        /// <param name="deviceSerial">Target Device Serial</param>
+        /// <param name="sideloadPackage">File To Sideload</param>
+        /// <param name="outputControl"></param>
+        /// <returns></returns>
+        public static int Sideload(string deviceSerial, string sideloadPackage, ListBox outputControl)
+        {
+            var adbCmd = FormAdbCommand($"-s {deviceSerial} sideload", sideloadPackage);
+            var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
+            return result;
         }
     }
 }

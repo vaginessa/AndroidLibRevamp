@@ -2,11 +2,16 @@
  * Command.cs - Developed by Dan Wager for AndroidLib.dll - 04/12/12
  */
 
+using RegawMOD.Android.Classes.Util;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace RegawMOD
 {
@@ -69,7 +74,76 @@ namespace RegawMOD
             }
         }
 
+        /// <summary>
+        /// Adds <see cref="Message"/> Object to ListBox Control.
+        /// <remarks>Uses <see cref="Dispatcher"/>To Allow "Access" From A Non-Controlling Thread.</remarks>
+        /// </summary>
+        /// <param name="outputControl"></param>
+        /// <param name="outputContent"></param>
+        internal static void OutputToConsole(ListBox outputControl, Message outputContent)
+        {
+            // Check To See If We Have Thread Access.
+            // If not then use Dispatcher to add item.
+            if (outputControl.CheckAccess())
+            {
+                outputControl.Items.Add(outputContent);
+                outputControl.UpdateLayout();
+                outputControl.ScrollIntoView(outputControl.Items[outputControl.Items.Count - 1]);
+            }
+            else
+            {
+                outputControl.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    outputControl.Items.Add(outputContent);
+                    outputControl.UpdateLayout();
+                    outputControl.ScrollIntoView(outputControl.Items[outputControl.Items.Count - 1]);
+                }));
+            }
+        }
 
+        /// <summary>
+        /// Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
+        /// <see cref="ListBox"/><paramref name="outputControl"/>.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        /// <param name="outputControl"><see cref="ListBox"/>ListBox Control Being used as an Output Console.</param>
+        /// <returns><see cref="Process.ExitCode"/></returns>
+        internal static int RunProcessOutputToConsole(string executable, string arguments, int timeout, ListBox outputControl)
+        {
+            const string sourceTag = "PROC";
+            var startInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                FileName = executable,
+                Arguments = arguments,
+                
+            };
+            using (var proc = new Process())
+            {
+                proc.StartInfo = startInfo;
+                proc.ErrorDataReceived += (sendingProcess, output) =>
+                {
+                    if (string.IsNullOrEmpty(output.Data)) return;
+                    var outputMessage = new Message(1,sourceTag,output.Data);
+                    OutputToConsole(outputControl,outputMessage);
+                };
+                proc.OutputDataReceived += (sendingProcess, output) =>
+                {
+                    if (string.IsNullOrEmpty(output.Data)) return;
+                    var outputMessage = new Message(0, sourceTag, output.Data);
+                    OutputToConsole(outputControl, outputMessage);
+                };
+                proc.Start();
+                proc.BeginErrorReadLine();
+                proc.BeginOutputReadLine();
+                proc.WaitForExit(timeout);
+                return proc.ExitCode;
+            }
+        }
 
         internal static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
         {
@@ -221,5 +295,7 @@ namespace RegawMOD
                 }
             }
         }
+
+
     }
 }

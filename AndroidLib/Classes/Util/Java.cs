@@ -58,12 +58,10 @@ namespace RegawMOD
             _installationPath = GetJavaInstallationPath();
             _isInstalled = !string.IsNullOrEmpty(_installationPath);
 
-            if (_isInstalled)
-            {
-                _binPath = Path.Combine(_installationPath, "bin");
-                _javaExecutable = Path.Combine(_installationPath, "bin\\java.exe");
-                _javacExecutable = Path.Combine(_installationPath, "bin\\javac.exe");
-            }
+            if (!_isInstalled) return;
+            _binPath = Path.Combine(_installationPath, "bin");
+            _javaExecutable = Path.Combine(_installationPath, "bin\\java.exe");
+            _javacExecutable = Path.Combine(_installationPath, "bin\\javac.exe");
         }
 
         private static string GetJavaInstallationPath()
@@ -79,10 +77,11 @@ namespace RegawMOD
             {
                 using (var r = Registry.LocalMachine.OpenSubKey(javaKey))
                 {
-                    using (var k = r.OpenSubKey(r.GetValue("CurrentVersion").ToString()))
-                    {
-                        environmentPath = k.GetValue("JavaHome").ToString();
-                    }
+                    if (r != null)
+                        using (var k = r.OpenSubKey(r.GetValue("CurrentVersion").ToString()))
+                        {
+                            if (k != null) environmentPath = k.GetValue("JavaHome").ToString();
+                        }
                 }
             }
             catch

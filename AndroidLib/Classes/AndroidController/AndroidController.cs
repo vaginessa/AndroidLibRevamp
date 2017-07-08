@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows.Controls;
 
 namespace RegawMOD.Android
 {
@@ -312,12 +313,28 @@ namespace RegawMOD.Android
         }
 
         /// <summary>
-        /// Calls <see cref="Adb.Sideload"/> on a device.
+        /// Uses
         /// </summary>
         /// <param name="sideloadPackage">Sideload Package To Send To A Device.</param>
-        public void SideloadDevice(string sideloadPackage)
+        /// <param name="outputControl">ListBox control to output to.</param>
+        /// <returns>Sideload Process ExitCode</returns>
+        public int SideloadDevice(string sideloadPackage, ListBox outputControl)
         {
-            
+            var sideloadResult = Adb.Sideload(sideloadPackage, outputControl);
+            return sideloadResult;
+        }
+
+        /// <summary>
+        /// Loads specified sideloadPackage File onto specified device via ADB sideload.
+        /// </summary>
+        /// <param name="deviceSerial"></param>
+        /// <param name="sideloadPackage"></param>
+        /// <param name="outputControl"></param>
+        /// <returns>Sideload Process ExitCode</returns>
+        public int SideloadDevice(string deviceSerial, string sideloadPackage, ListBox outputControl)
+        {
+            var sideloadResult = Adb.Sideload(deviceSerial, sideloadPackage, outputControl);
+            return sideloadResult;
         }
     }
 }
