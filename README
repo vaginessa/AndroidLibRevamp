@@ -1,10 +1,17 @@
-Status:         Updating
-Documentation:  Original Link Is Dead, However I am activley working on it.
-Compiled DLL:   Currently Not Available For Download, Instructions Below For Obtaining it.
+# AndroidLib Update Project
+I have recently stumbled upon this project and have started adding to it, hopefully for the better we will see.
 
+## New Features
+Do you have a feature request? Just create an Issue with a request or message me, Issues will be completed faster.
+
+## AndroidLib.dll
+
+Instructions Below For Compiling AndroidLib.dll From Source.
 1. Clone or Download AndroidLib Repository.
 2. Open Solution in Visual Studio.
 3. Build Solution.
 4. In Solution Explorer Pane Ensure Show All Files is Enabled.
 5. Solution Explorer > bin (Hidden) > Debug > AndroidLib.dll/AndroidLib.XML
 
+### Compiled DLL
+Available In Project Source At AndroidLib/AndroidLib/bin Directory. 
