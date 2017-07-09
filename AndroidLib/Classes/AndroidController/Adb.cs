@@ -526,43 +526,43 @@ namespace Headygains.Android.Classes.AndroidController
             return result;
         }
 
-        /// <summary>
-        /// Pushes A Sideload Package Via ADB Server to A Device Asynchronously, see <see cref="Task"/>
-        /// </summary>
-        /// <param name="sideloadPackage">File To Sideload</param>
-        /// <param name="outputControl">Control For Output</param>
-        /// <returns><see cref="Process.ExitCode"/></returns>
-        public static async Task<int> SideloadAsync(string sideloadPackage, ListBox outputControl)
-        {
-            var adbCmd = await FormAdbCommandAsync("sideload", sideloadPackage);
-            return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
-        }
+        ///// <summary>
+        ///// Pushes A Sideload Package Via ADB Server to A Device Asynchronously, see <see cref="Task"/>
+        ///// </summary>
+        ///// <param name="sideloadPackage">File To Sideload</param>
+        ///// <param name="outputControl">Control For Output</param>
+        ///// <returns><see cref="Process.ExitCode"/></returns>
+        //public static async Task<int> SideloadAsync(string sideloadPackage, ListBox outputControl)
+        //{
+        //    var adbCmd = await FormAdbCommandAsync("sideload", sideloadPackage);
+        //    return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
+        //}
 
-        /// <summary>
-        /// Pushes A Sideload Package Via ADB Server to A Specified Device.
-        /// </summary>
-        /// <param name="deviceSerialNumber">Target Device Serial</param>
-        /// <param name="sideloadPackage">File To Sideload</param>
-        /// <param name="outputControl"></param>
-        /// <returns></returns>
-        public static int Sideload(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
-        {
-            var adbCmd = FormAdbCommand($"-s {deviceSerialNumber} sideload", sideloadPackage);
-            var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
-            return result;
-        }
+        ///// <summary>
+        ///// Pushes A Sideload Package Via ADB Server to A Specified Device.
+        ///// </summary>
+        ///// <param name="deviceSerialNumber">Target Device Serial</param>
+        ///// <param name="sideloadPackage">File To Sideload</param>
+        ///// <param name="outputControl"></param>
+        ///// <returns></returns>
+        //public static int Sideload(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
+        //{
+        //    var adbCmd = FormAdbCommand($"-s {deviceSerialNumber} sideload", sideloadPackage);
+        //    var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
+        //    return result;
+        //}
 
-        /// <summary>
-        /// Pushes A Sideload Package Via ADB Server to A Specified Device Asynchronously, see <see cref="Task"/>
-        /// </summary>
-        /// <param name="deviceSerialNumber"></param>
-        /// <param name="sideloadPackage">File To Sideload</param>
-        /// <param name="outputControl">Control For Output</param>
-        /// <returns><see cref="Process.ExitCode"/></returns>
-        public static async Task<int> SideloadAsync(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
-        {
-            var adbCmd = await FormAdbCommandAsync($"-s {deviceSerialNumber} sideload", sideloadPackage);
-            return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
-        }
+        ///// <summary>
+        ///// Pushes A Sideload Package Via ADB Server to A Specified Device Asynchronously, see <see cref="Task"/>
+        ///// </summary>
+        ///// <param name="deviceSerialNumber"></param>
+        ///// <param name="sideloadPackage">File To Sideload</param>
+        ///// <param name="outputControl">Control For Output</param>
+        ///// <returns><see cref="Process.ExitCode"/></returns>
+        //public static async Task<int> SideloadAsync(string deviceSerialNumber, string sideloadPackage, ListBox outputControl)
+        //{
+        //    var adbCmd = await FormAdbCommandAsync($"-s {deviceSerialNumber} sideload", sideloadPackage);
+        //    return await ExecuteAdbCommandConsoleOutAsync(adbCmd, outputControl);
+        //}
     }
 }

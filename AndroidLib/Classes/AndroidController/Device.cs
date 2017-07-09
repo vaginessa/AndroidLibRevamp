@@ -5,6 +5,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Headygains.Android.Classes.Util;
 
 namespace Headygains.Android.Classes.AndroidController
@@ -206,14 +207,18 @@ namespace Headygains.Android.Classes.AndroidController
         /// <summary>
         /// Reboots the device into the bootloader
         /// </summary>
-        public void RebootBootloader()
+        public async Task RebootBootloader()
         {
-            new Thread(new ThreadStart(RebootBootloaderThread)).Start();
+            if (this.State.Equals(DeviceState.Online))
+                await RebootBootloaderTask();
         }
 
-        private void RebootBootloaderThread()
+        private Task RebootBootloaderTask()
         {
-            Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot", "bootloader"));
+            return Task.Factory.StartNew(() =>
+            {
+                Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot-bootloader"));
+            }); 
         }
 
         /// <summary>
@@ -243,6 +248,29 @@ namespace Headygains.Android.Classes.AndroidController
         }
 
         /// <summary>
+        /// Pushes a file to the device asynchronously
+        /// </summary>
+        /// <param name="filePath">The path to the file on the computer you want to push</param>
+        /// <param name="destinationFilePath">The desired full path of the file after pushing to the device (including file name and extension)</param>
+        /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+        /// <returns>If the push was successful</returns>
+        public async Task<bool> PushFileAsync(string filePath, string destinationFilePath,
+            int timeout = Command.DefaultTimeout)
+        {
+            if (!this.State.Equals(DeviceState.Online)) return false;
+            return await PushFileTask(filePath, destinationFilePath, timeout);
+        }
+
+        private Task<bool> PushFileTask(string filePath, string destinationFilePath, int timeout)
+        {
+            return Task<bool>.Factory.StartNew(() =>
+            {
+                var adbCmd = Adb.FormAdbCommand(this, "push", "\"" + filePath + "\"", "\"" + destinationFilePath + "\"");
+                return (Adb.ExecuteAdbCommandReturnExitCode(adbCmd.WithTimeout(timeout)) == 0);
+            });
+        }
+
+        /// <summary>
         /// Pulls a full directory recursively from the device
         /// </summary>
         /// <param name="location">Path to folder to pull from device</param>
@@ -264,6 +292,77 @@ namespace Headygains.Android.Classes.AndroidController
         public bool InstallApk(string location, int timeout = Command.DefaultTimeout)
         {
             return !Adb.ExecuteAdbCommand(Adb.FormAdbCommand(this, "install", "\"" + location + "\"").WithTimeout(timeout), true).Contains("Failure");
+        }
+
+        /// <summary>
+        /// Installs an application from the local computer to the Android device
+        /// </summary>
+        /// <param name="location">Full path of apk on computer</param>
+        /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+        /// <returns>True if install is successful, False if install fails for any reason</returns>
+        public async Task<bool> InstallApkAsync(string location, int timeout = Command.DefaultTimeout)
+        {
+            if (this.State.Equals(DeviceState.Online))
+                return await InstallApkTask(location, timeout);
+            return false;
+        }
+
+        /// <summary>
+        /// Task That Handles InstallApk Logic For <see cref="InstallApkAsync"/>
+        /// </summary>
+        /// <param name="location">Full path of apk on computer</param>
+        /// <param name="timeout">The timeout for the operation in milliseconds (Default = -1)</param>
+        /// <returns>True if install is successful, else False</returns>
+        private Task<bool> InstallApkTask(string location, int timeout)
+        {
+            return Task<bool>.Factory.StartNew(() => !Adb.ExecuteAdbCommand(
+                    Adb.FormAdbCommand(this, "install", "\"" + location + "\"").WithTimeout(timeout), true).Contains("Failure"));
+        }
+
+        /// <summary>
+        /// Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
+        /// Only Usable If Using a WPF ListBox Control As Output Console.
+        /// </summary>
+        /// <param name="sideloadPackage">Sideload Package To Send</param>
+        /// <param name="outputControl">ListBox control to output to</param>
+        /// <returns>Sideload Process ExitCode</returns>
+        public int Sideload(string sideloadPackage, ListBox outputControl)
+        {
+            // *** If Device State Isn't DeviceState.Sideload ***
+            if (!this.State.Equals(DeviceState.Sideload)) return -1;
+
+            // *** If Device State Is DeviceState.Sideload ***
+            var sideloadResult = Adb.Sideload(sideloadPackage, outputControl);
+            return sideloadResult;
+        }
+
+        /// <summary>
+        /// Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
+        /// Only Usable If Using a WPF ListBox Control As Output Console.
+        /// </summary>
+        /// <param name="sideloadPackage">Sideload Package To Send</param>
+        /// <param name="outputControl">ListBox control to output to</param>
+        /// <returns>Sideload Process ExitCode</returns>
+        public async Task<int> SideloadAsync(string sideloadPackage, ListBox outputControl)
+        {
+            if (!this.State.Equals(DeviceState.Sideload)) return -1;
+
+            return await SideloadTask(sideloadPackage, outputControl);
+        }
+
+        /// <summary>
+        /// Task That Handles Sideload Logic For <see cref="SideloadAsync"/>
+        /// </summary>
+        /// <param name="sideloadPackage"></param>
+        /// <param name="outputControl"></param>
+        /// <returns></returns>
+        private static Task<int> SideloadTask(string sideloadPackage, ListBox outputControl)
+        {
+            return Task<int>.Factory.StartNew(() =>
+            {
+                var sideloadResult = Adb.Sideload(sideloadPackage, outputControl);
+                return sideloadResult;
+            });
         }
 
         /// <summary>

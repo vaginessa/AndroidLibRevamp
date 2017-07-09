@@ -406,32 +406,6 @@
             <param name="outputControl">Control For Output</param>
             <returns></returns>
         </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.SideloadAsync(System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Pushes A Sideload Package Via ADB Server to A Device Asynchronously, see <see cref="T:System.Threading.Tasks.Task"/>
-            </summary>
-            <param name="sideloadPackage">File To Sideload</param>
-            <param name="outputControl">Control For Output</param>
-            <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.Sideload(System.String,System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Pushes A Sideload Package Via ADB Server to A Specified Device.
-            </summary>
-            <param name="deviceSerialNumber">Target Device Serial</param>
-            <param name="sideloadPackage">File To Sideload</param>
-            <param name="outputControl"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.SideloadAsync(System.String,System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Pushes A Sideload Package Via ADB Server to A Specified Device Asynchronously, see <see cref="T:System.Threading.Tasks.Task"/>
-            </summary>
-            <param name="deviceSerialNumber"></param>
-            <param name="sideloadPackage">File To Sideload</param>
-            <param name="outputControl">Control For Output</param>
-            <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
-        </member>
         <member name="T:Headygains.Android.Classes.AndroidController.BusyBox">
             <summary>
             Conatins information about device's busybox
@@ -631,6 +605,15 @@
             <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>If the push was successful</returns>
         </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PushFileAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Pushes a file to the device asynchronously
+            </summary>
+            <param name="filePath">The path to the file on the computer you want to push</param>
+            <param name="destinationFilePath">The desired full path of the file after pushing to the device (including file name and extension)</param>
+            <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+            <returns>If the push was successful</returns>
+        </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.PullDirectory(System.String,System.String,System.Int32)">
             <summary>
             Pulls a full directory recursively from the device
@@ -647,6 +630,48 @@
             <param name="location">Full path of apk on computer</param>
             <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>True if install is successful, False if install fails for any reason</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.InstallApkAsync(System.String,System.Int32)">
+            <summary>
+            Installs an application from the local computer to the Android device
+            </summary>
+            <param name="location">Full path of apk on computer</param>
+            <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+            <returns>True if install is successful, False if install fails for any reason</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.InstallApkTask(System.String,System.Int32)">
+            <summary>
+            Task That Handles InstallApk Logic For <see cref="M:Headygains.Android.Classes.AndroidController.Device.InstallApkAsync(System.String,System.Int32)"/>
+            </summary>
+            <param name="location">Full path of apk on computer</param>
+            <param name="timeout">The timeout for the operation in milliseconds (Default = -1)</param>
+            <returns>True if install is successful, else False</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.Sideload(System.String,System.Windows.Controls.ListBox)">
+            <summary>
+            Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
+            Only Usable If Using a WPF ListBox Control As Output Console.
+            </summary>
+            <param name="sideloadPackage">Sideload Package To Send</param>
+            <param name="outputControl">ListBox control to output to</param>
+            <returns>Sideload Process ExitCode</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.SideloadAsync(System.String,System.Windows.Controls.ListBox)">
+            <summary>
+            Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
+            Only Usable If Using a WPF ListBox Control As Output Console.
+            </summary>
+            <param name="sideloadPackage">Sideload Package To Send</param>
+            <param name="outputControl">ListBox control to output to</param>
+            <returns>Sideload Process ExitCode</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.SideloadTask(System.String,System.Windows.Controls.ListBox)">
+            <summary>
+            Task That Handles Sideload Logic For <see cref="M:Headygains.Android.Classes.AndroidController.Device.SideloadAsync(System.String,System.Windows.Controls.ListBox)"/>
+            </summary>
+            <param name="sideloadPackage"></param>
+            <param name="outputControl"></param>
+            <returns></returns>
         </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.Update">
             <summary>
@@ -770,6 +795,12 @@
             </summary>
             <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
         </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.UpdateDeviceListAsync">
+            <summary>
+            Updates Internal Device List Asynchronously
+            </summary>
+            <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
+        </member>
         <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.CancelWait">
             <summary>
             Set to true to cancel a WaitForDevice() method call
@@ -780,23 +811,6 @@
             Pauses thread until 1 or more Android devices are connected
             </summary>
             <remarks>Do Not Use in Windows Forms applications, as this method pauses the current thread.  Works fine in Console Applications</remarks>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.SideloadDevice(System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Uses
-            </summary>
-            <param name="sideloadPackage">Sideload Package To Send To A Device.</param>
-            <param name="outputControl">ListBox control to output to.</param>
-            <returns>Sideload Process ExitCode</returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.SideloadDevice(System.String,System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Loads specified sideloadPackage File onto specified device via ADB sideload.
-            </summary>
-            <param name="deviceSerial"></param>
-            <param name="sideloadPackage"></param>
-            <param name="outputControl"></param>
-            <returns>Sideload Process ExitCode</returns>
         </member>
         <member name="T:Headygains.Android.Classes.AndroidController.BuildProp">
             <summary>

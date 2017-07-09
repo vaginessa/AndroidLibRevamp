@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Headygains.Android.Classes.Util;
 
@@ -283,7 +284,63 @@ namespace Headygains.Android.Classes.AndroidController
             }
         }
 
+        /// <summary>
+        /// Updates Internal Device List Asynchronously
+        /// </summary>
+        /// <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
+        public async void UpdateDeviceListAsync()
+        {
+            await UpdateDeviceListTask();
+        }
+
+        private Task UpdateDeviceListTask()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                this._connectedDevices.Clear();
+                var deviceList = Adb.Devices();
+
+                if (deviceList.Length > 29)
+                {
+                    using (var s = new StringReader(deviceList))
+                    {
+                        while (s.Peek() != -1)
+                        {
+                            var line = s.ReadLine();
+
+                            if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
+                                continue;
+
+                            if (line == null || line.IndexOf('\t') == -1) continue;
+                            line = line.Substring(0, line.IndexOf('\t'));
+                            this._connectedDevices.Add(line);
+                        }
+                    }
+                }
+
+                deviceList = Fastboot.Devices();
+                if (deviceList.Length <= 0) return;
+                {
+                    using (var s = new StringReader(deviceList))
+                    {
+                        while (s.Peek() != -1)
+                        {
+                            var line = s.ReadLine();
+
+                            if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
+                                continue;
+
+                            if (line == null || line.IndexOf('\t') == -1) continue;
+                            line = line.Substring(0, line.IndexOf('\t'));
+                            this._connectedDevices.Add(line);
+                        }
+                    }
+                }
+            });
+        }
+
         private bool _cancelRequest;
+
         /// <summary>
         /// Set to true to cancel a WaitForDevice() method call
         /// </summary>
@@ -313,29 +370,5 @@ namespace Headygains.Android.Classes.AndroidController
             this.CancelWait = false;
         }
 
-        /// <summary>
-        /// Uses
-        /// </summary>
-        /// <param name="sideloadPackage">Sideload Package To Send To A Device.</param>
-        /// <param name="outputControl">ListBox control to output to.</param>
-        /// <returns>Sideload Process ExitCode</returns>
-        public int SideloadDevice(string sideloadPackage, ListBox outputControl)
-        {
-            var sideloadResult = Adb.Sideload(sideloadPackage, outputControl);
-            return sideloadResult;
-        }
-
-        /// <summary>
-        /// Loads specified sideloadPackage File onto specified device via ADB sideload.
-        /// </summary>
-        /// <param name="deviceSerial"></param>
-        /// <param name="sideloadPackage"></param>
-        /// <param name="outputControl"></param>
-        /// <returns>Sideload Process ExitCode</returns>
-        public int SideloadDevice(string deviceSerial, string sideloadPackage, ListBox outputControl)
-        {
-            var sideloadResult = Adb.Sideload(deviceSerial, sideloadPackage, outputControl);
-            return sideloadResult;
-        }
     }
 }
