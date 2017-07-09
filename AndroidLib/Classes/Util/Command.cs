@@ -9,6 +9,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -120,7 +121,8 @@ namespace RegawMOD
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = executable,
                 Arguments = arguments,
-                
+                RedirectStandardError = true,
+                RedirectStandardOutput = true    
             };
             using (var proc = new Process())
             {
@@ -143,6 +145,55 @@ namespace RegawMOD
                 proc.WaitForExit(timeout);
                 return proc.ExitCode;
             }
+        }
+
+        /// <summary>
+        /// Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
+        /// <see cref="ListBox"/><paramref name="outputControl"/>.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        /// <param name="outputControl"><see cref="ListBox"/>ListBox Control Being used as an Output Console.</param>
+        /// <returns><see cref="Process.ExitCode"/></returns>
+        internal static Task<int> RunProcessOutputToConsoleAsync(string executable, string arguments, int timeout, ListBox outputControl)
+        {
+            const string sourceTag = "PROC";
+            return Task<int>.Factory.StartNew(() =>
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = executable,
+                    Arguments = arguments,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                };
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = startInfo;
+                    proc.ErrorDataReceived += (sendingProcess, output) =>
+                    {
+                        if (string.IsNullOrEmpty(output.Data)) return;
+                        var outputMessage = new Message(1, sourceTag, output.Data);
+                        OutputToConsole(outputControl, outputMessage);
+                    };
+                    proc.OutputDataReceived += (sendingProcess, output) =>
+                    {
+                        if (string.IsNullOrEmpty(output.Data)) return;
+                        var outputMessage = new Message(0, sourceTag, output.Data);
+                        OutputToConsole(outputControl, outputMessage);
+                    };
+                    proc.Start();
+                    proc.BeginErrorReadLine();
+                    proc.BeginOutputReadLine();
+                    proc.WaitForExit(timeout);
+                    return proc.ExitCode;
+                }
+            });
+            
         }
 
         internal static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
