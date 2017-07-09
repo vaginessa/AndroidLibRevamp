@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Conatins information about device's busybox

@@ -4,9 +4,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Manages all information from connected Android device's build properties
@@ -68,9 +68,7 @@ namespace RegawMOD.Android
         {
             Update();
 
-            string tmp;
-
-            this._prop.TryGetValue(key, out tmp);
+            this._prop.TryGetValue(key, out string tmp);
 
             return tmp;
         }

@@ -8,8 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Holds formatted commands to execute through <see cref="Adb"/>
@@ -22,7 +23,7 @@ namespace RegawMOD.Android
         private int _timeout;
         internal string Command => this._command;
         internal int Timeout => this._timeout;
-        internal AdbCommand(string command) { this._command = command; this._timeout = RegawMOD.Command.DefaultTimeout; }
+        internal AdbCommand(string command) { this._command = command; this._timeout = Util.Command.DefaultTimeout; }
 
         /// <summary>
         /// Sets the timeout for the AdbCommand

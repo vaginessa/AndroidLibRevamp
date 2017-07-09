@@ -4,156 +4,156 @@
         <name>AndroidLib</name>
     </assembly>
     <members>
-        <member name="T:RegawMOD.Android.Aapt">
+        <member name="T:Headygains.Android.Classes.AAPT.Aapt">
             <summary>
             Wrapper for the AAPT Android binary
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Aapt.#ctor">
+        <member name="M:Headygains.Android.Classes.AAPT.Aapt.#ctor">
             <summary>
             Initializes a new instance of the <c>AAPT</c> class
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Aapt.DumpBadging(System.IO.FileInfo)">
+        <member name="M:Headygains.Android.Classes.AAPT.Aapt.DumpBadging(System.IO.FileInfo)">
             <summary>
             Dumps the specified Apk's badging information
             </summary>
             <param name="source">Source Apk on local machine</param>
-            <returns><see cref="T:RegawMOD.Android.Aapt.Badging"/> object containing badging information</returns>
+            <returns><see cref="T:Headygains.Android.Classes.AAPT.Aapt.Badging"/> object containing badging information</returns>
         </member>
-        <member name="M:RegawMOD.Android.Aapt.Dispose">
+        <member name="M:Headygains.Android.Classes.AAPT.Aapt.Dispose">
             <summary>
             Call to free up resources after use of <c>AAPT</c>
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Aapt.Badging">
+        <member name="T:Headygains.Android.Classes.AAPT.Aapt.Badging">
             <summary>
             Contains Apk Badging Dump Information 
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.Source">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.Source">
             <summary>
             Gets a <c>FileInfo</c> containing information about the source Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.Package">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.Package">
             <summary>
-            Gets a <see cref="T:RegawMOD.Android.Aapt.Badging.PackageInfo"/> containing infomation about the Apk
+            Gets a <see cref="T:Headygains.Android.Classes.AAPT.Aapt.Badging.PackageInfo"/> containing infomation about the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.Application">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.Application">
             <summary>
-            Gets a <see cref="T:RegawMOD.Android.Aapt.Badging.ApplicationInfo"/> containing infomation about the Apk
+            Gets a <see cref="T:Headygains.Android.Classes.AAPT.Aapt.Badging.ApplicationInfo"/> containing infomation about the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.Activity">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.Activity">
             <summary>
-            Gets a <see cref="T:RegawMOD.Android.Aapt.Badging.LaunchableActivity"/> containing infomation about the Apk
+            Gets a <see cref="T:Headygains.Android.Classes.AAPT.Aapt.Badging.LaunchableActivity"/> containing infomation about the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.SdkVersion">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.SdkVersion">
             <summary>
             Gets a value indicating the Android Sdk Version of the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.TargetSdkVersion">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.TargetSdkVersion">
             <summary>
             Gets a value indicating the Target Android Sdk Version of the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.Permissions">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.Permissions">
             <summary>
             Gets a <c>List&lt;string&gt;</c> containing the Android Permissions used by the Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.ScreenDensities">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.ScreenDensities">
             <summary>
             Gets a <c>List&lt;int&gt;</c> containing the supported screen densities of the Apk
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Aapt.Badging.PackageInfo">
+        <member name="T:Headygains.Android.Classes.AAPT.Aapt.Badging.PackageInfo">
             <summary>
             Contains information about an Apk's package
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.PackageInfo.Name">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.PackageInfo.Name">
             <summary>
             Gets a value indicating the Apk's package name
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.PackageInfo.VersionCode">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.PackageInfo.VersionCode">
             <summary>
             Gets a value indicating the Version Code of the Apk's package
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.PackageInfo.VersionName">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.PackageInfo.VersionName">
             <summary>
             Gets a value indicating the Version Name of the Apk's package
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Aapt.Badging.ApplicationInfo">
+        <member name="T:Headygains.Android.Classes.AAPT.Aapt.Badging.ApplicationInfo">
             <summary>
             Contains general information about an Apk
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.ApplicationInfo.Label">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.ApplicationInfo.Label">
             <summary>
             Gets a value indicating the Application's Label
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.ApplicationInfo.Icon">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.ApplicationInfo.Icon">
             <summary>
             Gets a value indicating the path inside the apk to the Application's default icon
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Aapt.Badging.LaunchableActivity">
+        <member name="T:Headygains.Android.Classes.AAPT.Aapt.Badging.LaunchableActivity">
             <summary>
             Contains information about an Apk's main Activity
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.LaunchableActivity.Name">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.LaunchableActivity.Name">
             <summary>
             Gets a value indicating the name of the Apk's main Activity
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.LaunchableActivity.Label">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.LaunchableActivity.Label">
             <summary>
             Gets a value indicating the label of the Apk's main Activity
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Aapt.Badging.LaunchableActivity.Icon">
+        <member name="P:Headygains.Android.Classes.AAPT.Aapt.Badging.LaunchableActivity.Icon">
             <summary>
             Gets a value indicating the path to the default icon of the Apk's main Activity
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.AdbCommand">
+        <member name="T:Headygains.Android.Classes.AndroidController.AdbCommand">
             <summary>
-            Holds formatted commands to execute through <see cref="T:RegawMOD.Android.Adb"/>
+            Holds formatted commands to execute through <see cref="T:Headygains.Android.Classes.AndroidController.Adb"/>
             </summary>
             <remarks><para>Can only be created with <c>Adb.FormAdbCommand()</c> or <c>Adb.FormAdbShellCommand()</c></para>
             <para>Can only be executed with <c>Adb.ExecuteAdbCommand()</c> or <c>Adb.ExecuteAdbCommandNoReturn()</c></para></remarks>
         </member>
-        <member name="M:RegawMOD.Android.AdbCommand.WithTimeout(System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AdbCommand.WithTimeout(System.Int32)">
             <summary>
             Sets the timeout for the AdbCommand
             </summary>
             <param name="timeout">The timeout for the command in milliseconds</param>
         </member>
-        <member name="T:RegawMOD.Android.Adb">
+        <member name="T:Headygains.Android.Classes.AndroidController.Adb">
             <summary>
             Controls all commands sent to the currently running Android Debug Bridge Server
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbCommand(System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbCommand(System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
             <remarks><para>This should only be used for non device-specific Adb commands, such as <c>adb devices</c> or <c>adb version</c>.</para>
-            <para>Never try to start/kill the running Adb Server, as the <see cref="T:RegawMOD.Android.AndroidController"/> type handles it internally.</para></remarks>
+            <para>Never try to start/kill the running Adb Server, as the <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/> type handles it internally.</para></remarks>
             <param name="command">The command to run on the Adb Server</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:RegawMOD.Android.AdbCommand"/> that contains formatted command information</returns>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that contains formatted command information</returns>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>
             //This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb devices".  
@@ -164,16 +164,16 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbCommandAsync(System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbCommandAsync(System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
             <remarks><para>This should only be used for non device-specific Adb commands, such as <c>adb devices</c> or <c>adb version</c>.</para>
-            <para>Never try to start/kill the running Adb Server, as the <see cref="T:RegawMOD.Android.AndroidController"/> type handles it internally.</para></remarks>
+            <para>Never try to start/kill the running Adb Server, as the <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/> type handles it internally.</para></remarks>
             <param name="command">The command to run on the Adb Server</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:System.Threading.Tasks.Task"/><see cref="T:RegawMOD.Android.AdbCommand"/>that contains formatted command information</returns>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <returns><see cref="T:System.Threading.Tasks.Task"/><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>that contains formatted command information</returns>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>
             //This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb devices".  
@@ -185,16 +185,16 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbCommand(RegawMOD.Android.Device,System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbCommand(Headygains.Android.Classes.AndroidController.Device,System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
             <remarks>This should only be used for device-specific Adb commands, such as <c>adb push</c> or <c>adb pull</c>.</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="command">The command to run on the Adb Server</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:RegawMOD.Android.AdbCommand"/> that contains formatted command information</returns>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that contains formatted command information</returns>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>//This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb pull /system/app C:\".  
             //Notice how in the formation, you don't supply the prefix "adb", because the method takes care of it for you.
@@ -205,16 +205,16 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbCommandAsync(RegawMOD.Android.Device,System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbCommandAsync(Headygains.Android.Classes.AndroidController.Device,System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
             <remarks>This should only be used for device-specific Adb commands, such as <c>adb push</c> or <c>adb pull</c>.</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="command">The command to run on the Adb Server</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:RegawMOD.Android.AdbCommand"/> that contains formatted command information</returns>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that contains formatted command information</returns>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>//This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb pull /system/app C:\".  
             //Notice how in the formation, you don't supply the prefix "adb", because the method takes care of it for you.
@@ -226,18 +226,18 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbShellCommand(RegawMOD.Android.Device,System.Boolean,System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbShellCommand(Headygains.Android.Classes.AndroidController.Device,System.Boolean,System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="rootShell">Specifies if you need <paramref name="executable"/> to run in a root shell</param>
             <param name="executable">Executable file on <paramref name="device"/> to execute</param>
             <param name="args">Any arguments that need to be sent to <paramref name="executable"/></param>
-            <returns><see cref="T:RegawMOD.Android.AdbCommand"/> that contains formatted command information</returns>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that contains formatted command information</returns>
             <remarks>This should only be used for Adb Shell commands, such as <c>adb shell getprop</c> or <c>adb shell dumpsys</c>.</remarks>
-            <exception cref="T:RegawMOD.Android.DeviceHasNoRootException"> if <paramref name="device"/> does not have root</exception>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <exception cref="T:Headygains.Android.Classes.AndroidController.DeviceHasNoRootException"> if <paramref name="device"/> does not have root</exception>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>
             //This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb shell input keyevent KeyEventCode.HOME".
@@ -249,18 +249,18 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.FormAdbShellCommandAsync(RegawMOD.Android.Device,System.Boolean,System.String,System.Object[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.FormAdbShellCommandAsync(Headygains.Android.Classes.AndroidController.Device,System.Boolean,System.String,System.Object[])">
             <summary>
-            Forms an <see cref="T:RegawMOD.Android.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
+            Forms an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that is passed to <c>Adb.ExecuteAdbCommand()</c>
             </summary>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="rootShell">Specifies if you need <paramref name="executable"/> to run in a root shell</param>
             <param name="executable">Executable file on <paramref name="device"/> to execute</param>
             <param name="args">Any arguments that need to be sent to <paramref name="executable"/></param>
-            <returns><see cref="T:System.Threading.Tasks.Task"/><see cref="T:RegawMOD.Android.AdbCommand"/> that contains formatted command information</returns>
+            <returns><see cref="T:System.Threading.Tasks.Task"/><see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> that contains formatted command information</returns>
             <remarks>This should only be used for Adb Shell commands, such as <c>adb shell getprop</c> or <c>adb shell dumpsys</c>.</remarks>
-            <exception cref="T:RegawMOD.Android.DeviceHasNoRootException"> if <paramref name="device"/> does not have root</exception>
-            <example>This example demonstrates how to create an <see cref="T:RegawMOD.Android.AdbCommand"/>
+            <exception cref="T:Headygains.Android.Classes.AndroidController.DeviceHasNoRootException"> if <paramref name="device"/> does not have root</exception>
+            <example>This example demonstrates how to create an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/>
             <code>
             //This example shows how to create an AdbCommand object to execute on the running server.
             //The command we will create is "adb shell input keyevent KeyEventCode.HOME".
@@ -273,94 +273,94 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbShellCommandInputString(RegawMOD.Android.Device,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbShellCommandInputString(Headygains.Android.Classes.AndroidController.Device,System.String[])">
             <summary>
             Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
             </summary>
             <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="inputLines">Lines of commands to send to shell</param>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbShellCommandInputStringAsync(RegawMOD.Android.Device,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbShellCommandInputStringAsync(Headygains.Android.Classes.AndroidController.Device,System.String[])">
             <summary>
             Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
             This Async Method May Not Work Properly.
             </summary>
             <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="inputLines">Lines of commands to send to shell</param>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbShellCommandInputString(RegawMOD.Android.Device,System.Int32,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbShellCommandInputString(Headygains.Android.Classes.AndroidController.Device,System.Int32,System.String[])">
             <summary>
             Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
             </summary>
             <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="timeout">The timeout in milliseonds</param>
             <param name="inputLines">Lines of commands to send to shell</param>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbShellCommandInputStringAsync(RegawMOD.Android.Device,System.Int32,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbShellCommandInputStringAsync(Headygains.Android.Classes.AndroidController.Device,System.Int32,System.String[])">
             <summary>
             Opens Adb Shell and allows input to be typed directly to the shell.  Experimental!
             This Async Method May Not Work Properly.
             </summary>
             <remarks>Added specifically for RegawMOD CDMA Hero Rooter.  Always remember to pass "exit" as the last command or it will not return!</remarks>
             <remarks>Async/Await Version</remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the command on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the command on</param>
             <param name="timeout">The timeout in milliseonds</param>
             <param name="inputLines">Lines of commands to send to shell</param>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommand(RegawMOD.Android.AdbCommand,System.Boolean)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommand(Headygains.Android.Classes.AndroidController.AdbCommand,System.Boolean)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
             </summary>
             <remarks>This should be used if you want the output of the command returned</remarks>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <param name="forceRegular">Forces Output of stdout, not stderror if any</param>
             <returns>Output of <paramref name="command"/> run on server</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandAsync(RegawMOD.Android.AdbCommand,System.Boolean)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandAsync(Headygains.Android.Classes.AndroidController.AdbCommand,System.Boolean)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
             </summary>
             <remarks>This should be used if you want the output of the command returned</remarks>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <param name="forceRegular">Forces Output of stdout, not stderror if any</param>
             <returns>Output of <paramref name="command"/> run on server</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandNoReturn(RegawMOD.Android.AdbCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandNoReturn(Headygains.Android.Classes.AndroidController.AdbCommand)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
             </summary>
             <remarks>This should be used if you do not want the output of the command returned.  Good for quick abd shell commands</remarks>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <returns>Output of <paramref name="command"/> run on server</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandNoReturnAsync(RegawMOD.Android.AdbCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandNoReturnAsync(Headygains.Android.Classes.AndroidController.AdbCommand)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
             </summary>
             <remarks>This should be used if you do not want the output of the command returned.  Good for quick abd shell commands</remarks>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <returns>Output of <paramref name="command"/> run on server</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandReturnExitCode(RegawMOD.Android.AdbCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandReturnExitCode(Headygains.Android.Classes.AndroidController.AdbCommand)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
             </summary>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <returns>Exit code of the process</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandReturnExitCodeAsync(RegawMOD.Android.AdbCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandReturnExitCodeAsync(Headygains.Android.Classes.AndroidController.AdbCommand)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server Asynchronously via <see cref="T:System.Threading.Tasks.Task"/>
             </summary>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.AdbCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <returns>Exit code of the process</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandConsoleOut(RegawMOD.Android.AdbCommand,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandConsoleOut(Headygains.Android.Classes.AndroidController.AdbCommand,System.Windows.Controls.ListBox)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
             and prints the Error/Output Streams to<paramref name="outputControl"/>
             and returns and ExitCode from <see cref="T:System.Diagnostics.Process"/>.
             </summary>
@@ -368,9 +368,9 @@
             <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/> ListBoxControl</param>
             <returns></returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ExecuteAdbCommandConsoleOutAsync(RegawMOD.Android.AdbCommand,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandConsoleOutAsync(Headygains.Android.Classes.AndroidController.AdbCommand,System.Windows.Controls.ListBox)">
             <summary>
-            Executes an <see cref="T:RegawMOD.Android.AdbCommand"/> on the running Adb Server
+            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
             and prints the Error/Output Streams to<paramref name="outputControl"/>
             and returns and ExitCode from <see cref="T:System.Diagnostics.Process"/>.
             </summary>
@@ -378,27 +378,27 @@
             <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/> ListBoxControl</param>
             <returns></returns>
         </member>
-        <member name="P:RegawMOD.Android.Adb.ServerRunning">
+        <member name="P:Headygains.Android.Classes.AndroidController.Adb.ServerRunning">
             <summary>
             Gets a value indicating if an Android Debug Bridge Server is currently running.
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Adb.ServerRunningAsync">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ServerRunningAsync">
             <summary>
             Gets a value Asynchronously indicating if an Android Debug Bridge Server is currently running.
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Adb.PortForward(RegawMOD.Android.Device,System.Int32,System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.PortForward(Headygains.Android.Classes.AndroidController.Device,System.Int32,System.Int32)">
             <summary>
-            Forwards a port that remains until the current <see cref="T:RegawMOD.Android.AndroidController"/> instance is Disposed, or the device is unplugged
+            Forwards a port that remains until the current <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/> instance is Disposed, or the device is unplugged
             </summary>
             <remarks>Only supports tcp: forward spec for now</remarks>
-            <param name="device">Instance of <see cref="T:RegawMOD.Android.Device"/> to apply port forwarding to</param>
+            <param name="device">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to apply port forwarding to</param>
             <param name="localPort">Local port number</param>
             <param name="remotePort">Remote port number</param>
             <returns>True if successful, false if unsuccessful</returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.Sideload(System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.Sideload(System.String,System.Windows.Controls.ListBox)">
             <summary>
             Pushes A Sideload Package Via ADB Server to A Device.
             </summary>
@@ -406,7 +406,7 @@
             <param name="outputControl">Control For Output</param>
             <returns></returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.SideloadAsync(System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.SideloadAsync(System.String,System.Windows.Controls.ListBox)">
             <summary>
             Pushes A Sideload Package Via ADB Server to A Device Asynchronously, see <see cref="T:System.Threading.Tasks.Task"/>
             </summary>
@@ -414,7 +414,7 @@
             <param name="outputControl">Control For Output</param>
             <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.Sideload(System.String,System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.Sideload(System.String,System.String,System.Windows.Controls.ListBox)">
             <summary>
             Pushes A Sideload Package Via ADB Server to A Specified Device.
             </summary>
@@ -423,7 +423,7 @@
             <param name="outputControl"></param>
             <returns></returns>
         </member>
-        <member name="M:RegawMOD.Android.Adb.SideloadAsync(System.String,System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.SideloadAsync(System.String,System.String,System.Windows.Controls.ListBox)">
             <summary>
             Pushes A Sideload Package Via ADB Server to A Specified Device Asynchronously, see <see cref="T:System.Threading.Tasks.Task"/>
             </summary>
@@ -432,188 +432,188 @@
             <param name="outputControl">Control For Output</param>
             <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
         </member>
-        <member name="T:RegawMOD.Android.BusyBox">
+        <member name="T:Headygains.Android.Classes.AndroidController.BusyBox">
             <summary>
             Conatins information about device's busybox
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BusyBox.IsInstalled">
+        <member name="P:Headygains.Android.Classes.AndroidController.BusyBox.IsInstalled">
             <summary>
             Gets a value indicating if busybox is installed on the current device
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BusyBox.Version">
+        <member name="P:Headygains.Android.Classes.AndroidController.BusyBox.Version">
             <summary>
             Gets a value indicating the version of busybox installed
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BusyBox.Commands">
+        <member name="P:Headygains.Android.Classes.AndroidController.BusyBox.Commands">
             <summary>
             Gets a <c>List&lt;string&gt;</c> containing busybox's commands
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.BusyBox.Update">
+        <member name="M:Headygains.Android.Classes.AndroidController.BusyBox.Update">
             <summary>
             Updates the instance of busybox
             </summary>
             <remarks>Generally called only if busybox may have changed on the device</remarks>
         </member>
-        <member name="T:RegawMOD.Android.BatteryInfo">
+        <member name="T:Headygains.Android.Classes.AndroidController.BatteryInfo">
             <summary>
             Contains information about connected Android device's battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.AcPower">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.AcPower">
             <summary>
             Gets a value indicating if the connected Android device is on AC Power
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.UsbPower">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.UsbPower">
             <summary>
             Gets a value indicating if the connected Android device is on USB Power
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.WirelessPower">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.WirelessPower">
             <summary>
             Gets a value indicating if the connected Android device is on Wireless Power
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Status">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Status">
             <summary>
             Gets a value indicating the status of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Health">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Health">
             <summary>
             Gets a value indicating the health of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Present">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Present">
             <summary>
             Gets a value indicating if there is a battery present
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Level">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Level">
             <summary>
             Gets a value indicating the current charge level of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Scale">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Scale">
             <summary>
             Gets a value indicating the scale of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Voltage">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Voltage">
             <summary>
             Gets a value indicating the current voltage of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Temperature">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Temperature">
             <summary>
             Gets a value indicating the current temperature of the battery
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BatteryInfo.Technology">
+        <member name="P:Headygains.Android.Classes.AndroidController.BatteryInfo.Technology">
             <summary>
             Gets a value indicating the battery's technology
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.BatteryInfo.#ctor(RegawMOD.Android.Device)">
+        <member name="M:Headygains.Android.Classes.AndroidController.BatteryInfo.#ctor(Headygains.Android.Classes.AndroidController.Device)">
             <summary>
             Initializes a new instance of the BatteryInfo class
             </summary>
             <param name="device">Serial number of Android device</param>
         </member>
-        <member name="M:RegawMOD.Android.BatteryInfo.ToString">
+        <member name="M:Headygains.Android.Classes.AndroidController.BatteryInfo.ToString">
             <summary>
             Returns a formatted string object containing all battery stats
             </summary>
             <returns>A formatted string containing all battery stats</returns>
         </member>
-        <member name="T:RegawMOD.Android.Device">
+        <member name="T:Headygains.Android.Classes.AndroidController.Device">
             <summary>
             Manages connected Android device's info and commands
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.#ctor(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.#ctor(System.String)">
             <summary>
             Initializes a new instance of the Device class
             </summary>
             <param name="deviceSerial">Serial number of Android device</param>
         </member>
-        <member name="P:RegawMOD.Android.Device.Battery">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.Battery">
             <summary>
-            Gets the device's <see cref="T:RegawMOD.Android.BatteryInfo"/> instance
+            Gets the device's <see cref="T:Headygains.Android.Classes.AndroidController.BatteryInfo"/> instance
             </summary>
-            <remarks>See <see cref="T:RegawMOD.Android.BatteryInfo"/> for more details</remarks>
+            <remarks>See <see cref="T:Headygains.Android.Classes.AndroidController.BatteryInfo"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.BuildProp">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.BuildProp">
             <summary>
-            Gets the device's <see cref="P:RegawMOD.Android.Device.BuildProp"/> instance
+            Gets the device's <see cref="P:Headygains.Android.Classes.AndroidController.Device.BuildProp"/> instance
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.Device.BuildProp"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.Device.BuildProp"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.BusyBox">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.BusyBox">
             <summary>
-            Gets the device's <see cref="P:RegawMOD.Android.Device.BusyBox"/> instance
+            Gets the device's <see cref="P:Headygains.Android.Classes.AndroidController.Device.BusyBox"/> instance
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.Device.BusyBox"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.Device.BusyBox"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.FileSystem">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.FileSystem">
             <summary>
-            Gets the device's <see cref="P:RegawMOD.Android.Device.FileSystem"/> instance
+            Gets the device's <see cref="P:Headygains.Android.Classes.AndroidController.Device.FileSystem"/> instance
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.Device.FileSystem"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.Device.FileSystem"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.Phone">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.Phone">
             <summary>
-            Gets the device's <see cref="P:RegawMOD.Android.Device.Phone"/> instance
+            Gets the device's <see cref="P:Headygains.Android.Classes.AndroidController.Device.Phone"/> instance
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.Device.Phone"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.Device.Phone"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.Su">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.Su">
             <summary>
-            Gets the device's <see cref="P:RegawMOD.Android.Device.Su"/> instance
+            Gets the device's <see cref="P:Headygains.Android.Classes.AndroidController.Device.Su"/> instance
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.Device.Su"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.Device.Su"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.SerialNumber">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.SerialNumber">
             <summary>
             Gets the device's serial number
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Device.State">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.State">
             <summary>
             Gets a value indicating the device's current state
             </summary>
-            <remarks>See <see cref="T:RegawMOD.Android.DeviceState"/> for more details</remarks>
+            <remarks>See <see cref="T:Headygains.Android.Classes.AndroidController.DeviceState"/> for more details</remarks>
         </member>
-        <member name="P:RegawMOD.Android.Device.HasRoot">
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.HasRoot">
             <summary>
             Gets a value indicating if the device has root
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.FastbootReboot">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.FastbootReboot">
             <summary>
             Reboots the device regularly from fastboot
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.Reboot">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.Reboot">
             <summary>
             Reboots the device regularly
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.RebootRecovery">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.RebootRecovery">
             <summary>
             Reboots the device into recovery
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.RebootBootloader">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.RebootBootloader">
             <summary>
             Reboots the device into the bootloader
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Device.PullFile(System.String,System.String,System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PullFile(System.String,System.String,System.Int32)">
             <summary>
             Pulls a file from the device
             </summary>
@@ -622,7 +622,7 @@
             /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>True if file is pulled, false if pull failed</returns>
         </member>
-        <member name="M:RegawMOD.Android.Device.PushFile(System.String,System.String,System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PushFile(System.String,System.String,System.Int32)">
             <summary>
             Pushes a file to the device
             </summary>
@@ -631,7 +631,7 @@
             <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>If the push was successful</returns>
         </member>
-        <member name="M:RegawMOD.Android.Device.PullDirectory(System.String,System.String,System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PullDirectory(System.String,System.String,System.Int32)">
             <summary>
             Pulls a full directory recursively from the device
             </summary>
@@ -640,7 +640,7 @@
             <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>True if directory is pulled, false if pull failed</returns>
         </member>
-        <member name="M:RegawMOD.Android.Device.InstallApk(System.String,System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.InstallApk(System.String,System.Int32)">
             <summary>
             Installs an application from the local computer to the Android device
             </summary>
@@ -648,18 +648,18 @@
             <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>True if install is successful, False if install fails for any reason</returns>
         </member>
-        <member name="M:RegawMOD.Android.Device.Update">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.Update">
             <summary>
-            Updates all values in current instance of <see cref="T:RegawMOD.Android.Device"/>
+            Updates all values in current instance of <see cref="T:Headygains.Android.Classes.AndroidController.Device"/>
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.AndroidController">
+        <member name="T:Headygains.Android.Classes.AndroidController.AndroidController">
              <summary>
              Controls communication to and from connected Android devices.  Use only one instance for the entire project.
              </summary>
              <remarks>
-             <para><see cref="T:RegawMOD.Android.AndroidController"/> is the core class in AndroidLib. You must always call the <c>Dispose()</c> method when finished before program exits.</para>
-             <para><see cref="T:RegawMOD.Android.AndroidController"/> specifically controls the Android Debug Bridge Server, and a developer should NEVER try to start/kill the server using an <see cref="T:RegawMOD.Android.AdbCommand"/></para>
+             <para><see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/> is the core class in AndroidLib. You must always call the <c>Dispose()</c> method when finished before program exits.</para>
+             <para><see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/> specifically controls the Android Debug Bridge Server, and a developer should NEVER try to start/kill the server using an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></para>
              </remarks>
              <example>The following example shows how you can use the <c>AndroidController</c> class
              <code>
@@ -699,48 +699,48 @@
              </code>
              </example>
         </member>
-        <member name="P:RegawMOD.Android.AndroidController.Instance">
+        <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.Instance">
             <summary>
             Gets the current AndroidController Instance.
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.AndroidController.ConnectedDevices">
+        <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.ConnectedDevices">
             <summary>
             Gets a <c>List&lt;string&gt;</c> object containing the serial numbers of all connected Android devices
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.Dispose">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.Dispose">
             <summary>
-            Releases all resources used by <see cref="T:RegawMOD.Android.AndroidController"/>        
+            Releases all resources used by <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/>        
             </summary>
-            <remarks>Needs to be called when application has finished using <see cref="T:RegawMOD.Android.AndroidController"/></remarks>
+            <remarks>Needs to be called when application has finished using <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/></remarks>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.RestartAdb">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.RestartAdb">
             <summary>
-            Restarts the ADB Server used by <see cref="T:RegawMOD.Android.AndroidController"/>
+            Restarts the ADB Server used by <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/>
             </summary>
             <returns>Returns <c>true</c> if ADB Server was Successfully Started, else Returns <c>false</c></returns>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.GetConnectedDevice">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.GetConnectedDevice">
             <summary>
-            Gets the first <see cref="T:RegawMOD.Android.Device"/> in the internal collection of devices controlled by <see cref="T:RegawMOD.Android.AndroidController"/>
+            Gets the first <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> in the internal collection of devices controlled by <see cref="T:Headygains.Android.Classes.AndroidController.AndroidController"/>
             </summary>
-            <returns><see cref="T:RegawMOD.Android.Device"/> containing info about the device with the first serial number in the internal collection</returns>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.Device"/> containing info about the device with the first serial number in the internal collection</returns>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.GetConnectedDevice(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.GetConnectedDevice(System.String)">
             <summary>
-            Gets a <see cref="T:RegawMOD.Android.Device"/> containing data about a specified Android device.
+            Gets a <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> containing data about a specified Android device.
             </summary>
             <remarks><paramref name="deviceSerial"/> must be a serial number of a connected device, or the method returns null</remarks>
             <param name="deviceSerial">Serial number of connected device</param>
-            <returns><see cref="T:RegawMOD.Android.Device"/> containing info about the device with the serial number <paramref name="deviceSerial"/></returns>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.Device"/> containing info about the device with the serial number <paramref name="deviceSerial"/></returns>
         </member>
-        <member name="P:RegawMOD.Android.AndroidController.HasConnectedDevices">
+        <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.HasConnectedDevices">
             <summary>
             Gets a value indicating if there are any Android devices currently connected
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.IsDeviceConnected(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.IsDeviceConnected(System.String)">
             <summary>
             Determines if the Android device with the serial number provided is currently connected
             </summary>
@@ -757,31 +757,31 @@
             <param name="deviceSerial">Serial number of Android device</param>
             <returns>A value indicating if the Android device with the serial number <paramref name="deviceSerial"/> is connected</returns>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.IsDeviceConnected(RegawMOD.Android.Device)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.IsDeviceConnected(Headygains.Android.Classes.AndroidController.Device)">
             <summary>
             Determines if the Android device tied to <paramref name="device"/> is currently connected
             </summary>
-            <param name="device">Instance of <see cref="T:RegawMOD.Android.Device"/></param>
+            <param name="device">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.Device"/></param>
             <returns>A value indicating if the Android device indicated in <paramref name="device"/> is connected</returns>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.UpdateDeviceList">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.UpdateDeviceList">
             <summary>
             Updates Internal Device List
             </summary>
             <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
         </member>
-        <member name="P:RegawMOD.Android.AndroidController.CancelWait">
+        <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.CancelWait">
             <summary>
             Set to true to cancel a WaitForDevice() method call
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.WaitForDevice">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.WaitForDevice">
             <summary>
             Pauses thread until 1 or more Android devices are connected
             </summary>
             <remarks>Do Not Use in Windows Forms applications, as this method pauses the current thread.  Works fine in Console Applications</remarks>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.SideloadDevice(System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.SideloadDevice(System.String,System.Windows.Controls.ListBox)">
             <summary>
             Uses
             </summary>
@@ -789,7 +789,7 @@
             <param name="outputControl">ListBox control to output to.</param>
             <returns>Sideload Process ExitCode</returns>
         </member>
-        <member name="M:RegawMOD.Android.AndroidController.SideloadDevice(System.String,System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.SideloadDevice(System.String,System.String,System.Windows.Controls.ListBox)">
             <summary>
             Loads specified sideloadPackage File onto specified device via ADB sideload.
             </summary>
@@ -798,29 +798,29 @@
             <param name="outputControl"></param>
             <returns>Sideload Process ExitCode</returns>
         </member>
-        <member name="T:RegawMOD.Android.BuildProp">
+        <member name="T:Headygains.Android.Classes.AndroidController.BuildProp">
             <summary>
             Manages all information from connected Android device's build properties
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BuildProp.Keys">
+        <member name="P:Headygains.Android.Classes.AndroidController.BuildProp.Keys">
             <summary>
             Gets a <c>List&lt;string&gt;</c> containing all of the device's build proprty keys
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.BuildProp.Values">
+        <member name="P:Headygains.Android.Classes.AndroidController.BuildProp.Values">
             <summary>
             Gets a <c>List&lt;string&gt;</c> object containing all of the device's build proprty values
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.BuildProp.GetProp(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.BuildProp.GetProp(System.String)">
             <summary>
             Gets the value of the specified build property key.
             </summary>
             <param name="key">Key of build property</param>
             <returns>Value if key exists, null if key doesn't exist</returns>
         </member>
-        <member name="M:RegawMOD.Android.BuildProp.SetProp(System.String,System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.BuildProp.SetProp(System.String,System.String)">
             <summary>
             Sets a build property value
             </summary>
@@ -829,39 +829,39 @@
             <param name="newValue">Value you wish to set <paramref name="key"/> to</param>
             <returns>True if new value set, false if not</returns>
         </member>
-        <member name="M:RegawMOD.Android.BuildProp.ToString">
+        <member name="M:Headygains.Android.Classes.AndroidController.BuildProp.ToString">
             <summary>
             Returns a formatted string containing all of the build properties
             </summary>
             <returns>Formatted string containing build.prop</returns>
         </member>
-        <member name="T:RegawMOD.Android.FastbootCommand">
+        <member name="T:Headygains.Android.Classes.AndroidController.FastbootCommand">
             <summary>
-            Holds formatted commands to execute through <see cref="T:RegawMOD.Android.Fastboot"/>
+            Holds formatted commands to execute through <see cref="T:Headygains.Android.Classes.AndroidController.Fastboot"/>
             </summary>
             <remarks><para>Can only be created with <c>Fastboot.FormFastbootCommand()</c></para>
             <para>Can only be executed with <c>Fastboot.ExecuteFastbootCommand()</c> or <c>Fastboot.ExecuteFastbootCommandNoReturn()</c></para></remarks>
         </member>
-        <member name="M:RegawMOD.Android.FastbootCommand.WithTimeout(System.Int32)">
+        <member name="M:Headygains.Android.Classes.AndroidController.FastbootCommand.WithTimeout(System.Int32)">
             <summary>
             Sets the timeout for the FastbootCommand
             </summary>
             <param name="timeout">The timeout for the command in milliseconds</param>
         </member>
-        <member name="T:RegawMOD.Android.Fastboot">
+        <member name="T:Headygains.Android.Classes.AndroidController.Fastboot">
             <summary>
             Controls all commands sent to Fastboot
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Fastboot.FormFastbootCommand(System.String,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Fastboot.FormFastbootCommand(System.String,System.String[])">
             <summary>
-            Forms a <see cref="T:RegawMOD.Android.FastbootCommand"/> that is passed to <c>Fastboot.ExecuteFastbootCommand()</c>
+            Forms a <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/> that is passed to <c>Fastboot.ExecuteFastbootCommand()</c>
             </summary>
             <param name="command">The fastboot command to run</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:RegawMOD.Android.FastbootCommand"/> that contains formatted command information</returns>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/> that contains formatted command information</returns>
             <remarks>Should be used only for non device-specific fastboot commands such as <c>fastboot devices</c> or <c>fastboot version</c></remarks>
-            <example>This example demonstrates how to create a non device-specific <see cref="T:RegawMOD.Android.FastbootCommand"/>
+            <example>This example demonstrates how to create a non device-specific <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/>
             <code>//This example shows how to create a non device-specific FastbootCommand
             //This demonstarates the fastboot command "fastboot devices"
             //Notice how you do not include the "fastboot" executable in the method, as the method takes care of it internally
@@ -871,16 +871,16 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Fastboot.FormFastbootCommand(RegawMOD.Android.Device,System.String,System.String[])">
+        <member name="M:Headygains.Android.Classes.AndroidController.Fastboot.FormFastbootCommand(Headygains.Android.Classes.AndroidController.Device,System.String,System.String[])">
             <summary>
-            Forms a <see cref="T:RegawMOD.Android.FastbootCommand"/> that is passed to <c>Fastboot.ExecuteFastbootCommand()</c>
+            Forms a <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/> that is passed to <c>Fastboot.ExecuteFastbootCommand()</c>
             </summary>
             <remarks>Should be used only for device-specific fastboot commands such as <c>fastboot reboot</c> or <c>fastboot getvar all</c></remarks>
-            <param name="device">Specific <see cref="T:RegawMOD.Android.Device"/> to run the comand on</param>
+            <param name="device">Specific <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> to run the comand on</param>
             <param name="command">The command to run on fastboot</param>
             <param name="args">Any arguments that need to be sent to <paramref name="command"/></param>
-            <returns><see cref="T:RegawMOD.Android.FastbootCommand"/> that contains formatted command information</returns>
-            <example>This example demonstrates how to create a non device-specific <see cref="T:RegawMOD.Android.FastbootCommand"/>
+            <returns><see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/> that contains formatted command information</returns>
+            <example>This example demonstrates how to create a non device-specific <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/>
             <code>//This example shows how to create a device-specific FastbootCommand
             //This demonstarates the fastboot command "fastboot flash zip C:\rom.zip"
             //Notice how you do not include the "fastboot" executable in the method, as the method takes care of it internally
@@ -891,57 +891,57 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.Android.Fastboot.ExecuteFastbootCommand(RegawMOD.Android.FastbootCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Fastboot.ExecuteFastbootCommand(Headygains.Android.Classes.AndroidController.FastbootCommand)">
             <summary>
-            Executes a <see cref="T:RegawMOD.Android.FastbootCommand"/>
+            Executes a <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/>
             </summary>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.FastbootCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/></param>
             <returns>Output of <paramref name="command"/> run in fastboot</returns>
         </member>
-        <member name="M:RegawMOD.Android.Fastboot.ExecuteFastbootCommandNoReturn(RegawMOD.Android.FastbootCommand)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Fastboot.ExecuteFastbootCommandNoReturn(Headygains.Android.Classes.AndroidController.FastbootCommand)">
             <summary>
-            Executes a <see cref="T:RegawMOD.Android.FastbootCommand"/>
+            Executes a <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/>
             </summary>
             <remarks>Should be used if you do not want the output of the command; good for quick fastboot commands</remarks>
-            <param name="command">Instance of <see cref="T:RegawMOD.Android.FastbootCommand"/></param>
+            <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/></param>
         </member>
-        <member name="T:RegawMOD.Android.MountInfo">
+        <member name="T:Headygains.Android.Classes.AndroidController.MountInfo">
             <summary>
             Contains mount directory information
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.MountInfo.Directory">
+        <member name="P:Headygains.Android.Classes.AndroidController.MountInfo.Directory">
             <summary>
             Gets a value indicating the mount directory
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.MountInfo.Block">
+        <member name="P:Headygains.Android.Classes.AndroidController.MountInfo.Block">
             <summary>
             Gets a value indicating the mount block
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.MountInfo.MountType">
+        <member name="P:Headygains.Android.Classes.AndroidController.MountInfo.MountType">
             <summary>
             Gets a value indicating how the mount directory is mounted
             </summary>
-            <remarks>See <see cref="P:RegawMOD.Android.MountInfo.MountType"/> for more details</remarks>
+            <remarks>See <see cref="P:Headygains.Android.Classes.AndroidController.MountInfo.MountType"/> for more details</remarks>
         </member>
-        <member name="T:RegawMOD.Android.FileSystem">
+        <member name="T:Headygains.Android.Classes.AndroidController.FileSystem">
             <summary>
             Contains information about the Android device's file system
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.FileSystem.SystemMountInfo">
+        <member name="P:Headygains.Android.Classes.AndroidController.FileSystem.SystemMountInfo">
             <summary>
-            Gets the <see cref="T:RegawMOD.Android.MountInfo"/> containing information about the /system mount directory
+            Gets the <see cref="T:Headygains.Android.Classes.AndroidController.MountInfo"/> containing information about the /system mount directory
             </summary>
-            <remarks>See <see cref="T:RegawMOD.Android.MountInfo"/> for more details</remarks>
+            <remarks>See <see cref="T:Headygains.Android.Classes.AndroidController.MountInfo"/> for more details</remarks>
         </member>
-        <member name="M:RegawMOD.Android.FileSystem.RemountSystem(RegawMOD.Android.MountType)">
+        <member name="M:Headygains.Android.Classes.AndroidController.FileSystem.RemountSystem(Headygains.Android.Classes.AndroidController.MountType)">
              <summary>
              Mounts connected Android device's file system as specified
              </summary>
-             <param name="type">The desired <see cref="T:RegawMOD.Android.MountType"/> (RW or RO)</param>
+             <param name="type">The desired <see cref="T:Headygains.Android.Classes.AndroidController.MountType"/> (RW or RO)</param>
              <returns>True if remount is successful, False if remount is unsuccessful</returns>
              <example>The following example shows how you can mount the file system as Read-Writable or Read-Only
              <code>
@@ -975,609 +975,591 @@
              </code>
              </example>
         </member>
-        <member name="M:RegawMOD.Android.FileSystem.FileOrDirectory(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.FileSystem.FileOrDirectory(System.String)">
             <summary>
-            Gets a <see cref="T:RegawMOD.Android.ListingType"/> indicating is the requested location is a File or Directory
+            Gets a <see cref="T:Headygains.Android.Classes.AndroidController.ListingType"/> indicating is the requested location is a File or Directory
             </summary>
             <param name="location">Path of requested location on device</param>
-            <returns>See <see cref="T:RegawMOD.Android.ListingType"/></returns>
+            <returns>See <see cref="T:Headygains.Android.Classes.AndroidController.ListingType"/></returns>
             <remarks><para>Requires a device containing BusyBox for now, returns ListingType.ERROR if not installed.</para>
             <para>Returns ListingType.NONE if file/Directory does not exist</para></remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:RegawMOD.Android.FileSystem.GetFilesAndDirectories(System.String)" -->
-        <member name="T:RegawMOD.Android.ListingType">
+        <!-- Badly formed XML comment ignored for member "M:Headygains.Android.Classes.AndroidController.FileSystem.GetFilesAndDirectories(System.String)" -->
+        <member name="T:Headygains.Android.Classes.AndroidController.ListingType">
             <summary>
             Specifies a FileSystem Listing
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.ListingType.File">
+        <member name="F:Headygains.Android.Classes.AndroidController.ListingType.File">
             <summary>
             Represents a File
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.ListingType.Directory">
+        <member name="F:Headygains.Android.Classes.AndroidController.ListingType.Directory">
             <summary>
             Represents a Directory
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.ListingType.None">
+        <member name="F:Headygains.Android.Classes.AndroidController.ListingType.None">
             <summary>
             Represents neither File or Directory
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.ListingType.Error">
+        <member name="F:Headygains.Android.Classes.AndroidController.ListingType.Error">
             <summary>
             Usually returned if BusyBox is not installed on device
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.DeviceState">
+        <member name="T:Headygains.Android.Classes.AndroidController.DeviceState">
             <summary>
-            Specifies current state of <see cref="T:RegawMOD.Android.Device"/>
+            Specifies current state of <see cref="T:Headygains.Android.Classes.AndroidController.Device"/>
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Online">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Online">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is online
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is online
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Offline">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Offline">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is offline
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is offline
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Recovery">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Recovery">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is in recovery
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is in recovery
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Fastboot">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Fastboot">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is in fastboot
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is in fastboot
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Sideload">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Sideload">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is in sideload mode
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is in sideload mode
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Unauthorized">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Unauthorized">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is not authorized
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is not authorized
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DeviceState.Unknown">
+        <member name="F:Headygains.Android.Classes.AndroidController.DeviceState.Unknown">
             <summary>
-            <see cref="T:RegawMOD.Android.Device"/> is in an unknown state
+            <see cref="T:Headygains.Android.Classes.AndroidController.Device"/> is in an unknown state
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.MountType">
+        <member name="T:Headygains.Android.Classes.AndroidController.MountType">
             <summary>
             Specifies how to remount the file system
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.MountType.Rw">
+        <member name="F:Headygains.Android.Classes.AndroidController.MountType.Rw">
             <summary>
             Read-Writable
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.MountType.Ro">
+        <member name="F:Headygains.Android.Classes.AndroidController.MountType.Ro">
             <summary>
             Read-Only
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.MountType.None">
+        <member name="F:Headygains.Android.Classes.AndroidController.MountType.None">
             <summary>
-            Used for every <see cref="T:RegawMOD.Android.DeviceState"/> except <see cref="F:RegawMOD.Android.DeviceState.Online"/>
+            Used for every <see cref="T:Headygains.Android.Classes.AndroidController.DeviceState"/> except <see cref="F:Headygains.Android.Classes.AndroidController.DeviceState.Online"/>
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.DevicePartition">
+        <member name="T:Headygains.Android.Classes.AndroidController.DevicePartition">
             <summary>
             Specifies a certain partition of the connected Android device
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DevicePartition.Boot">
+        <member name="F:Headygains.Android.Classes.AndroidController.DevicePartition.Boot">
             <summary>
             The boot partition
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DevicePartition.System">
+        <member name="F:Headygains.Android.Classes.AndroidController.DevicePartition.System">
             <summary>
             The system partition
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DevicePartition.Data">
+        <member name="F:Headygains.Android.Classes.AndroidController.DevicePartition.Data">
             <summary>
             The data partition
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DevicePartition.Hboot">
+        <member name="F:Headygains.Android.Classes.AndroidController.DevicePartition.Hboot">
             <summary>
             The hboot partition (bootloader)
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.DevicePartition.Zip">
+        <member name="F:Headygains.Android.Classes.AndroidController.DevicePartition.Zip">
             <summary>
             For flashing a zip
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.KeyEventCode">
+        <member name="T:Headygains.Android.Classes.AndroidController.KeyEventCode">
             <summary>
             Specifies the keyevent code to send to "adb shell input keyevent {KeyEventCode}"
             </summary>
             <remarks>No root needed</remarks>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.SoftRight">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.SoftRight">
             <summary>
             The Soft Right Key
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Home">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Home">
             <summary>
             The Home Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Back">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Back">
             <summary>
             The Back Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Call">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Call">
             <summary>
             The Call Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.EndCall">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.EndCall">
             <summary>
             The End Call Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number0">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number0">
             <summary>
             The Number 0 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number1">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number1">
             <summary>
             The Number 1 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number2">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number2">
             <summary>
             The Number 2 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number3">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number3">
             <summary>
             The Number 3 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number4">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number4">
             <summary>
             The Number 4 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number5">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number5">
             <summary>
             The Number 5 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number6">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number6">
             <summary>
             The Number 6 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number7">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number7">
             <summary>
             The Number 7 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number8">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number8">
             <summary>
             The Number 8 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Number9">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Number9">
             <summary>
             The Number 9 Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Star">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Star">
             <summary>
             The Star Character (*) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Pound">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Pound">
             <summary>
             The Pound Character (#) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.DpadUp">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.DpadUp">
             <summary>
             The D-Pad Up Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.DpadDown">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.DpadDown">
             <summary>
             The D-Pad Down Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.DpadLeft">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.DpadLeft">
             <summary>
             The D-Pad Left Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.DpadRight">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.DpadRight">
             <summary>
             The D-Pad Right Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.DpadCenter">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.DpadCenter">
             <summary>
             The D-Pad Center Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.VolumeUp">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.VolumeUp">
             <summary>
             The Volume Up Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.VolumeDown">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.VolumeDown">
             <summary>
             The Volume Down Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Power">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Power">
             <summary>
             The Power Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Camera">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Camera">
             <summary>
             The Camera Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Clear">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Clear">
             <summary>
             The Clear Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.A">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.A">
             <summary>
             The A Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.B">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.B">
             <summary>
             The B Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.C">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.C">
             <summary>
             The C Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.D">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.D">
             <summary>
             The D Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.E">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.E">
             <summary>
             The E Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.F">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.F">
             <summary>
             The F Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.G">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.G">
             <summary>
             The G Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.H">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.H">
             <summary>
             The H Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.I">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.I">
             <summary>
             The I Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.J">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.J">
             <summary>
             The J Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.K">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.K">
             <summary>
             The K Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.L">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.L">
             <summary>
             The L Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.M">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.M">
             <summary>
             The M Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.N">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.N">
             <summary>
             The N Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.O">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.O">
             <summary>
             The O Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.P">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.P">
             <summary>
             The P Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Q">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Q">
             <summary>
             The Q Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.R">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.R">
             <summary>
             The R Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.S">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.S">
             <summary>
             The S Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.T">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.T">
             <summary>
             The T Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.U">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.U">
             <summary>
             The U Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.V">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.V">
             <summary>
             The V Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.W">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.W">
             <summary>
             The W Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.X">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.X">
             <summary>
             The X Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Y">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Y">
             <summary>
             The Y Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Z">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Z">
             <summary>
             The Z Character Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Comma">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Comma">
             <summary>
             The Comma Character (,) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Period">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Period">
             <summary>
             The Period Character (.) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.AltLeft">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.AltLeft">
             <summary>
             The Left Alt Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.AltRight">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.AltRight">
             <summary>
             The Right Alt Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.ShiftLeft">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.ShiftLeft">
             <summary>
             The Left Shift Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.ShiftRight">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.ShiftRight">
             <summary>
             The Right Shift Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Tab">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Tab">
             <summary>
             The Tab Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Space">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Space">
             <summary>
             The Space Bar Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.SelectInputMethod">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.SelectInputMethod">
             <summary>
             Brings Up Select Input Method Dialog
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Explorer">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Explorer">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Envelope">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Envelope">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Enter">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Enter">
             <summary>
             The Enter Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Delete">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Delete">
             <summary>
             The Delete Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Grave">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Grave">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Minus">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Minus">
             <summary>
             The Minus Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.EQUALS">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.EQUALS">
             <summary>
             The Equals Character (=) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.BracketLeft">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.BracketLeft">
             <summary>
             The Left Bracket Character ({) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.BracketRight">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.BracketRight">
             <summary>
             The Right Bracket Character (}) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Backslash">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Backslash">
             <summary>
             The Backslash Character (\) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Semicolon">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Semicolon">
             <summary>
             The Semicolon Character (;) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Apostrophe">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Apostrophe">
             <summary>
             The Apostrophe Character (') Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.ForwardSlash">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.ForwardSlash">
             <summary>
             The Forward Slash Character (/) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.At">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.At">
             <summary>
             The At Character (@) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Num">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Num">
             <summary>
             Number Lock
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.HeadsetHook">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.HeadsetHook">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Focus">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Focus">
             <summary>
             The Focus Camera Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Plus">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Plus">
             <summary>
             The Plus Character (+) Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Menu">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Menu">
             <summary>
             The Menu Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Notification">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Notification">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.Search">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.Search">
             <summary>
             The Search Button
             </summary>
         </member>
-        <member name="F:RegawMOD.Android.KeyEventCode.TagLastKeycode">
+        <member name="F:Headygains.Android.Classes.AndroidController.KeyEventCode.TagLastKeycode">
             <summary>
             Not Sure
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Phone">
+        <member name="T:Headygains.Android.Classes.AndroidController.Phone">
             <summary>
             Controls radio options on an Android device
             </summary>
         </member>
-        <member name="M:RegawMOD.Android.Phone.CallPhoneNumber(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Phone.CallPhoneNumber(System.String)">
             <summary>
             Calls a phone number on the Android device
             </summary>
             <param name="phoneNumber">Phone number to call</param>
         </member>
-        <member name="M:RegawMOD.Android.Phone.DialPhoneNumber(System.String)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Phone.DialPhoneNumber(System.String)">
             <summary>
             Dials (does not call) a phone number on the Android device
             </summary>
             <param name="phoneNumber">Phone number to dial</param>
         </member>
-        <member name="T:RegawMOD.Android.DeviceHasNoRootException">
+        <member name="T:Headygains.Android.Classes.AndroidController.DeviceHasNoRootException">
             <summary>
             Thrown when a root shell command is executed on a device without root
             </summary>
             <remarks>Only created and called internally</remarks>
         </member>
-        <member name="T:RegawMOD.Android.Classes.Util.Message">
-            <summary>
-            An Output Message Container.
-            </summary>
-        </member>
-        <member name="T:RegawMOD.Android.Su">
+        <member name="T:Headygains.Android.Classes.AndroidController.Su">
             <summary>
             Contains information about the Su binary on the Android device
             </summary>
         </member>
-        <member name="P:RegawMOD.Android.Su.Version">
+        <member name="P:Headygains.Android.Classes.AndroidController.Su.Version">
             <summary>
             Gets a value indicating the version of Su on the Android device
             </summary>
         </member>
-        <member name="T:RegawMOD.Android.Signer">
-            <summary>
-            Digitally signs files
-            </summary>
-        </member>
-        <member name="M:RegawMOD.Android.Signer.SignUpdateZip(System.String)">
-            <summary>
-            Signs an Update.zip with test keys to flash on an Android device
-            </summary>
-            <param name="unsigned">Full path to unsigned update.zip</param>
-            <returns>True if successful, false if file <paramref name="unsigned"/> does not exist or if file <paramref name="unsigned"/> is not a zip</returns>
-            <remarks><para>Outputs signed zip in same directory as unsigned zip</para></remarks>
-        </member>
-        <member name="M:RegawMOD.Extract.Resources(System.Object,System.String,System.String,System.String[])">
+        <member name="M:Headygains.Android.Classes.Util.Extract.Resources(System.Object,System.String,System.String,System.String[])">
             <summary>
             Extracts Multiple Embedded Resources From Calling Assembly
             </summary>
@@ -1586,7 +1568,7 @@
             <param name="fullPathOfItems">Exact Names Of Embedded Resources to Extract</param>
             <param name="outDirectory">Full Directory of Path For Extracted Resources</param>
         </member>
-        <member name="M:RegawMOD.Extract.Resources(System.String,System.String,System.String,System.String[])">
+        <member name="M:Headygains.Android.Classes.Util.Extract.Resources(System.String,System.String,System.String,System.String[])">
             <summary>
             Extracts Multiple Embedded Resources From Calling Assembly
             </summary>
@@ -1595,43 +1577,43 @@
             <param name="internalFolderPath">Period . Delimited path of embedded resources in assembly</param>
             <param name="fullPathOfItems">Exact Names Of Embedded Resources to Extract</param>
         </member>
-        <member name="T:RegawMOD.Java">
+        <member name="T:Headygains.Android.Classes.Util.Java">
             <summary>
             Contains information about the current machine's Java installation
             </summary>
         </member>
-        <member name="P:RegawMOD.Java.IsInstalled">
+        <member name="P:Headygains.Android.Classes.Util.Java.IsInstalled">
             <summary>
             Gets a value indicating if Java is currently installed on the local machine
             </summary>
         </member>
-        <member name="P:RegawMOD.Java.InstallationPath">
+        <member name="P:Headygains.Android.Classes.Util.Java.InstallationPath">
             <summary>
             Gets a value indicating the installation path of Java on the local machine
             </summary>
         </member>
-        <member name="P:RegawMOD.Java.BinPath">
+        <member name="P:Headygains.Android.Classes.Util.Java.BinPath">
             <summary>
             Gets a value indicating the path to Java's bin directory on the local machine
             </summary>
         </member>
-        <member name="P:RegawMOD.Java.JavaExe">
+        <member name="P:Headygains.Android.Classes.Util.Java.JavaExe">
             <summary>
             Gets a value indicating the path to Java.exe on the local machine
             </summary>
         </member>
-        <member name="P:RegawMOD.Java.JavacExe">
+        <member name="P:Headygains.Android.Classes.Util.Java.JavacExe">
             <summary>
             Gets a value indicating the path to Javac.exe on the local machine
             </summary>
         </member>
-        <member name="M:RegawMOD.Java.Update">
+        <member name="M:Headygains.Android.Classes.Util.Java.Update">
             <summary>
-            Updates the information stored in the <see cref="T:RegawMOD.Java"/> class
+            Updates the information stored in the <see cref="T:Headygains.Android.Classes.Util.Java"/> class
             </summary>
             <remarks>Generally called if Java installation might have changed</remarks>
         </member>
-        <member name="M:RegawMOD.Java.RunJar(System.String,System.String[])">
+        <member name="M:Headygains.Android.Classes.Util.Java.RunJar(System.String,System.String[])">
             <summary>
             Runs the specified Jar file with the specified arguments
             </summary>
@@ -1639,20 +1621,25 @@
             <param name="arguments">Arguments to pass to the Jar at runtime</param>
             <returns>True if successful run, false if Java is not installed or the Jar does not exist</returns>
         </member>
-        <member name="F:RegawMOD.Command.DefaultTimeout">
+        <member name="T:Headygains.Android.Classes.Util.Message">
+            <summary>
+            An Output Message Container.
+            </summary>
+        </member>
+        <member name="F:Headygains.Android.Classes.Util.Command.DefaultTimeout">
             <summary>
             The default timeout for commands. -1 implies infinite time
             </summary>
         </member>
-        <member name="M:RegawMOD.Command.OutputToConsole(System.Windows.Controls.ListBox,RegawMOD.Android.Classes.Util.Message)">
+        <member name="M:Headygains.Android.Classes.Util.Command.OutputToConsole(System.Windows.Controls.ListBox,Headygains.Android.Classes.Util.Message)">
             <summary>
-            Adds <see cref="T:RegawMOD.Android.Classes.Util.Message"/> Object to ListBox Control.
+            Adds <see cref="T:Headygains.Android.Classes.Util.Message"/> Object to ListBox Control.
             <remarks>Uses <see cref="T:System.Windows.Threading.Dispatcher"/>To Allow "Access" From A Non-Controlling Thread.</remarks>
             </summary>
             <param name="outputControl"></param>
             <param name="outputContent"></param>
         </member>
-        <member name="M:RegawMOD.Command.RunProcessOutputToConsole(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputToConsole(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
             <summary>
             Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
             <see cref="T:System.Windows.Controls.ListBox"/><paramref name="outputControl"/>.
@@ -1663,7 +1650,7 @@
             <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/>ListBox Control Being used as an Output Console.</param>
             <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
         </member>
-        <member name="M:RegawMOD.Command.RunProcessOutputToConsoleAsync(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputToConsoleAsync(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
             <summary>
             Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
             <see cref="T:System.Windows.Controls.ListBox"/><paramref name="outputControl"/>.
@@ -1674,13 +1661,13 @@
             <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/>ListBox Control Being used as an Output Console.</param>
             <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
         </member>
-        <member name="T:RegawMOD.ResourceFolderManager">
+        <member name="T:Headygains.Android.Classes.Util.ResourceFolderManager">
             <summary>
-            Controls Resource Folders for the <see cref="N:RegawMOD"/> Namespace
+            Controls Resource Folders for the <see cref="!:RegawMOD"/> Namespace
             </summary>
             <remarks><para>You can use this in your own programs to have a managed resource folder to extract your own files/write data to.</para>
             <para>Calling Unregister() deletes the directory and everything recursively in it, and removes unregisters the directory in the manager.</para></remarks>
-            <example><para>This example shows how to register a new directory with the <see cref="T:RegawMOD.ResourceFolderManager"/>, and create a .txt file in the folder.</para>
+            <example><para>This example shows how to register a new directory with the <see cref="T:Headygains.Android.Classes.Util.ResourceFolderManager"/>, and create a .txt file in the folder.</para>
             <code>//This example shows how to register a new directory named "Testing" and create a file in the folder named "Test1.txt".
             
             using System;
@@ -1707,34 +1694,47 @@
             </code>
             </example>
         </member>
-        <member name="M:RegawMOD.ResourceFolderManager.GetRegisteredFolder(System.String)">
+        <member name="M:Headygains.Android.Classes.Util.ResourceFolderManager.GetRegisteredFolder(System.String)">
             <summary>
             Gets a <see cref="T:System.IO.DirectoryInfo"/> containing information about the registered resource directory <paramref name="folder"/>
             </summary>
             <param name="folder">Name of registered resource directory</param>
             <returns><see cref="T:System.IO.DirectoryInfo"/> containing information about the registered resource directory <paramref name="folder"/></returns>
         </member>
-        <member name="M:RegawMOD.ResourceFolderManager.GetRegisteredFolderPath(System.String)">
+        <member name="M:Headygains.Android.Classes.Util.ResourceFolderManager.GetRegisteredFolderPath(System.String)">
             <summary>
             Gets the full path of the registered resource directory <paramref name="folder"/>
             </summary>
             <param name="folder">Name of registered resource directory</param>
             <returns>Full path of the registered resource directory <paramref name="folder"/></returns>
         </member>
-        <member name="M:RegawMOD.ResourceFolderManager.Register(System.String)">
+        <member name="M:Headygains.Android.Classes.Util.ResourceFolderManager.Register(System.String)">
             <summary>
-            Registers and creates a temporary resource directory named <paramref name="name"/> with the <see cref="T:RegawMOD.ResourceFolderManager"/>
+            Registers and creates a temporary resource directory named <paramref name="name"/> with the <see cref="T:Headygains.Android.Classes.Util.ResourceFolderManager"/>
             </summary>
             <param name="name">Name to give to resource directory</param>
             <returns>True if creation succeeds, false if directory already exists</returns>
         </member>
-        <member name="M:RegawMOD.ResourceFolderManager.Unregister(System.String)">
+        <member name="M:Headygains.Android.Classes.Util.ResourceFolderManager.Unregister(System.String)">
             <summary>
             Unregisters and removes the temporary resource directory defined in <paramref name="name"/> recursively 
             </summary>
             <param name="name">Name of resource directory to unregister</param>
             <returns>True if deletion succeeds, false if not</returns>
             <remarks>Make sure all resources in <paramref name="name"/> are not being used by the system at time of Unregister() or it will return false.</remarks>
+        </member>
+        <member name="T:Headygains.Android.Classes.Signer.Signer">
+            <summary>
+            Digitally signs files
+            </summary>
+        </member>
+        <member name="M:Headygains.Android.Classes.Signer.Signer.SignUpdateZip(System.String)">
+            <summary>
+            Signs an Update.zip with test keys to flash on an Android device
+            </summary>
+            <param name="unsigned">Full path to unsigned update.zip</param>
+            <returns>True if successful, false if file <paramref name="unsigned"/> does not exist or if file <paramref name="unsigned"/> is not a zip</returns>
+            <remarks><para>Outputs signed zip in same directory as unsigned zip</para></remarks>
         </member>
     </members>
 </doc>

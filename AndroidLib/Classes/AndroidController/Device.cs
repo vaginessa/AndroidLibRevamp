@@ -4,8 +4,10 @@
 
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Manages connected Android device's info and commands
@@ -45,7 +47,7 @@ namespace RegawMOD.Android
                 {
                     line = r.ReadLine();
 
-                    if (line.Contains(this._serialNumber))
+                    if (line != null && line.Contains(this._serialNumber))
                         state = line.Substring(line.IndexOf('\t') + 1);
                 }
             }
@@ -60,7 +62,7 @@ namespace RegawMOD.Android
                     {
                         line = r.ReadLine();
 
-                        if (line.Contains(this._serialNumber))
+                        if (line != null && line.Contains(this._serialNumber))
                             state = line.Substring(line.IndexOf('\t') + 1);
                     }
                 }
@@ -152,41 +154,53 @@ namespace RegawMOD.Android
         /// <summary>
         /// Reboots the device regularly from fastboot
         /// </summary>
-        public void FastbootReboot()
+        public async void FastbootReboot()
         {
             if (this.State == DeviceState.Fastboot)
-                new Thread(new ThreadStart(FastbootRebootThread)).Start();
+                await FastbootRebootTask();
         }
 
-        private void FastbootRebootThread()
+        private Task FastbootRebootTask()
         {
-            Fastboot.ExecuteFastbootCommandNoReturn(Fastboot.FormFastbootCommand(this, "reboot"));
+            return Task.Factory.StartNew(() =>
+            {
+                Fastboot.ExecuteFastbootCommandNoReturn(Fastboot.FormFastbootCommand(this, "reboot"));
+            });
+  
         }
 
         /// <summary>
         /// Reboots the device regularly
         /// </summary>
-        public void Reboot()
+        public async void Reboot()
         {
-            new Thread(new ThreadStart(RebootThread)).Start();
+            if (this.State.Equals(DeviceState.Online))
+                await FastbootRebootTask();
         }
 
-        private void RebootThread()
+        private Task RebootTask()
         {
-            Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot"));
+            return Task.Factory.StartNew(() =>
+            {
+                Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot"));
+            });    
         }
 
         /// <summary>
         /// Reboots the device into recovery
         /// </summary>
-        public void RebootRecovery()
+        public async void RebootRecovery()
         {
-            new Thread(new ThreadStart(RebootRecoveryThread)).Start();
+            if (this.State.Equals(DeviceState.Online))
+                await RebootRecoveryTask();
         }
 
-        private void RebootRecoveryThread()
+        private Task RebootRecoveryTask()
         {
-            Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot", "recovery"));
+            return Task.Factory.StartNew(() =>
+            {
+                Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot", "recovery"));
+            });
         }
 
         /// <summary>

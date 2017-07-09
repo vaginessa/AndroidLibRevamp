@@ -2,19 +2,15 @@
  * Command.cs - Developed by Dan Wager for AndroidLib.dll - 04/12/12
  */
 
-using RegawMOD.Android.Classes.Util;
 using System;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     internal static class Command
     {
@@ -55,6 +51,25 @@ namespace RegawMOD
 
                 p.WaitForExit(timeout);
             }
+        }
+
+        internal static Task RunProcessNoReturnAsync(string executable, string arguments, int timeout)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var p = new Process())
+                {
+                    p.StartInfo.FileName = executable;
+                    p.StartInfo.Arguments = arguments;
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.UseShellExecute = true;
+
+                    p.Start();
+
+                    p.WaitForExit(timeout);
+                }
+            });
         }
 
         internal static string RunProcessReturnOutput(string executable, string arguments, int timeout)
@@ -339,11 +354,9 @@ namespace RegawMOD
 
             foreach (var p in processes)
             {
-                if (p.ProcessName.ToLower().Contains(processName.ToLower()))
-                {
-                    p.Kill();
-                    return;
-                }
+                if (!p.ProcessName.ToLower().Contains(processName.ToLower())) continue;
+                p.Kill();
+                return;
             }
         }
 

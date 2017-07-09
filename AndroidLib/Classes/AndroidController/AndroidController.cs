@@ -9,8 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Controls;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Controls communication to and from connected Android devices.  Use only one instance for the entire project.

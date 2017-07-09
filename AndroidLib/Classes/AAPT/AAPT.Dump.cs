@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AAPT
 {
     public partial class Aapt
     {

@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using Microsoft.Win32;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     /// <summary>
     /// Contains information about the current machine's Java installation

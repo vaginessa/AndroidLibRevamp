@@ -9,7 +9,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     internal enum HashType
     {

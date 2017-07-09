@@ -3,7 +3,7 @@
  * Developed by Dan Wager for AndroidLib.dll
  */
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     internal static class ExtensionMethods
     {

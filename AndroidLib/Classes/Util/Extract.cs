@@ -6,7 +6,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     internal static class Extract
     {

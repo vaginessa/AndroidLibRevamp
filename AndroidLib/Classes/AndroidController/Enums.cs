@@ -2,7 +2,7 @@
  * Enums.cs - Developed by Dan Wager for AndroidLib.dll
  */
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Specifies a FileSystem Listing

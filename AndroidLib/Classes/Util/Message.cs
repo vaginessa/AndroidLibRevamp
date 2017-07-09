@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RegawMOD.Android.Classes.Util
+﻿namespace Headygains.Android.Classes.Util
 {
     /// <summary>
     /// An Output Message Container.

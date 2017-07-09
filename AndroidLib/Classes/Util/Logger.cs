@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     internal static class Logger
     {

@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace RegawMOD
+namespace Headygains.Android.Classes.Util
 {
     /// <summary>
     /// Controls Resource Folders for the <see cref="RegawMOD"/> Namespace

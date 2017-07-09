@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AAPT
 {
     /// <summary>
     /// Wrapper for the AAPT Android binary

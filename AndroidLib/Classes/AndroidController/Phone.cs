@@ -2,7 +2,7 @@
  * Phone.cs - Developed by Dan Wager for AndroidLib.dll
  */
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Controls radio options on an Android device

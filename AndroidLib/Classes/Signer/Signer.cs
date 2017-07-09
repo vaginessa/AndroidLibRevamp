@@ -4,8 +4,9 @@
 
 using System.Collections.Generic;
 using System.IO;
+using Headygains.Android.Classes.Util;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.Signer
 {
     /// <summary>
     /// Digitally signs files

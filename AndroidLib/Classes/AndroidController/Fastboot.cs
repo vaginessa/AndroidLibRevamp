@@ -2,7 +2,10 @@
  * Fastboot.cs - Developed by Dan Wager for AndroidLib.dll
  */
 
-namespace RegawMOD.Android
+using System.Linq;
+using Headygains.Android.Classes.Util;
+
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Holds formatted commands to execute through <see cref="Fastboot"/>
@@ -15,7 +18,7 @@ namespace RegawMOD.Android
         private int _timeout;
         internal string Command => this._command;
         internal int Timeout => this._timeout;
-        internal FastbootCommand(string command) { this._command = command; this._timeout = RegawMOD.Command.DefaultTimeout; }
+        internal FastbootCommand(string command) { this._command = command; this._timeout = Util.Command.DefaultTimeout; }
         
         /// <summary>
         /// Sets the timeout for the FastbootCommand
@@ -58,8 +61,7 @@ namespace RegawMOD.Android
         {
             var fbCmd = (args.Length > 0) ? command + " " : command;
 
-            for (var i = 0; i < args.Length; i++)
-                fbCmd += args[i] + " ";
+            fbCmd = args.Aggregate(fbCmd, (current, t) => current + (t + " "));
 
             return new FastbootCommand(fbCmd);
         }
@@ -88,8 +90,7 @@ namespace RegawMOD.Android
 
             fbCmd += (args.Length > 0) ? command + " " : command;
 
-            for (var i = 0; i < args.Length; i++)
-                fbCmd += args[i] + " ";
+            fbCmd = args.Aggregate(fbCmd, (current, t) => current + (t + " "));
 
             return new FastbootCommand(fbCmd);
         }

@@ -4,7 +4,7 @@
 
 using System.IO;
 
-namespace RegawMOD.Android
+namespace Headygains.Android.Classes.AndroidController
 {
     /// <summary>
     /// Contains information about the Su binary on the Android device
