@@ -72,7 +72,7 @@ namespace Headygains.Android.Classes.AndroidController
         private static AndroidController _instance;
 
         private string _resourceDirectory;
-        private List<string> _connectedDevices;
+        private volatile List<string> _connectedDevices;
         private bool _extractResources;
 
         /// <summary>

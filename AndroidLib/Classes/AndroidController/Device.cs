@@ -36,6 +36,17 @@ namespace Headygains.Android.Classes.AndroidController
             Update();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the Device class
+        /// </summary>
+        /// <param name="deviceSerial">Serial number of Android device</param>
+        /// <param name="mode">Currently Does Nothing (Default = false)</param>
+        public Device(string deviceSerial, bool mode = false)
+        {
+            this._serialNumber = deviceSerial;
+            Update();
+        }
+
         private DeviceState SetState()
         {
             string state = null;
@@ -232,6 +243,36 @@ namespace Headygains.Android.Classes.AndroidController
         {
             var adbCmd = Adb.FormAdbCommand(this, "pull", "\"" + fileOnDevice + "\"", "\"" + destinationDirectory + "\"");
             return (Adb.ExecuteAdbCommandReturnExitCode(adbCmd.WithTimeout(timeout)) == 0);
+        }
+
+        /// <summary>
+        /// Pulls a file from the device asynchronously
+        /// </summary>
+        /// <param name="fileOnDevice">Path to file to pull from device</param>
+        /// <param name="destinationDirectory">Directory on local computer to pull file to</param>
+        /// /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+        /// <returns>True if file is pulled, false if pull failed</returns>
+        public async Task<bool> PullFileAsync(string fileOnDevice, string destinationDirectory,
+            int timeout = Command.DefaultTimeout)
+        {
+            if (!this.State.Equals(DeviceState.Online)) return false;
+            return await PullFileTask(fileOnDevice, destinationDirectory, timeout);
+        }
+
+        /// <summary>
+        /// Task That Handles PullFile Logic For <see cref="PullFileAsync"/>
+        /// </summary>
+        /// <param name="fileOnDevice">Path to file to pull from device</param>
+        /// <param name="destinationDirectory">Directory on local computer to pull file to</param>
+        /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+        /// <returns>True if file is pulled, false if pull failed</returns>
+        private Task<bool> PullFileTask(string fileOnDevice, string destinationDirectory, int timeout)
+        {
+            return Task<bool>.Factory.StartNew(() =>
+            {
+                var adbCmd = Adb.FormAdbCommand(this, "pull", "\"" + fileOnDevice + "\"", "\"" + destinationDirectory + "\"");
+                return (Adb.ExecuteAdbCommandReturnExitCode(adbCmd.WithTimeout(timeout)) == 0);
+            });
         }
 
         /// <summary>

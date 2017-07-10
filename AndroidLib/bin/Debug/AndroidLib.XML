@@ -515,6 +515,13 @@
             </summary>
             <param name="deviceSerial">Serial number of Android device</param>
         </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the Device class
+            </summary>
+            <param name="deviceSerial">Serial number of Android device</param>
+            <param name="mode">Currently Does Nothing (Default = false)</param>
+        </member>
         <member name="P:Headygains.Android.Classes.AndroidController.Device.Battery">
             <summary>
             Gets the device's <see cref="T:Headygains.Android.Classes.AndroidController.BatteryInfo"/> instance
@@ -594,6 +601,24 @@
             <param name="fileOnDevice">Path to file to pull from device</param>
             <param name="destinationDirectory">Directory on local computer to pull file to</param>
             /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+            <returns>True if file is pulled, false if pull failed</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PullFileAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Pulls a file from the device asynchronously
+            </summary>
+            <param name="fileOnDevice">Path to file to pull from device</param>
+            <param name="destinationDirectory">Directory on local computer to pull file to</param>
+            /// <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
+            <returns>True if file is pulled, false if pull failed</returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.PullFileTask(System.String,System.String,System.Int32)">
+            <summary>
+            Task That Handles PullFile Logic For <see cref="M:Headygains.Android.Classes.AndroidController.Device.PullFileAsync(System.String,System.String,System.Int32)"/>
+            </summary>
+            <param name="fileOnDevice">Path to file to pull from device</param>
+            <param name="destinationDirectory">Directory on local computer to pull file to</param>
+            <param name="timeout">The timeout for this operation in milliseconds (Default = -1)</param>
             <returns>True if file is pulled, false if pull failed</returns>
         </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.PushFile(System.String,System.String,System.Int32)">

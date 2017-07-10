@@ -197,66 +197,65 @@ namespace Headygains.Android.Classes.AndroidController
                 this._outString = "Device Not Online";
                 return;
             }
-
-            var adbCmd = Adb.FormAdbShellCommand(this._device, false, "dumpsys", "battery");
-            this._dump = Adb.ExecuteAdbCommand(adbCmd);
-
-            using (var r = new StringReader(this._dump))
+            else
             {
-                string line;
+                var adbCmd = Adb.FormAdbShellCommand(this._device, false, "dumpsys", "battery");
+                this._dump = Adb.ExecuteAdbCommand(adbCmd);
 
-                while (true)
+                using (var r = new StringReader(this._dump))
                 {
-                    line = r.ReadLine();
+                    string line;
 
-                    if (!line.Contains("Current Battery Service state"))
+                    while (true)
                     {
-                        continue;
-                    }
-                    else
-                    {
+                        line = r.ReadLine();
+
+                        if (line != null && !line.Contains("Current Battery Service state"))
+                        {
+                            continue;
+                        }
                         this._dump = line + r.ReadToEnd();
                         break;
                     }
                 }
-            }
 
-            using (var r = new StringReader(this._dump))
-            {
-                var line = "";
-
-                while (r.Peek() != -1)
+                using (var r = new StringReader(this._dump))
                 {
-                    line = r.ReadLine();
+                    var line = "";
 
-                    if (line == "")
-                        continue;
-                    else if (line.Contains("AC "))
-                        bool.TryParse(line.Substring(14), out this._acPower);
-                    else if (line.Contains("USB"))
-                        bool.TryParse(line.Substring(15), out this._usbPower);
-                    else if (line.Contains("Wireless"))
-                        bool.TryParse(line.Substring(20), out this._wirelessPower);
-                    else if (line.Contains("status"))
-                        int.TryParse(line.Substring(10), out this._status);
-                    else if (line.Contains("health"))
-                        int.TryParse(line.Substring(10), out this._health);
-                    else if (line.Contains("present"))
-                        bool.TryParse(line.Substring(11), out this._present);
-                    else if (line.Contains("level"))
-                        int.TryParse(line.Substring(9), out this._level);
-                    else if (line.Contains("scale"))
-                        int.TryParse(line.Substring(9), out this._scale);
-                    else if (line.Contains("voltage"))
-                        int.TryParse(line.Substring(10), out this._voltage);
-                    else if (line.Contains("temp"))
-                        int.TryParse(line.Substring(15), out this._temperature);
-                    else if (line.Contains("tech"))
-                        this._technology = line.Substring(14);
+                    while (r.Peek() != -1)
+                    {
+                        line = r.ReadLine();
+
+                        if (line == "")
+                            continue;
+                        else if (line.Contains("AC "))
+                            bool.TryParse(line.Substring(14), out this._acPower);
+                        else if (line.Contains("USB"))
+                            bool.TryParse(line.Substring(15), out this._usbPower);
+                        else if (line.Contains("Wireless"))
+                            bool.TryParse(line.Substring(20), out this._wirelessPower);
+                        else if (line.Contains("status"))
+                            int.TryParse(line.Substring(10), out this._status);
+                        else if (line.Contains("health"))
+                            int.TryParse(line.Substring(10), out this._health);
+                        else if (line.Contains("present"))
+                            bool.TryParse(line.Substring(11), out this._present);
+                        else if (line.Contains("level"))
+                            int.TryParse(line.Substring(9), out this._level);
+                        else if (line.Contains("scale"))
+                            int.TryParse(line.Substring(9), out this._scale);
+                        else if (line.Contains("voltage"))
+                            int.TryParse(line.Substring(10), out this._voltage);
+                        else if (line.Contains("temp"))
+                            int.TryParse(line.Substring(15), out this._temperature);
+                        else if (line.Contains("tech"))
+                            this._technology = line.Substring(14);
+                    }
                 }
-            }
 
-            this._outString = this._dump.Replace("Service state", "State For Device " + this._device.SerialNumber);
+                this._outString = this._dump.Replace("Service state", "State For Device " + this._device.SerialNumber);
+            }
         }
 
         /// <summary>
