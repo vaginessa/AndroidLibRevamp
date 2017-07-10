@@ -300,7 +300,7 @@ namespace Headygains.Android.Classes.AndroidController
                 this._connectedDevices.Clear();
                 var deviceList = Adb.Devices();
 
-                if (deviceList.Length > 29)
+                if (!(deviceList.Length <= 0))
                 {
                     using (var s = new StringReader(deviceList))
                     {
@@ -320,20 +320,19 @@ namespace Headygains.Android.Classes.AndroidController
 
                 deviceList = Fastboot.Devices();
                 if (deviceList.Length <= 0) return;
+
+                using (var s = new StringReader(deviceList))
                 {
-                    using (var s = new StringReader(deviceList))
+                    while (s.Peek() != -1)
                     {
-                        while (s.Peek() != -1)
-                        {
-                            var line = s.ReadLine();
+                        var line = s.ReadLine();
 
-                            if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
-                                continue;
+                        if (line != null && (line.StartsWith("List") || line.StartsWith("\r\n") || line.Trim() == ""))
+                            continue;
 
-                            if (line == null || line.IndexOf('\t') == -1) continue;
-                            line = line.Substring(0, line.IndexOf('\t'));
-                            this._connectedDevices.Add(line);
-                        }
+                        if (line == null || line.IndexOf('\t') == -1) continue;
+                        line = line.Substring(0, line.IndexOf('\t'));
+                        this._connectedDevices.Add(line);
                     }
                 }
             });

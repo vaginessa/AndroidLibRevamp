@@ -8,7 +8,7 @@ using System.IO;
 namespace Headygains.Android.Classes.Util
 {
     /// <summary>
-    /// Controls Resource Folders for the <see cref="RegawMOD"/> Namespace
+    /// Controls Resource Folders for the <see cref="Headygains"/> Namespace
     /// </summary>
     /// <remarks><para>You can use this in your own programs to have a managed resource folder to extract your own files/write data to.</para>
     /// <para>Calling Unregister() deletes the directory and everything recursively in it, and removes unregisters the directory in the manager.</para></remarks>
