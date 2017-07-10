@@ -93,7 +93,8 @@ namespace Headygains.Android.Classes.AndroidController
         }
 
         /// <summary>
-        /// Gets a <c>List&lt;string&gt;</c> object containing the serial numbers of all connected Android devices
+        /// Updates Connected Devices, and Gets a <c>List&lt;string&gt;</c> object 
+        /// containing the serial numbers of all connected Android devices
         /// </summary>
         public List<string> ConnectedDevices
         {
@@ -104,7 +105,12 @@ namespace Headygains.Android.Classes.AndroidController
             }
         }
 
-        internal string ResourceDirectory => this._resourceDirectory;
+        /// <summary>
+        /// Gets A <c>List&lt;string&gt;</c> object containing the serial numbers of all connected Android devices.
+        /// </summary>
+        public List<string> GetConnectedDevices => _connectedDevices;
+
+        internal string ResourceDirectory => _resourceDirectory;
 
         private AndroidController()
         {

@@ -756,7 +756,13 @@
         </member>
         <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.ConnectedDevices">
             <summary>
-            Gets a <c>List&lt;string&gt;</c> object containing the serial numbers of all connected Android devices
+            Updates Connected Devices, and Gets a <c>List&lt;string&gt;</c> object 
+            containing the serial numbers of all connected Android devices
+            </summary>
+        </member>
+        <member name="P:Headygains.Android.Classes.AndroidController.AndroidController.GetConnectedDevices">
+            <summary>
+            Gets A <c>List&lt;string&gt;</c> object containing the serial numbers of all connected Android devices.
             </summary>
         </member>
         <member name="M:Headygains.Android.Classes.AndroidController.AndroidController.Dispose">
