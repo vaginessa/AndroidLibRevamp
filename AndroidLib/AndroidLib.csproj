@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AndLibWpfKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\AndroidLibRevamp.dll" />
