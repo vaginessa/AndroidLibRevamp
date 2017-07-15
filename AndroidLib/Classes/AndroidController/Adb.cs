@@ -1,13 +1,10 @@
 ﻿/*
  * Adb.cs - Developed by Dan Wager for AndroidLib.dll
  */
-
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using Headygains.Android.Classes.Util;
 
 namespace Headygains.Android.Classes.AndroidController
@@ -19,17 +16,17 @@ namespace Headygains.Android.Classes.AndroidController
     /// <para>Can only be executed with <c>Adb.ExecuteAdbCommand()</c> or <c>Adb.ExecuteAdbCommandNoReturn()</c></para></remarks>
     public class AdbCommand
     {
-        private string _command;
-        private int _timeout;
-        internal string Command => this._command;
-        internal int Timeout => this._timeout;
-        internal AdbCommand(string command) { this._command = command; this._timeout = Util.Command.DefaultTimeout; }
+        internal string Command { get; }
+
+        internal int Timeout { get; private set; }
+
+        internal AdbCommand(string command) { this.Command = command; this.Timeout = Util.Command.DefaultTimeout; }
 
         /// <summary>
         /// Sets the timeout for the AdbCommand
         /// </summary>
         /// <param name="timeout">The timeout for the command in milliseconds</param>
-        public AdbCommand WithTimeout(int timeout) { this._timeout = timeout; return this; }
+        public AdbCommand WithTimeout(int timeout) { this.Timeout = timeout; return this; }
     }
 
     /// <summary>
@@ -251,7 +248,7 @@ namespace Headygains.Android.Classes.AndroidController
         [Obsolete("Method is deprecated, please use ExecuteAdbShellCommandInputString(Device, int, string...) instead.")]
         public static void ExecuteAdbShellCommandInputString(Device device, params string[] inputLines)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 Command.RunProcessWriteInput(AndroidController.Instance.ResourceDirectory + AdbExe, "shell", inputLines);
             }
@@ -282,7 +279,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <param name="inputLines">Lines of commands to send to shell</param>
         public static void ExecuteAdbShellCommandInputString(Device device, int timeout, params string[] inputLines)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 Command.RunProcessWriteInput(AndroidController.Instance.ResourceDirectory + AdbExe, "shell", timeout, inputLines);
             }
@@ -317,7 +314,7 @@ namespace Headygains.Android.Classes.AndroidController
         {
             var result = "";
 
-            lock (_lock)
+            lock (Lock)
             {
                 result = Command.RunProcessReturnOutput(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, forceRegular, command.Timeout);
             }
@@ -350,7 +347,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <returns>Output of <paramref name="command"/> run on server</returns>
         public static void ExecuteAdbCommandNoReturn(AdbCommand command)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, command.Timeout);
             }
@@ -379,7 +376,7 @@ namespace Headygains.Android.Classes.AndroidController
         {
             var result = -1;
 
-            lock (_lock)
+            lock (Lock)
             {
                 result = Command.RunProcessReturnExitCode(AndroidController.Instance.ResourceDirectory + AdbExe, command.Command, command.Timeout);
             }
@@ -436,6 +433,9 @@ namespace Headygains.Android.Classes.AndroidController
         /// Gets a value indicating if an Android Debug Bridge Server is currently running.
         /// </summary>
         public static bool ServerRunning => Command.IsProcessRunning(Adb.ADB);
+
+        public static object Lock { get => Lock1; set => Lock1 = value; }
+        public static object Lock1 { get => _lock; set => _lock = value; }
 
         /// <summary>
         /// Gets a value Asynchronously indicating if an Android Debug Bridge Server is currently running.

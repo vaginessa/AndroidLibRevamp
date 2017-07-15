@@ -1,4 +1,8 @@
-﻿namespace Headygains.Android.Classes.Util
+﻿/**
+ * Message.cs: Created By Headygains - 07/17
+ * **/
+
+namespace Headygains.Android.Classes.Util
 {
     /// <summary>
     /// An Output Message Container.

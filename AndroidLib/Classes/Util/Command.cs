@@ -1,5 +1,6 @@
 ﻿/*
  * Command.cs - Developed by Dan Wager for AndroidLib.dll - 04/12/12
+ * Updates: Headygains 07/2017
  */
 
 using System;

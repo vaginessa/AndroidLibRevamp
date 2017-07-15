@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AndroidLib")]
+[assembly: AssemblyTitle("AndroidLibRevamp")]
 [assembly: AssemblyDescription(".NET Communication and Management of Android devices")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dalton Brady")]
-[assembly: AssemblyProduct("AndroidLib")]
-[assembly: AssemblyCopyright("© 2012 Dan Wager")]
+[assembly: AssemblyProduct("AndroidLibRevamp")]
+[assembly: AssemblyCopyright("© 2017 Dalton Brady")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ObfuscateAssembly(false)]

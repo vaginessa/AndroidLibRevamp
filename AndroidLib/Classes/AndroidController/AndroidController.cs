@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using Headygains.Android.Classes.Util;
 
 namespace Headygains.Android.Classes.AndroidController

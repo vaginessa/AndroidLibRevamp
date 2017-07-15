@@ -1,11 +1,10 @@
 ﻿/*
  * Device.cs - Developed by Dan Wager for AndroidLib.dll
+ * Updated: Headygains 07/17
  */
 
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using Headygains.Android.Classes.Util;
 
 namespace Headygains.Android.Classes.AndroidController
