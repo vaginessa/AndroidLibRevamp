@@ -7,20 +7,32 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace Headygains.Android.Classes.Util
 {
-    internal static class Command
+    /// <summary>
+    /// Class Used To Run Process.
+    /// </summary>
+    public static class Command
     {
         /// <summary>
         /// The default timeout for commands. -1 implies infinite time
         /// </summary>
         public const int DefaultTimeout = -1;
+
+        /// <summary>
+        /// Event Handler For Process Output Events.
+        /// </summary>
+        public static event EventHandler<OutputEventArgs> OutputReceived;
         
+        /// <summary>
+        /// Runs a process, does not return any data or exit code from process.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="waitForExit"></param>
         [Obsolete("Method is deprecated, please use RunProcessNoReturn(string, string, int) instead.")]
-        internal static void RunProcessNoReturn(string executable, string arguments, bool waitForExit = true)
+        public static void RunProcessNoReturn(string executable, string arguments, bool waitForExit = true)
         {
             using (var p = new Process())
             {
@@ -37,7 +49,13 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        internal static void RunProcessNoReturn(string executable, string arguments, int timeout)
+        /// <summary>
+        /// Runs a process, does not return any data or exit code from process.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        public static void RunProcessNoReturn(string executable, string arguments, int timeout)
         {
             using (var p = new Process())
             {
@@ -53,26 +71,7 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        internal static Task RunProcessNoReturnAsync(string executable, string arguments, int timeout)
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                using (var p = new Process())
-                {
-                    p.StartInfo.FileName = executable;
-                    p.StartInfo.Arguments = arguments;
-                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.UseShellExecute = true;
-
-                    p.Start();
-
-                    p.WaitForExit(timeout);
-                }
-            });
-        }
-
-        internal static string RunProcessReturnOutput(string executable, string arguments, int timeout)
+        public static string RunProcessReturnOutput(string executable, string arguments, int timeout)
         {
             using (var p = new Process())
             {
@@ -90,128 +89,7 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        /// <summary>
-        /// Adds <see cref="Message"/> Object to ListBox Control.
-        /// <remarks>Uses <see cref="Dispatcher"/>To Allow "Access" From A Non-Controlling Thread.</remarks>
-        /// </summary>
-        /// <param name="outputControl"></param>
-        /// <param name="outputContent"></param>
-        internal static void OutputToConsole(ListBox outputControl, Message outputContent)
-        {
-            // Check To See If We Have Thread Access.
-            // If not then use Dispatcher to add item.
-            if (outputControl.CheckAccess())
-            {
-                outputControl.Items.Add(outputContent);
-                outputControl.UpdateLayout();
-                outputControl.ScrollIntoView(outputControl.Items[outputControl.Items.Count - 1]);
-            }
-            else
-            {
-                outputControl.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    outputControl.Items.Add(outputContent);
-                    outputControl.UpdateLayout();
-                    outputControl.ScrollIntoView(outputControl.Items[outputControl.Items.Count - 1]);
-                }));
-            }
-        }
-
-        /// <summary>
-        /// Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
-        /// <see cref="ListBox"/><paramref name="outputControl"/>.
-        /// </summary>
-        /// <param name="executable"></param>
-        /// <param name="arguments"></param>
-        /// <param name="timeout"></param>
-        /// <param name="outputControl"><see cref="ListBox"/>ListBox Control Being used as an Output Console.</param>
-        /// <returns><see cref="Process.ExitCode"/></returns>
-        internal static int RunProcessOutputToConsole(string executable, string arguments, int timeout, ListBox outputControl)
-        {
-            const string sourceTag = "PROC";
-            var startInfo = new ProcessStartInfo
-            {
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                FileName = executable,
-                Arguments = arguments,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true    
-            };
-            using (var proc = new Process())
-            {
-                proc.StartInfo = startInfo;
-                proc.ErrorDataReceived += (sendingProcess, output) =>
-                {
-                    if (string.IsNullOrEmpty(output.Data)) return;
-                    var outputMessage = new Message(1,sourceTag,output.Data);
-                    OutputToConsole(outputControl,outputMessage);
-                };
-                proc.OutputDataReceived += (sendingProcess, output) =>
-                {
-                    if (string.IsNullOrEmpty(output.Data)) return;
-                    var outputMessage = new Message(0, sourceTag, output.Data);
-                    OutputToConsole(outputControl, outputMessage);
-                };
-                proc.Start();
-                proc.BeginErrorReadLine();
-                proc.BeginOutputReadLine();
-                proc.WaitForExit(timeout);
-                return proc.ExitCode;
-            }
-        }
-
-        /// <summary>
-        /// Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
-        /// <see cref="ListBox"/><paramref name="outputControl"/>.
-        /// </summary>
-        /// <param name="executable"></param>
-        /// <param name="arguments"></param>
-        /// <param name="timeout"></param>
-        /// <param name="outputControl"><see cref="ListBox"/>ListBox Control Being used as an Output Console.</param>
-        /// <returns><see cref="Process.ExitCode"/></returns>
-        internal static Task<int> RunProcessOutputToConsoleAsync(string executable, string arguments, int timeout, ListBox outputControl)
-        {
-            const string sourceTag = "PROC";
-            return Task<int>.Factory.StartNew(() =>
-            {
-                var startInfo = new ProcessStartInfo
-                {
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = executable,
-                    Arguments = arguments,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true
-                };
-                using (var proc = new Process())
-                {
-                    proc.StartInfo = startInfo;
-                    proc.ErrorDataReceived += (sendingProcess, output) =>
-                    {
-                        if (string.IsNullOrEmpty(output.Data)) return;
-                        var outputMessage = new Message(1, sourceTag, output.Data);
-                        OutputToConsole(outputControl, outputMessage);
-                    };
-                    proc.OutputDataReceived += (sendingProcess, output) =>
-                    {
-                        if (string.IsNullOrEmpty(output.Data)) return;
-                        var outputMessage = new Message(0, sourceTag, output.Data);
-                        OutputToConsole(outputControl, outputMessage);
-                    };
-                    proc.Start();
-                    proc.BeginErrorReadLine();
-                    proc.BeginOutputReadLine();
-                    proc.WaitForExit(timeout);
-                    return proc.ExitCode;
-                }
-            });
-            
-        }
-
-        internal static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
+        public static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
         {
             using (var p = new Process())
             {
@@ -229,7 +107,94 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        private static string HandleOutput(Process p, AutoResetEvent outputWaitHandle, AutoResetEvent errorWaitHandle, int timeout, bool forceRegular)
+        /// <summary>
+        /// Runs a process and Ties The Error/Output streams to <see cref="ReceiveOutput"/> .
+        /// </summary>
+        /// <param name="executable">Executable to run.</param>
+        /// <param name="arguments">Arguments for executable.</param>
+        /// <param name="timeout">Timeout ms</param>
+        /// <returns><see cref="Task"/></returns>
+        public static Task RunProcessOutputStream(string executable, string arguments, int timeout)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var p = new Process())
+                {
+                    p.StartInfo.FileName = executable;
+                    p.StartInfo.Arguments = arguments;
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.ErrorDataReceived += ReceiveOutput;
+                    p.OutputDataReceived += ReceiveOutput;
+                    p.Start();
+                    p.BeginErrorReadLine();
+                    p.BeginOutputReadLine();
+                    p.WaitForExit(timeout);
+                }
+                
+            });
+        }
+
+        /// <summary>
+        /// Runs a process and Ties The Error/Output streams to <see cref="ReceiveOutput"/>.
+        /// You Must Use <see cref="OutputReceived"/> Event Handler.
+        /// </summary>
+        /// <param name="executable">Executable to run.</param>
+        /// <param name="arguments">Arguments for executable.</param>
+        /// <param name="timeout">Timeout ms</param>
+        /// <returns><see cref="Task"/> <c>int</c></returns>
+        public static Task<int> RunProcessOutputStreamReturnResult(string executable, string arguments, int timeout)
+        {
+            return Task<int>.Factory.StartNew(() =>
+            {
+                using (var p = new Process())
+                {
+                    p.StartInfo.FileName = executable;
+                    p.StartInfo.Arguments = arguments;
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.ErrorDataReceived += ReceiveOutput;
+                    p.OutputDataReceived += ReceiveOutput;
+                    p.Start();
+                    p.BeginErrorReadLine();
+                    p.BeginOutputReadLine();
+                    p.WaitForExit(timeout);
+                    return p.ExitCode;
+                }
+
+            });
+        }
+
+        /// <summary>
+        /// Handles Process Output Streams.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        internal static void ReceiveOutput(object sender, DataReceivedEventArgs eventArgs)
+        {
+            if (eventArgs == null) return;
+            var args = new OutputEventArgs {OutputData = eventArgs.Data};
+            OnProcessOutput(sender,args);
+        }
+
+        /// <summary>
+        /// Calls OutputReceived Event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        internal static void OnProcessOutput(object sender, OutputEventArgs eventArgs)
+        {
+            OutputReceived?.Invoke(sender, eventArgs);
+        }
+  
+
+        public static string HandleOutput(Process p, AutoResetEvent outputWaitHandle, AutoResetEvent errorWaitHandle, int timeout, bool forceRegular)
         {
             var output = new StringBuilder();
             var error = new StringBuilder();
@@ -272,7 +237,7 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        internal static int RunProcessReturnExitCode(string executable, string arguments, int timeout)
+        public static int RunProcessReturnExitCode(string executable, string arguments, int timeout)
         {
             int exitCode;
 
@@ -293,7 +258,7 @@ namespace Headygains.Android.Classes.Util
         }
 
         [Obsolete("Method is deprecated, please use RunProcessWriteInput(string, string, int, string...) instead.")]
-        internal static void RunProcessWriteInput(string executable, string arguments, params string[] input)
+        public static void RunProcessWriteInput(string executable, string arguments, params string[] input)
         {
             using (var p = new Process())
             {
@@ -315,7 +280,7 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        internal static void RunProcessWriteInput(string executable, string arguments, int timeout, params string[] input)
+        public static void RunProcessWriteInput(string executable, string arguments, int timeout, params string[] input)
         {
             using (var p = new Process())
             {
@@ -337,7 +302,7 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
-        internal static bool IsProcessRunning(string processName)
+        public static bool IsProcessRunning(string processName)
         {
             var processes = Process.GetProcesses();
 

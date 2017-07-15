@@ -62,6 +62,7 @@
     <Compile Include="Classes\AndroidController\Device.cs" />
     <Compile Include="Classes\AndroidController\AndroidController.cs" />
     <Compile Include="Classes\AndroidController\BuildProp.cs" />
+    <Compile Include="Classes\Util\Events.cs" />
     <Compile Include="Classes\Util\Extract.cs" />
     <Compile Include="Classes\Util\Hasher.cs" />
     <Compile Include="Classes\AndroidController\Fastboot.cs" />

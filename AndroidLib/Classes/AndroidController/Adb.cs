@@ -404,42 +404,33 @@ namespace Headygains.Android.Classes.AndroidController
 
         /// <summary>
         /// Executes an <see cref="AdbCommand"/> on the running Adb Server
-        /// and prints the Error/Output Streams to<paramref name="outputControl"/>
-        /// and returns and ExitCode from <see cref="Process"/>.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="outputControl"><see cref="ListBox"/> ListBoxControl</param>
         /// <returns></returns>
-        public static int ExecuteAdbCommandConsoleOut(AdbCommand command, ListBox outputControl)
+        public static async void ExecuteAdbCommandWithOutstream(AdbCommand command)
         {
-            var result = -1;
-
-            lock (_lock)
-            {
-                result = Command.RunProcessOutputToConsole(AndroidController.Instance.ResourceDirectory + AdbExe,
-                    command.Command, command.Timeout, outputControl);
-            }
-            return result;
+            await Command.RunProcessOutputStream(AndroidController.Instance.ResourceDirectory + AdbExe,
+                    command.Command, command.Timeout);
         }
 
-        /// <summary>
-        /// Executes an <see cref="AdbCommand"/> on the running Adb Server
-        /// and prints the Error/Output Streams to<paramref name="outputControl"/>
-        /// and returns and ExitCode from <see cref="Process"/>.
-        /// </summary>
-        /// <param name="command"></param>
-        /// <param name="outputControl"><see cref="ListBox"/> ListBoxControl</param>
-        /// <returns></returns>
-        public static Task<int> ExecuteAdbCommandConsoleOutAsync(AdbCommand command, ListBox outputControl)
-        {
-            return Task<int>.Factory.StartNew(() =>
-            {
-                var result = -1;
-                result = Command.RunProcessOutputToConsole(AndroidController.Instance.ResourceDirectory + AdbExe,
-                    command.Command, command.Timeout, outputControl);
-                return result;
-            });
-        }
+        ///// <summary>
+        ///// Executes an <see cref="AdbCommand"/> on the running Adb Server
+        ///// and prints the Error/Output Streams to<paramref name="outputControl"/>
+        ///// and returns and ExitCode from <see cref="Process"/>.
+        ///// </summary>
+        ///// <param name="command"></param>
+        ///// <param name="outputControl"><see cref="ListBox"/> ListBoxControl</param>
+        ///// <returns></returns>
+        //public static Task<int> ExecuteAdbCommandConsoleOutAsync(AdbCommand command, ListBox outputControl)
+        //{
+        //    return Task<int>.Factory.StartNew(() =>
+        //    {
+        //        var result = -1;
+        //        result = Command.RunProcessOutputToConsole(AndroidController.Instance.ResourceDirectory + AdbExe,
+        //            command.Command, command.Timeout, outputControl);
+        //        return result;
+        //    });
+        //}
 
         /// <summary>
         /// Gets a value indicating if an Android Debug Bridge Server is currently running.
@@ -517,13 +508,11 @@ namespace Headygains.Android.Classes.AndroidController
         /// Pushes A Sideload Package Via ADB Server to A Device.
         /// </summary>
         /// <param name="sideloadPackage">File To Sideload</param>
-        /// <param name="outputControl">Control For Output</param>
         /// <returns></returns>
-        public static int Sideload(string sideloadPackage, ListBox outputControl)
+        public static void Sideload(string sideloadPackage)
         {
             var adbCmd = FormAdbCommand("sideload", sideloadPackage);
-            var result = ExecuteAdbCommandConsoleOut(adbCmd, outputControl);
-            return result;
+            ExecuteAdbCommandWithOutstream(adbCmd);
         }
 
         ///// <summary>

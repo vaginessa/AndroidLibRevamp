@@ -358,24 +358,11 @@
             <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/></param>
             <returns>Exit code of the process</returns>
         </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandConsoleOut(Headygains.Android.Classes.AndroidController.AdbCommand,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandWithOutstream(Headygains.Android.Classes.AndroidController.AdbCommand)">
             <summary>
             Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
-            and prints the Error/Output Streams to<paramref name="outputControl"/>
-            and returns and ExitCode from <see cref="T:System.Diagnostics.Process"/>.
             </summary>
             <param name="command"></param>
-            <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/> ListBoxControl</param>
-            <returns></returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.ExecuteAdbCommandConsoleOutAsync(Headygains.Android.Classes.AndroidController.AdbCommand,System.Windows.Controls.ListBox)">
-            <summary>
-            Executes an <see cref="T:Headygains.Android.Classes.AndroidController.AdbCommand"/> on the running Adb Server
-            and prints the Error/Output Streams to<paramref name="outputControl"/>
-            and returns and ExitCode from <see cref="T:System.Diagnostics.Process"/>.
-            </summary>
-            <param name="command"></param>
-            <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/> ListBoxControl</param>
             <returns></returns>
         </member>
         <member name="P:Headygains.Android.Classes.AndroidController.Adb.ServerRunning">
@@ -398,12 +385,11 @@
             <param name="remotePort">Remote port number</param>
             <returns>True if successful, false if unsuccessful</returns>
         </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Adb.Sideload(System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Adb.Sideload(System.String)">
             <summary>
             Pushes A Sideload Package Via ADB Server to A Device.
             </summary>
             <param name="sideloadPackage">File To Sideload</param>
-            <param name="outputControl">Control For Output</param>
             <returns></returns>
         </member>
         <member name="T:Headygains.Android.Classes.AndroidController.BusyBox">
@@ -672,31 +658,12 @@
             <param name="timeout">The timeout for the operation in milliseconds (Default = -1)</param>
             <returns>True if install is successful, else False</returns>
         </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Device.Sideload(System.String,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.Sideload(System.String)">
             <summary>
             Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
             Only Usable If Using a WPF ListBox Control As Output Console.
             </summary>
             <param name="sideloadPackage">Sideload Package To Send</param>
-            <param name="outputControl">ListBox control to output to</param>
-            <returns>Sideload Process ExitCode</returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Device.SideloadAsync(System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
-            Only Usable If Using a WPF ListBox Control As Output Console.
-            </summary>
-            <param name="sideloadPackage">Sideload Package To Send</param>
-            <param name="outputControl">ListBox control to output to</param>
-            <returns>Sideload Process ExitCode</returns>
-        </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Device.SideloadTask(System.String,System.Windows.Controls.ListBox)">
-            <summary>
-            Task That Handles Sideload Logic For <see cref="M:Headygains.Android.Classes.AndroidController.Device.SideloadAsync(System.String,System.Windows.Controls.ListBox)"/>
-            </summary>
-            <param name="sideloadPackage"></param>
-            <param name="outputControl"></param>
-            <returns></returns>
         </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.Update">
             <summary>
@@ -1604,6 +1571,16 @@
             Gets a value indicating the version of Su on the Android device
             </summary>
         </member>
+        <member name="T:Headygains.Android.Classes.Util.OutputEventArgs">
+            <summary>
+            Stores Output Data From Output Events.
+            </summary>
+        </member>
+        <member name="P:Headygains.Android.Classes.Util.OutputEventArgs.OutputData">
+            <summary>
+            Contains The Output Data For The Output Event.
+            </summary>
+        </member>
         <member name="M:Headygains.Android.Classes.Util.Extract.Resources(System.Object,System.String,System.String,System.String[])">
             <summary>
             Extracts Multiple Embedded Resources From Calling Assembly
@@ -1671,40 +1648,45 @@
             An Output Message Container.
             </summary>
         </member>
+        <member name="T:Headygains.Android.Classes.Util.Command">
+            <summary>
+            Class Used To Run Process.
+            </summary>
+        </member>
         <member name="F:Headygains.Android.Classes.Util.Command.DefaultTimeout">
             <summary>
             The default timeout for commands. -1 implies infinite time
             </summary>
         </member>
-        <member name="M:Headygains.Android.Classes.Util.Command.OutputToConsole(System.Windows.Controls.ListBox,Headygains.Android.Classes.Util.Message)">
+        <member name="E:Headygains.Android.Classes.Util.Command.OutputReceived">
             <summary>
-            Adds <see cref="T:Headygains.Android.Classes.Util.Message"/> Object to ListBox Control.
-            <remarks>Uses <see cref="T:System.Windows.Threading.Dispatcher"/>To Allow "Access" From A Non-Controlling Thread.</remarks>
+            Event Handler For Process Output Events.
             </summary>
-            <param name="outputControl"></param>
-            <param name="outputContent"></param>
         </member>
-        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputToConsole(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessNoReturn(System.String,System.String,System.Boolean)">
             <summary>
-            Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
-            <see cref="T:System.Windows.Controls.ListBox"/><paramref name="outputControl"/>.
+            Runs a process, does not return any data or exit code from process.
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="waitForExit"></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessNoReturn(System.String,System.String,System.Int32)">
+            <summary>
+            Runs a process, does not return any data or exit code from process.
             </summary>
             <param name="executable"></param>
             <param name="arguments"></param>
             <param name="timeout"></param>
-            <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/>ListBox Control Being used as an Output Console.</param>
-            <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
         </member>
-        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputToConsoleAsync(System.String,System.String,System.Int32,System.Windows.Controls.ListBox)">
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputStream(System.String,System.String,System.Int32)">
             <summary>
-            Creates And Starts A Process And Outputs ErrorStream and OutputStream Data to 
-            <see cref="T:System.Windows.Controls.ListBox"/><paramref name="outputControl"/>.
+            Runs a process and Ties The Error/Output streams to <see cref="!:OnReceiveProcessOutput"/> .
             </summary>
-            <param name="executable"></param>
-            <param name="arguments"></param>
-            <param name="timeout"></param>
-            <param name="outputControl"><see cref="T:System.Windows.Controls.ListBox"/>ListBox Control Being used as an Output Console.</param>
-            <returns><see cref="P:System.Diagnostics.Process.ExitCode"/></returns>
+            <param name="executable">Executable to run.</param>
+            <param name="arguments">Arguments for executable.</param>
+            <param name="timeout">Timeout ms</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
         </member>
         <member name="T:Headygains.Android.Classes.Util.ResourceFolderManager">
             <summary>
