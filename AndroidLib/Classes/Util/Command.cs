@@ -13,6 +13,19 @@ namespace Headygains.Android.Classes.Util
     /// <summary>
     /// Class Used To Run Process.
     /// </summary>
+    /// <remarks>
+    /// To use <see cref="RunProcessOutputStream"/> methods you must set an <see cref="OutputReceived"/>
+    /// event handler method.
+    /// 
+    /// Assignment
+    /// Ex: <c>Command.OutputReceived += OnExampleOutputReceived;</c>
+    /// 
+    /// OnExampleOutputReceived Method
+    /// Ex: string OutputStreamLine; // The variable that will store the output line of a process.
+    /// Ex: void OnExampleOutputReceived(object sender, OutputEventArgs eventArgs){ OutputStreamLine = eventArgs.OutputData; }
+    /// Ex: string OnExampleOutputReceived(object sender, OutputEventArgs eventArgs){ return eventArgs.OutputData; }
+    /// 
+    /// </remarks>
     public static class Command
     {
         /// <summary>
@@ -71,6 +84,13 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
+        /// <summary>
+        /// Returns Process output after process execution finishes.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public static string RunProcessReturnOutput(string executable, string arguments, int timeout)
         {
             using (var p = new Process())
@@ -89,6 +109,14 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
+        /// <summary>
+        /// Returns Process output after process execution finishes.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="forceRegular"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public static string RunProcessReturnOutput(string executable, string arguments, bool forceRegular, int timeout)
         {
             using (var p = new Process())
@@ -192,8 +220,16 @@ namespace Headygains.Android.Classes.Util
         {
             OutputReceived?.Invoke(sender, eventArgs);
         }
-  
 
+        /// <summary>
+        /// Returns the full process output as a string, after the process completes.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="outputWaitHandle"></param>
+        /// <param name="errorWaitHandle"></param>
+        /// <param name="timeout"></param>
+        /// <param name="forceRegular"></param>
+        /// <returns></returns>
         public static string HandleOutput(Process p, AutoResetEvent outputWaitHandle, AutoResetEvent errorWaitHandle, int timeout, bool forceRegular)
         {
             var output = new StringBuilder();
@@ -237,6 +273,13 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
+        /// <summary>
+        /// Runs a process and returns the <see cref="Process.ExitCode"/>
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public static int RunProcessReturnExitCode(string executable, string arguments, int timeout)
         {
             int exitCode;
@@ -257,6 +300,13 @@ namespace Headygains.Android.Classes.Util
             return exitCode;
         }
 
+        /// <summary>
+        /// Run a process write input stream to process. I haven't tested this yet - headygains.
+        /// Could be used in the future to add a user interactable console in an application.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="input"></param>
         [Obsolete("Method is deprecated, please use RunProcessWriteInput(string, string, int, string...) instead.")]
         public static void RunProcessWriteInput(string executable, string arguments, params string[] input)
         {
@@ -280,6 +330,14 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
+        /// <summary>
+        /// Run a process write input stream to process. I haven't tested this yet - headygains.
+        /// Could be used in the future to add a user interactable console in an application.
+        /// </summary>
+        /// <param name="executable"></param>
+        /// <param name="arguments"></param>
+        /// <param name="timeout"></param>
+        /// <param name="input"></param>
         public static void RunProcessWriteInput(string executable, string arguments, int timeout, params string[] input)
         {
             using (var p = new Process())
@@ -302,6 +360,11 @@ namespace Headygains.Android.Classes.Util
             }
         }
 
+        /// <summary>
+        /// Returns if a process with <paramref name="processName"/> is running
+        /// </summary>
+        /// <param name="processName"> Name of process</param>
+        /// <returns></returns>
         public static bool IsProcessRunning(string processName)
         {
             var processes = Process.GetProcesses();
@@ -313,7 +376,11 @@ namespace Headygains.Android.Classes.Util
             return false;
         }
 
-        internal static void KillProcess(string processName)
+        /// <summary>
+        /// Kills a process by name.
+        /// </summary>
+        /// <param name="processName"> Name of process to kill</param>
+        public static void KillProcess(string processName)
         {
             var processes = Process.GetProcesses();
 

@@ -40,8 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>AndLibWpfKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -104,6 +103,9 @@
     <Content Include="bin\Debug\AndroidLib.dll" />
     <Content Include="bin\Debug\AndroidLib.pdb" />
     <Content Include="bin\Debug\AndroidLib.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AndLibWpfKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

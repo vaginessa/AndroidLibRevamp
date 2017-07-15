@@ -1652,6 +1652,19 @@
             <summary>
             Class Used To Run Process.
             </summary>
+            <remarks>
+            To use <see cref="M:Headygains.Android.Classes.Util.Command.RunProcessOutputStream(System.String,System.String,System.Int32)"/> methods you must set an <see cref="E:Headygains.Android.Classes.Util.Command.OutputReceived"/>
+            event handler method.
+            
+            Assignment
+            Ex: <c>Command.OutputReceived += OnExampleOutputReceived;</c>
+            
+            OnExampleOutputReceived Method
+            Ex: string OutputStreamLine; // The variable that will store the output line of a process.
+            Ex: void OnExampleOutputReceived(object sender, OutputEventArgs eventArgs){ OutputStreamLine = eventArgs.OutputData; }
+            Ex: string OnExampleOutputReceived(object sender, OutputEventArgs eventArgs){ return eventArgs.OutputData; }
+            
+            </remarks>
         </member>
         <member name="F:Headygains.Android.Classes.Util.Command.DefaultTimeout">
             <summary>
@@ -1679,14 +1692,109 @@
             <param name="arguments"></param>
             <param name="timeout"></param>
         </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessReturnOutput(System.String,System.String,System.Int32)">
+            <summary>
+            Returns Process output after process execution finishes.
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessReturnOutput(System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            Returns Process output after process execution finishes.
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="forceRegular"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
         <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputStream(System.String,System.String,System.Int32)">
             <summary>
-            Runs a process and Ties The Error/Output streams to <see cref="!:OnReceiveProcessOutput"/> .
+            Runs a process and Ties The Error/Output streams to <see cref="M:Headygains.Android.Classes.Util.Command.ReceiveOutput(System.Object,System.Diagnostics.DataReceivedEventArgs)"/> .
             </summary>
             <param name="executable">Executable to run.</param>
             <param name="arguments">Arguments for executable.</param>
             <param name="timeout">Timeout ms</param>
             <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessOutputStreamReturnResult(System.String,System.String,System.Int32)">
+            <summary>
+            Runs a process and Ties The Error/Output streams to <see cref="M:Headygains.Android.Classes.Util.Command.ReceiveOutput(System.Object,System.Diagnostics.DataReceivedEventArgs)"/>.
+            You Must Use <see cref="E:Headygains.Android.Classes.Util.Command.OutputReceived"/> Event Handler.
+            </summary>
+            <param name="executable">Executable to run.</param>
+            <param name="arguments">Arguments for executable.</param>
+            <param name="timeout">Timeout ms</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> <c>int</c></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.ReceiveOutput(System.Object,System.Diagnostics.DataReceivedEventArgs)">
+            <summary>
+            Handles Process Output Streams.
+            </summary>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.OnProcessOutput(System.Object,Headygains.Android.Classes.Util.OutputEventArgs)">
+            <summary>
+            Calls OutputReceived Event.
+            </summary>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.HandleOutput(System.Diagnostics.Process,System.Threading.AutoResetEvent,System.Threading.AutoResetEvent,System.Int32,System.Boolean)">
+            <summary>
+            Returns the full process output as a string, after the process completes.
+            </summary>
+            <param name="p"></param>
+            <param name="outputWaitHandle"></param>
+            <param name="errorWaitHandle"></param>
+            <param name="timeout"></param>
+            <param name="forceRegular"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessReturnExitCode(System.String,System.String,System.Int32)">
+            <summary>
+            Runs a process and returns the <see cref="P:System.Diagnostics.Process.ExitCode"/>
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessWriteInput(System.String,System.String,System.String[])">
+            <summary>
+            Run a process write input stream to process. I haven't tested this yet - headygains.
+            Could be used in the future to add a user interactable console in an application.
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="input"></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.RunProcessWriteInput(System.String,System.String,System.Int32,System.String[])">
+            <summary>
+            Run a process write input stream to process. I haven't tested this yet - headygains.
+            Could be used in the future to add a user interactable console in an application.
+            </summary>
+            <param name="executable"></param>
+            <param name="arguments"></param>
+            <param name="timeout"></param>
+            <param name="input"></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.IsProcessRunning(System.String)">
+            <summary>
+            Returns if a process with <paramref name="processName"/> is running
+            </summary>
+            <param name="processName"> Name of process</param>
+            <returns></returns>
+        </member>
+        <member name="M:Headygains.Android.Classes.Util.Command.KillProcess(System.String)">
+            <summary>
+            Kills a process by name.
+            </summary>
+            <param name="processName"> Name of process to kill</param>
         </member>
         <member name="T:Headygains.Android.Classes.Util.ResourceFolderManager">
             <summary>
