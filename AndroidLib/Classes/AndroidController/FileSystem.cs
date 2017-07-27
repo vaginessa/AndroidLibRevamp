@@ -197,12 +197,10 @@ namespace Headygains.Android.Classes.AndroidController
         }
 
         /// <summary>
-        /// Gets a <see cref="Dictionary<string, ListingType>"/> containing all the files and folders in the directory added as a parameter.
+        /// Gets a Dictionary<c> string / ListingType></c> containing all the files and folders in the directory added as a parameter.
         /// </summary>
-        /// <param name="rootDir">
         /// The directory you'd like to list the files and folders from.
         /// E.G.: /system/bin/
-        /// </param>
         /// <returns>See <see cref="Dictionary"/></returns>
         public Dictionary<string, ListingType> GetFilesAndDirectories(string location)
         {

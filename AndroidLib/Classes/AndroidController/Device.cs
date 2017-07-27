@@ -245,6 +245,19 @@ namespace Headygains.Android.Classes.AndroidController
         }
 
         /// <summary>
+        /// Pulls a file from the device, and outputs the OutputStream and Error Stream of the process 
+        /// using an <see cref="Command.OutputReceived"/> Event.
+        /// </summary>
+        /// <param name="fileOnDevice">Path to the file on the device</param>
+        /// <param name="destinationDirectory">Path to the destination on local machine</param>
+        /// <param name="timeout"></param>
+        public void PullFileWithStream(string fileOnDevice, string destinationDirectory, int timeout = Command.DefaultTimeout)
+        {
+            var adbCmd = Adb.FormAdbCommand(this, "pull", "\"" + fileOnDevice + "\"", "\"" + destinationDirectory + "\"");
+            Adb.ExecuteAdbCommandWithOutstream(adbCmd);
+        }
+
+        /// <summary>
         /// Pulls a file from the device asynchronously
         /// </summary>
         /// <param name="fileOnDevice">Path to file to pull from device</param>
@@ -372,35 +385,6 @@ namespace Headygains.Android.Classes.AndroidController
             // *** If Device State Is DeviceState.Sideload ***
             Adb.Sideload(sideloadPackage);
         }
-
-        ///// <summary>
-        ///// Pushes <paramref name="sideloadPackage"/> to Device Via <c>adb sideload</c>.
-        ///// Only Usable If Using a WPF ListBox Control As Output Console.
-        ///// </summary>
-        ///// <param name="sideloadPackage">Sideload Package To Send</param>
-        ///// <param name="outputControl">ListBox control to output to</param>
-        ///// <returns>Sideload Process ExitCode</returns>
-        //public async Task<int> SideloadAsync(string sideloadPackage, ListBox outputControl)
-        //{
-        //    if (!this.State.Equals(DeviceState.Sideload)) return -1;
-
-        //    return SideloadTask(sideloadPackage, outputControl);
-        //}
-
-        ///// <summary>
-        ///// Task That Handles Sideload Logic For <see cref="SideloadAsync"/>
-        ///// </summary>
-        ///// <param name="sideloadPackage"></param>
-        ///// <param name="outputControl"></param>
-        ///// <returns></returns>
-        //private static Task<int> SideloadTask(string sideloadPackage, ListBox outputControl)
-        //{
-        //    return Task<int>.Factory.StartNew(() =>
-        //    {
-        //        var sideloadResult = Adb.Sideload(sideloadPackage, outputControl);
-        //        return sideloadResult;
-        //    });
-        //}
 
         /// <summary>
         /// Updates all values in current instance of <see cref="Device"/>
