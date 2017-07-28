@@ -97,11 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AndLibWpfKey.pfx" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\AndroidLibRevamp.dll" />
     <Content Include="bin\Debug\AndroidLibRevamp.pdb" />
+    <Content Include="bin\Debug\AndroidLibRevamp.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
