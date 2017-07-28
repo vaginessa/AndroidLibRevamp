@@ -40,18 +40,18 @@ namespace Headygains.Android.Classes.Util
     /// </example>
     public static class ResourceFolderManager
     {
-        private static readonly DirectoryInfo RegawmodTempDirectory;
+        private static readonly DirectoryInfo HeadygainsTempDirectory;
         private static Dictionary<string, DirectoryInfo> _controlledFolders;
 
         static ResourceFolderManager()
         {
-            RegawmodTempDirectory = new DirectoryInfo(Path.GetTempPath() + "\\RegawMOD\\");
+            HeadygainsTempDirectory = new DirectoryInfo(Path.GetTempPath() + "\\Headygains\\");
             _controlledFolders = new Dictionary<string, DirectoryInfo>();
 
-            if (!RegawmodTempDirectory.Exists)
-                RegawmodTempDirectory.Create();
+            if (!HeadygainsTempDirectory.Exists)
+                HeadygainsTempDirectory.Create();
 
-            foreach (var d in RegawmodTempDirectory.GetDirectories("*", SearchOption.TopDirectoryOnly))
+            foreach (var d in HeadygainsTempDirectory.GetDirectories("*", SearchOption.TopDirectoryOnly))
                 _controlledFolders.Add(d.Name, d);
         }
         
@@ -85,7 +85,7 @@ namespace Headygains.Android.Classes.Util
             if (_controlledFolders.ContainsKey(name))
                 return false;
 
-            _controlledFolders.Add(name, new DirectoryInfo(RegawmodTempDirectory + name));
+            _controlledFolders.Add(name, new DirectoryInfo(HeadygainsTempDirectory + name));
 
             if (!_controlledFolders[name].Exists)
                 _controlledFolders[name].Create();

@@ -60,10 +60,10 @@ namespace Headygains.Android.Classes.AndroidController
         public static AdbCommand FormAdbCommand(string command, params object[] args)
         {
             // *** Simplified Logic ***
-            var adbCommand = (args.Length > 0) ? command + " " : command;
+            var adbCommand = (args.Length > 0) ? $"{command} " : command;
 
             // *** Replaced For() Loop With LINQ Expression ***
-            adbCommand = args.Aggregate(adbCommand, (current, t) => current + (t + " "));
+            adbCommand = args.Aggregate(adbCommand, (current, o) => $"{current} {o}");
 
             return new AdbCommand(adbCommand);
         }
@@ -454,7 +454,7 @@ namespace Headygains.Android.Classes.AndroidController
 
         internal static string Devices()
         {
-            return ExecuteAdbCommand(Adb.FormAdbCommand("devices"));
+            return ExecuteAdbCommand(FormAdbCommand("devices"));
         }
 
         internal static async Task<string> DevicesAsync()

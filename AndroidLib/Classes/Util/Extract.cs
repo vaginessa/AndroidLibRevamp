@@ -22,12 +22,28 @@ namespace Headygains.Android.Classes.Util
             var assembly = Assembly.GetCallingAssembly();
             var defaultNamespace = obj.GetType().Namespace;
 
+            var resNamespace = defaultNamespace.Split('.');
+            var realNamespace = $"{resNamespace[0]}.{resNamespace[1]}";
             foreach (var item in fullPathOfItems)
-                using (var s = assembly.GetManifestResourceStream(defaultNamespace + "." + (internalFolderPath == null ? "" : internalFolderPath + ".") + item))
-                    using (var r = new BinaryReader(s))
-                        using (var fs = new FileStream(outDirectory + "\\" + item, FileMode.OpenOrCreate))
-                            using (var w = new BinaryWriter(fs))
-                                w.Write(r.ReadBytes((int)s.Length));
+            {
+                using (var s =
+                    assembly.GetManifestResourceStream(realNamespace + "." +
+                                                       (internalFolderPath == null ? "" : internalFolderPath + ".") +
+                                                       item))
+                {
+                    if (s != null)
+                        using (var r = new BinaryReader(s))
+                        {
+                            using (var fs = new FileStream(outDirectory + "\\" + item, FileMode.OpenOrCreate))
+                            {
+                                using (var w = new BinaryWriter(fs))
+                                {
+                                    w.Write(r.ReadBytes((int) s.Length));
+                                }
+                            }
+                        }
+                }
+            }
         }
 
         /// <summary>
@@ -42,11 +58,24 @@ namespace Headygains.Android.Classes.Util
             var assembly = Assembly.GetCallingAssembly();
 
             foreach (var item in fullPathOfItems)
-                using (var s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFolderPath == null ? "" : internalFolderPath + ".") + item))
+            {
+                using (var s =
+                    assembly.GetManifestResourceStream(nameSpace + "." +
+                                                       (internalFolderPath == null ? "" : internalFolderPath + ".") +
+                                                       item))
+                {
                     using (var r = new BinaryReader(s))
+                    {
                         using (var fs = new FileStream(outDirectory + "\\" + item, FileMode.OpenOrCreate))
+                        {
                             using (var w = new BinaryWriter(fs))
-                                w.Write(r.ReadBytes((int)s.Length));
+                            {
+                                w.Write(r.ReadBytes((int) s.Length));
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

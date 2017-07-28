@@ -59,7 +59,7 @@ namespace Headygains.Android.Classes.AndroidController
     /// </example>
     public sealed class AndroidController
     {
-        private const string AndroidControllerTmpFolder = "AndroidLib\\";
+        private const string AndroidControllerTmpFolder = "AndroidLibRevamp\\";
         private static readonly Dictionary<string, string> Resources = new Dictionary<string, string>
         {
             {"adb.exe","862c2b75b223e3e8aafeb20fe882a602"},
@@ -248,7 +248,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <remarks>Call this before checking for Devices, or setting a new Device, for most updated results</remarks>
         public void UpdateDeviceList()
         { 
-            this._connectedDevices.Clear();
+            _connectedDevices.Clear();
             var deviceList = Adb.Devices();
 
             if (deviceList.Length > 0)
