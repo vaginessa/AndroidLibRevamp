@@ -14,5 +14,10 @@ namespace Headygains.Android.Classes.Util
         /// Contains The Output Data For The Output Event as a <see cref="String"/>.
         /// </summary>
         public string OutputData { get; set; }
+
+        /// <summary>
+        /// Contains The Process ID of process outputting the Data.
+        /// </summary>
+        public int ProcessId { get; set; }
     }
 }

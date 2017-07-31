@@ -208,7 +208,8 @@ namespace Headygains.Android.Classes.Util
         internal static void ReceiveOutput(object sender, DataReceivedEventArgs eventArgs)
         {
             if (eventArgs == null) return;
-            var args = new OutputEventArgs {OutputData = eventArgs.Data};
+            var senderPid = ((Process) sender).Id;
+            var args = new OutputEventArgs {OutputData = eventArgs.Data, ProcessId = senderPid};
             OnProcessOutput(sender,args);
         }
 

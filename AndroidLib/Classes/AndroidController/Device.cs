@@ -3,6 +3,7 @@
  * Updated: Headygains 07/17
  */
 
+using System.Dynamic;
 using System.IO;
 using System.Threading.Tasks;
 using Headygains.Android.Classes.Util;
@@ -24,6 +25,8 @@ namespace Headygains.Android.Classes.AndroidController
         private Su _su;
         private string _serialNumber;
         private DeviceState _state;
+        private bool _hasProcess;
+        private int _attachedProcessId = 0;
 
         /// <summary>
         /// Initializes a new instance of the Device class
@@ -31,7 +34,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <param name="deviceSerial">Serial number of Android device</param>
         internal Device(string deviceSerial)
         {
-            this._serialNumber = deviceSerial;
+            _serialNumber = deviceSerial;
             Update();
         }
 
@@ -42,7 +45,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <param name="mode">Currently Does Nothing (Default = false)</param>
         public Device(string deviceSerial, bool mode = false)
         {
-            this._serialNumber = deviceSerial;
+            _serialNumber = deviceSerial;
             Update();
         }
 
@@ -58,7 +61,7 @@ namespace Headygains.Android.Classes.AndroidController
                 {
                     line = r.ReadLine();
 
-                    if (line != null && line.Contains(this._serialNumber))
+                    if (line != null && line.Contains(_serialNumber))
                         state = line.Substring(line.IndexOf('\t') + 1);
                 }
             }
@@ -73,7 +76,7 @@ namespace Headygains.Android.Classes.AndroidController
                     {
                         line = r.ReadLine();
 
-                        if (line != null && line.Contains(this._serialNumber))
+                        if (line != null && line.Contains(_serialNumber))
                             state = line.Substring(line.IndexOf('\t') + 1);
                     }
                 }
@@ -100,25 +103,25 @@ namespace Headygains.Android.Classes.AndroidController
         /// Gets the device's <see cref="BatteryInfo"/> instance
         /// </summary>
         /// <remarks>See <see cref="BatteryInfo"/> for more details</remarks>
-        public BatteryInfo Battery => this._battery;
+        public BatteryInfo Battery => _battery;
 
         /// <summary>
         /// Gets the device's <see cref="BuildProp"/> instance
         /// </summary>
         /// <remarks>See <see cref="BuildProp"/> for more details</remarks>
-        public BuildProp BuildProp => this._buildProp;
+        public BuildProp BuildProp => _buildProp;
 
         /// <summary>
         /// Gets the device's <see cref="BusyBox"/> instance
         /// </summary>
         /// <remarks>See <see cref="BusyBox"/> for more details</remarks>
-        public BusyBox BusyBox => this._busyBox;
+        public BusyBox BusyBox => _busyBox;
 
         /// <summary>
         /// Gets the device's <see cref="FileSystem"/> instance
         /// </summary>
         /// <remarks>See <see cref="FileSystem"/> for more details</remarks>
-        public FileSystem FileSystem => this._fileSystem;
+        public FileSystem FileSystem => _fileSystem;
 
         ///// <summary>
         ///// Gets the device's <see cref="PackageManager"/> instance
@@ -130,7 +133,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// Gets the device's <see cref="Phone"/> instance
         /// </summary>
         /// <remarks>See <see cref="Phone"/> for more details</remarks>
-        public Phone Phone => this._phone;
+        public Phone Phone => _phone;
 
         ///// <summary>
         ///// Gets the device's <see cref="Processes"/> instance
@@ -142,32 +145,69 @@ namespace Headygains.Android.Classes.AndroidController
         /// Gets the device's <see cref="Su"/> instance
         /// </summary>
         /// <remarks>See <see cref="Su"/> for more details</remarks>
-        public Su Su => this._su;
+        public Su Su => _su;
 
         /// <summary>
         /// Gets the device's serial number
         /// </summary>
-        public string SerialNumber => this._serialNumber;
+        public string SerialNumber => _serialNumber;
 
         /// <summary>
         /// Gets a value indicating the device's current state
         /// </summary>
         /// <remarks>See <see cref="DeviceState"/> for more details</remarks>
-        public DeviceState State { get => this._state;
-            internal set => this._state = value;
+        public DeviceState State { get => _state;
+            internal set => _state = value;
         }
 
         /// <summary>
         /// Gets a value indicating if the device has root
         /// </summary>
-        public bool HasRoot => this._su.Exists;
+        public bool HasRoot => _su.Exists;
+
+        /// <summary>
+        /// Gets / Sets A Process ID That's associated with this device.
+        /// </summary>
+        public int AttachedProcessId
+        {
+            get => _attachedProcessId;
+            set => _attachedProcessId = value;
+        }
+
+        /// <summary>
+        /// Gets or sets whether this device has a Process Running for it.
+        /// </summary>
+        public bool HasProcess
+        {
+            get => _hasProcess;
+            set => _hasProcess = value;
+        }
+
+        /// <summary>
+        /// Performs a fastboot flash <paramref name="flashTarget"/> <paramref name="filePath"/>
+        /// </summary>
+        /// <param name="flashTarget"></param>
+        /// <param name="filePath"></param>
+        public async void FastbootFlashAsync(string flashTarget, string filePath)
+        {
+            if (State == DeviceState.Fastboot)
+                await FastbootFlashTask(flashTarget, filePath);
+        }
+
+        private Task FastbootFlashTask(string flashTarget, string filePath)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                Fastboot.ExecuteFastbootCommandOutStream(Fastboot.FormFastbootCommand(this, "flash", flashTarget, filePath));
+            });
+        }
 
         /// <summary>
         /// Reboots the device regularly from fastboot
         /// </summary>
         public async void FastbootReboot()
         {
-            if (this.State == DeviceState.Fastboot)
+            if (State == DeviceState.Fastboot)
                 await FastbootRebootTask();
         }
 
@@ -185,8 +225,8 @@ namespace Headygains.Android.Classes.AndroidController
         /// </summary>
         public async void Reboot()
         {
-            if (this.State.Equals(DeviceState.Online))
-                await FastbootRebootTask();
+            if (State.Equals(DeviceState.Online))
+                await RebootTask();
         }
 
         private Task RebootTask()
@@ -202,7 +242,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// </summary>
         public async void RebootRecovery()
         {
-            if (this.State.Equals(DeviceState.Online))
+            if (State.Equals(DeviceState.Online))
                 await RebootRecoveryTask();
         }
 
@@ -219,7 +259,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// </summary>
         public async Task RebootBootloader()
         {
-            if (this.State.Equals(DeviceState.Online))
+            if (State.Equals(DeviceState.Online))
                 await RebootBootloaderTask();
         }
 
@@ -267,7 +307,7 @@ namespace Headygains.Android.Classes.AndroidController
         public async Task<bool> PullFileAsync(string fileOnDevice, string destinationDirectory,
             int timeout = Command.DefaultTimeout)
         {
-            if (!this.State.Equals(DeviceState.Online)) return false;
+            if (!State.Equals(DeviceState.Online)) return false;
             return await PullFileTask(fileOnDevice, destinationDirectory, timeout);
         }
 
@@ -310,7 +350,7 @@ namespace Headygains.Android.Classes.AndroidController
         public async Task<bool> PushFileAsync(string filePath, string destinationFilePath,
             int timeout = Command.DefaultTimeout)
         {
-            if (!this.State.Equals(DeviceState.Online)) return false;
+            if (!State.Equals(DeviceState.Online)) return false;
             return await PushFileTask(filePath, destinationFilePath, timeout);
         }
 
@@ -355,7 +395,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <returns>True if install is successful, False if install fails for any reason</returns>
         public async Task<bool> InstallApkAsync(string location, int timeout = Command.DefaultTimeout)
         {
-            if (this.State.Equals(DeviceState.Online))
+            if (State.Equals(DeviceState.Online))
                 return await InstallApkTask(location, timeout);
             return false;
         }
@@ -380,7 +420,7 @@ namespace Headygains.Android.Classes.AndroidController
         public void Sideload(string sideloadPackage)
         {
             // *** If Device State Isn't DeviceState.Sideload ***
-            if (!this.State.Equals(DeviceState.Sideload)) return;
+            if (!State.Equals(DeviceState.Sideload)) return;
 
             // *** If Device State Is DeviceState.Sideload ***
             Adb.Sideload(sideloadPackage);
@@ -391,14 +431,14 @@ namespace Headygains.Android.Classes.AndroidController
         /// </summary>
         public void Update()
         {
-            this._state = SetState();
+            _state = SetState();
 
-            this._su = new Su(this);
-            this._battery = new BatteryInfo(this);
-            this._buildProp = new BuildProp(this);
-            this._busyBox = new BusyBox(this);
-            this._phone = new Phone(this);
-            this._fileSystem = new FileSystem(this);
+            _su = new Su(this);
+            _battery = new BatteryInfo(this);
+            _buildProp = new BuildProp(this);
+            _busyBox = new BusyBox(this);
+            _phone = new Phone(this);
+            _fileSystem = new FileSystem(this);
         }
     }
 }

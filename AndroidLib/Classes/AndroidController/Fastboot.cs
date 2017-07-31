@@ -114,5 +114,15 @@ namespace Headygains.Android.Classes.AndroidController
         {
             Command.RunProcessNoReturn(AndroidController.Instance.ResourceDirectory + FastbootExe, command.Command, command.Timeout);
         }
+
+        /// <summary>
+        /// Executes a <see cref="FastbootCommand"/> and Outputs Error/Output streams via <see cref="OutputEventArgs"/>.
+        /// </summary>
+        /// <param name="command"></param>
+        public static void ExecuteFastbootCommandOutStream(FastbootCommand command)
+        {
+            Command.RunProcessOutputStream(AndroidController.Instance.ResourceDirectory + FastbootExe, command.Command,
+                command.Timeout);
+        }
     }
 }
