@@ -565,11 +565,6 @@
             Gets / Sets A Process ID That's associated with this device.
             </summary>
         </member>
-        <member name="P:Headygains.Android.Classes.AndroidController.Device.HasProcess">
-            <summary>
-            Gets or sets whether this device has a Process Running for it.
-            </summary>
-        </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.FastbootFlashAsync(System.String,System.String)">
             <summary>
             Performs a fastboot flash <paramref name="flashTarget"/> <paramref name="filePath"/>

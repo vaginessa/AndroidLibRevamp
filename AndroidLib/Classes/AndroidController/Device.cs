@@ -175,31 +175,47 @@ namespace Headygains.Android.Classes.AndroidController
         }
 
         /// <summary>
-        /// Gets or sets whether this device has a Process Running for it.
-        /// </summary>
-        public bool HasProcess
-        {
-            get => _hasProcess;
-            set => _hasProcess = value;
-        }
-
-        /// <summary>
         /// Performs a fastboot flash <paramref name="flashTarget"/> <paramref name="filePath"/>
         /// </summary>
         /// <param name="flashTarget"></param>
         /// <param name="filePath"></param>
-        public async void FastbootFlashAsync(string flashTarget, string filePath)
+        public async Task<string> FastbootFlashAsync(string flashTarget, string filePath)
         {
-            if (State == DeviceState.Fastboot)
-                await FastbootFlashTask(flashTarget, filePath);
+            if (State != DeviceState.Fastboot) return "Device Not In Fastboot Mode!";
+            var result = await FastbootFlashTask(flashTarget, filePath);
+            return result;
         }
 
-        private Task FastbootFlashTask(string flashTarget, string filePath)
+        private Task<string> FastbootFlashTask(string flashTarget, string filePath)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                Fastboot.ExecuteFastbootCommandOutStream(Fastboot.FormFastbootCommand(this, "flash", flashTarget, filePath));
-            });
+            return Task<string>.Factory.StartNew(
+                () => Fastboot.ExecuteFastbootCommand(Fastboot.FormFastbootCommand(this, "flash", flashTarget, filePath)));
+        }
+
+        public async Task<string> FastbootOemUnlockAsync(string oemPassword)
+        {
+            if (State != DeviceState.Fastboot) return "Device Not In Fastboot Mode!";
+            var result = await FastbootOemUnlockTask(oemPassword);
+            return result;
+        }
+
+        private Task<string> FastbootOemUnlockTask(string oemPassword)
+        {
+            return Task<string>.Factory.StartNew(
+                () => Fastboot.ExecuteFastbootCommand(Fastboot.FormFastbootCommand(this, "oem unlock", oemPassword)));
+        }
+
+        public async Task<string> FastbootOemFormatAsync()
+        {
+            if (State != DeviceState.Fastboot) return "Device Not In Fastboot Mode!";
+            var result = await FastbootOemFormatTask();
+            return result;
+        }
+
+        private Task<string> FastbootOemFormatTask()
+        {
+            return Task<string>.Factory.StartNew(
+                () => Fastboot.ExecuteFastbootCommand(Fastboot.FormFastbootCommand(this, "oem format")));
         }
 
         /// <summary>
