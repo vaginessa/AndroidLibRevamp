@@ -560,6 +560,23 @@
             Gets a value indicating if the device has root
             </summary>
         </member>
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.AttachedProcessId">
+            <summary>
+            Gets / Sets A Process ID That's associated with this device.
+            </summary>
+        </member>
+        <member name="P:Headygains.Android.Classes.AndroidController.Device.HasProcess">
+            <summary>
+            Gets or sets whether this device has a Process Running for it.
+            </summary>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.FastbootFlashAsync(System.String,System.String)">
+            <summary>
+            Performs a fastboot flash <paramref name="flashTarget"/> <paramref name="filePath"/>
+            </summary>
+            <param name="flashTarget"></param>
+            <param name="filePath"></param>
+        </member>
         <member name="M:Headygains.Android.Classes.AndroidController.Device.FastbootReboot">
             <summary>
             Reboots the device regularly from fastboot
@@ -925,6 +942,12 @@
             </summary>
             <remarks>Should be used if you do not want the output of the command; good for quick fastboot commands</remarks>
             <param name="command">Instance of <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/></param>
+        </member>
+        <member name="M:Headygains.Android.Classes.AndroidController.Fastboot.ExecuteFastbootCommandOutStream(Headygains.Android.Classes.AndroidController.FastbootCommand)">
+            <summary>
+            Executes a <see cref="T:Headygains.Android.Classes.AndroidController.FastbootCommand"/> and Outputs Error/Output streams via <see cref="T:Headygains.Android.Classes.Util.OutputEventArgs"/>.
+            </summary>
+            <param name="command"></param>
         </member>
         <member name="T:Headygains.Android.Classes.AndroidController.MountInfo">
             <summary>
@@ -1595,6 +1618,11 @@
         <member name="P:Headygains.Android.Classes.Util.OutputEventArgs.OutputData">
             <summary>
             Contains The Output Data For The Output Event as a <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="P:Headygains.Android.Classes.Util.OutputEventArgs.ProcessId">
+            <summary>
+            Contains The Process ID of process outputting the Data.
             </summary>
         </member>
         <member name="M:Headygains.Android.Classes.Util.Extract.Resources(System.Object,System.String,System.String,System.String[])">

@@ -38,6 +38,8 @@ namespace Headygains.Android.Classes.Util
         /// Event Handler For Process Output Events.
         /// </summary>
         public static event EventHandler<OutputEventArgs> OutputReceived;
+
+        public static event EventHandler<AssignEventArgs> AssignmentReceived;
         
         /// <summary>
         /// Runs a process, does not return any data or exit code from process.
@@ -167,6 +169,31 @@ namespace Headygains.Android.Classes.Util
             });
         }
 
+        public static Task RunProcessOutputStream(string executable, string arguments, string callingDeviceSerialNumber,
+            int timeout)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var p = new Process())
+                {
+                    p.StartInfo.FileName = executable;
+                    p.StartInfo.Arguments = arguments;
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.ErrorDataReceived += ReceiveOutput;
+                    p.OutputDataReceived += ReceiveOutput;
+                    p.Start();
+                    AssignProcess(p,callingDeviceSerialNumber);
+                    p.BeginErrorReadLine();
+                    p.BeginOutputReadLine();
+                    p.WaitForExit(timeout);
+                }
+            });
+        }
+
         /// <summary>
         /// Runs a process and Ties The Error/Output streams to <see cref="ReceiveOutput"/>.
         /// You Must Use <see cref="OutputReceived"/> Event Handler.
@@ -211,6 +238,16 @@ namespace Headygains.Android.Classes.Util
             var senderPid = ((Process) sender).Id;
             var args = new OutputEventArgs {OutputData = eventArgs.Data, ProcessId = senderPid};
             OnProcessOutput(sender,args);
+        }
+
+        internal static void AssignProcess(object sender, string deviceSerialNumber)
+        {
+            var args = new AssignEventArgs
+            {
+                AssignedProcessId = ((Process) sender).Id,
+                DeviceAssignedTo = deviceSerialNumber
+            };
+            AssignmentReceived?.Invoke(sender,args);
         }
 
         /// <summary>

@@ -20,4 +20,11 @@ namespace Headygains.Android.Classes.Util
         /// </summary>
         public int ProcessId { get; set; }
     }
+
+    public class AssignEventArgs : EventArgs
+    {
+        public string DeviceAssignedTo { get; set; }
+
+        public int AssignedProcessId { get; set; }
+    }
 }
