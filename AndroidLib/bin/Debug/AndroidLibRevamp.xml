@@ -587,7 +587,7 @@
             Reboots the device into recovery
             </summary>
         </member>
-        <member name="M:Headygains.Android.Classes.AndroidController.Device.RebootBootloader">
+        <member name="M:Headygains.Android.Classes.AndroidController.Device.RebootBootloaderAsync">
             <summary>
             Reboots the device into the bootloader
             </summary>

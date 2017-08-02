@@ -237,9 +237,8 @@ namespace Headygains.Android.Classes.AndroidController
         /// <returns>A value indicating if the Android device indicated in <paramref name="device"/> is connected</returns>
         public bool IsDeviceConnected(Device device)
         {
-            this.UpdateDeviceList();
-
-            return this._connectedDevices.Any(d => d == device.SerialNumber);
+            UpdateDeviceList();
+            return _connectedDevices.Any(d => d == device.SerialNumber);
         }
 
         /// <summary>

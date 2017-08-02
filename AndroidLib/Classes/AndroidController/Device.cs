@@ -165,6 +165,8 @@ namespace Headygains.Android.Classes.AndroidController
         /// </summary>
         public bool HasRoot => _su.Exists;
 
+        public int HasProcess { get; set; } = 0;
+
         /// <summary>
         /// Gets / Sets A Process ID That's associated with this device.
         /// </summary>
@@ -273,7 +275,7 @@ namespace Headygains.Android.Classes.AndroidController
         /// <summary>
         /// Reboots the device into the bootloader
         /// </summary>
-        public async Task RebootBootloader()
+        public async void RebootBootloaderAsync()
         {
             if (State.Equals(DeviceState.Online))
                 await RebootBootloaderTask();
@@ -285,6 +287,20 @@ namespace Headygains.Android.Classes.AndroidController
             {
                 Adb.ExecuteAdbCommandNoReturn(Adb.FormAdbCommand(this, "reboot-bootloader"));
             }); 
+        }
+
+        public async void FastbootRebootBootloaderAsync()
+        {
+            if (State.Equals(DeviceState.Fastboot))
+                await FastbootRebootBootloaderTask();
+        }
+
+        private Task FastbootRebootBootloaderTask()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                Fastboot.ExecuteFastbootCommandNoReturn(Fastboot.FormFastbootCommand(this, "reboot-bootloader"));
+            });
         }
 
         /// <summary>
